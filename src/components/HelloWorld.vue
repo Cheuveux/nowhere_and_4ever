@@ -27,11 +27,11 @@
       <li
         v-for="(article, index) in articles"
         :key="article.id"
-        class="w-[80vw] md:w-[50vw] bg-gray-800 p-4 rounded-lg overflow-hidden cursor-pointer"
+        class="w-[80vw] md:w-[50vw] bg-gray-500 p-4 rounded-lg overflow-hidden cursor-pointer"
         @click="toggleSynopsis(index)"
       >
         <div class="flex justify-between items-center w-full">
-          <strong class="truncate max-w-[50%] text-base sm:text-lg md:text-xl">{{ article.article_name }}</strong>
+          <h2 class="truncate max-w-[50%] text-base text-xs md:text-xl">{{ article.article_name }}</h2>
           <em class="truncate max-w-[40%] text-sm sm:text-base md:text-lg">{{ article.article_author }}</em>
         </div>
         <transition name="fade">
