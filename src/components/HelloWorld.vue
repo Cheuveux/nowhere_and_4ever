@@ -1,38 +1,60 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supa_config } from '../supa_config.js'
+  import { ref, onMounted } from 'vue'
+  import { supa_config } from '../supa_config.js'
 
-const articles = ref([])
-const errorMsg = ref('')
+  const articles = ref([])
+  const errorMsg = ref('')
+  const openIndex = ref(null)
+  onMounted(async () => {
+    const { data, error } = await supa_config
+      .from('main_article')
+      .select('*')
+    if (error) {
+      errorMsg.value = error.message
+    } else {
+      articles.value = data
+    }
+  })
 
-onMounted(async () => {
-  const { data, error } = await supa_config
-    .from('main_article')
-    .select('*')
-  if (error) {
-    errorMsg.value = error.message
-  } else {
-    articles.value = data
-  }
-})
+  function toggleSynopsis(index) {
+    openIndex.value = openIndex.value === index ? null : index
+}
 </script>
 
 <template>
-  <div class="w-full max-w-screen-sm mx-auto p-4">
-    <h1 class="title_content text-3xl font-bold text-center mb-6">Proposals</h1>
-    <div v-if="errorMsg" style="color:red;">Erreur : {{ errorMsg }}</div>
-    <ul class="flex flex-col items-center gap-4 w-xl">
+  <div class="w-full h-full flex flex-col  items-center pt-50">
+    <ul class="flex flex-col items-center gap-4 w-full">
       <li
-        v-for="article in articles"
+        v-for="(article, index) in articles"
         :key="article.id"
-        class="w-full bg-gray-800 p-4 rounded-lg"
+        class="w-[80vw] md:w-[50vw] bg-gray-800 p-4 rounded-lg overflow-hidden cursor-pointer"
+        @click="toggleSynopsis(index)"
       >
         <div class="flex justify-between items-center w-full">
-          <strong>{{ article.article_name }}</strong>
-          <em>{{ article.article_author }}</em>
+          <strong class="truncate max-w-[50%] text-base sm:text-lg md:text-xl">{{ article.article_name }}</strong>
+          <em class="truncate max-w-[40%] text-sm sm:text-base md:text-lg">{{ article.article_author }}</em>
         </div>
-        <p class="mt-2 hidden">{{ article.article_synopsis }}</p>
+        <transition name="fade">
+          <p
+            v-if="openIndex === index"
+            class="mt-2 break-words text-sm sm:text-base md:text-lg"
+          >
+            {{ article.article_synopsis }}
+          </p>
+        </transition>
       </li>
     </ul>
   </div>
 </template>
+
+<style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.2s;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  } 
+</style>

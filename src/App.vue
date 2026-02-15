@@ -3,8 +3,10 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div>
+  <div class="app_header text-center mt-5"> 
+    <h1 class="app_title text-2xl">from_nowhere_and_forever</h1>
   </div>
+  
   <HelloWorld msg="from_nowhere_and_forever" />
 </template>
 
