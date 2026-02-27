@@ -1,0 +1,12 @@
+.article-desc {
+  margin-top: 1rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.article-card:hover .article-desc {
+  max-height: 200px; /* Adjust as needed */
+  opacity: 1;
+}
