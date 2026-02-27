@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-
+import './articlePage.css'
 export default function ArticlePage() {
 	const { id } = useParams();
 	const [article, setArticle] = useState<any>(null);
@@ -27,8 +27,9 @@ export default function ArticlePage() {
 		<div>
 			<Link to="/">← Back to articles</Link>
 			<h1>{article.Title}</h1>
-			<p>{article.Descriptiom}</p>
-			{article.Content && <BlocksRenderer content={article.Content} />}
+			<div className="article-content">
+				{article.Content && <BlocksRenderer content={article.Content} />}
+			</div>
 		</div>
 	);
 }

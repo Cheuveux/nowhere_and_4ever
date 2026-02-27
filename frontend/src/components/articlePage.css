@@ -1,0 +1,8 @@
+.article-content {
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: #bcbc00;
+  text-align: justify;
+  /* Add more styles as needed */
+  max-width: 800px;
+}
