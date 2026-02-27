@@ -1,25 +1,32 @@
-:root {
-  font-family: Andale Mono;
-  line-height: 1.5;
-  font-weight: 400;
 
+@font-face {
+  font-family: 'Slice Regular';
+  src: url('/fonts/SliceRegular.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+:root {
+  font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --secondary-font: 'Slice Regular', Arial, sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+* Hide scrollbar for Chrome, Safari and Opera */
+:root::-webkit-scrollbar {
+  display: none;
 }
-a:hover {
-  color: #535bf2;
+
+/* Hide scrollbar for IE, Edge and Firefox */
+:root {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 body {
@@ -30,10 +37,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
 button {
   border-radius: 8px;
@@ -54,15 +57,27 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+@media (max-width: 900px) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    font-size: 0.95em;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  h1 {
+    font-size: 2.2em;
   }
 }
+
+@media (max-width: 625px) {
+  :root {
+    font-size: 0.85em;
+  }
+  body, h1, h2, h3, h4, h5, h6, p, a, button, div, span {
+    font-weight: 900 !important;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  body {
+    min-width: 100vw;
+  }
+}
+

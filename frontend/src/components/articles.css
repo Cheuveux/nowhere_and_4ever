@@ -1,12 +1,98 @@
-.article-desc {
-  margin-top: 1rem;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.5s ease;
+/* folder styling article */
+
+.folders-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.article-card:hover .article-desc {
-  max-height: 200px; /* Adjust as needed */
+.folder-card {
+  width: 500px;
+  max-width: 95vw;
+  margin-top: -150px; /* stack folders, only header visible */
+  transition: margin 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.3s;
+  border-radius: 12px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.folder-card:first-child {
+  margin-top: 0;
+}
+
+.folder-card:hover,
+.folder-card:focus-within {
+  margin-bottom: 2em; /* push next folder down */
+  z-index: 10;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.folder-svg-wrapper {
+  width: 100%;
+  height: 300px;
+  transition: height 0.5s cubic-bezier(.77,0,.18,1);
+  position: relative;
+}
+
+.folder-card:hover .folder-svg-wrapper,
+.folder-card:focus-within .folder-svg-wrapper {
+  height: 300px; /* expand folder */
+}
+
+.folder-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1.5em 2em 0 2em;
+  box-sizing: border-box;
+  pointer-events: none;
+  transition: height 0.5s cubic-bezier(.77,0,.18,1);
+}
+
+.folder-card:hover .folder-content,
+.folder-card:focus-within .folder-content {
+  height: 300px;
+  pointer-events: auto;
+}
+
+.folder-header {
+  width: 400px;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.drawer-desc {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s, opacity 0.5s;
+}
+
+.folder-card:hover .drawer-desc,
+.folder-card:focus-within .drawer-desc {
   opacity: 1;
+  max-height: 200px;
+  margin-top: 1em;
+}
+
+.article-desc {
+  border-radius: 0 0 8px 8px;
+  padding: 1em;
+  margin-top: 0;
+  color: #e6dddd;
+  font-size: 0.8rem;
+  font-family: var(--secondary-font);
+  font-weight: 900 !important;
 }

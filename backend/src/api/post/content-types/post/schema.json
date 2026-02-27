@@ -25,6 +25,9 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "post"
+    },
+    "Author": {
+      "type": "string"
     }
   }
 }
