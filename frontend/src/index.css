@@ -18,7 +18,7 @@
   --secondary-font: 'Slice Regular', Arial, sans-serif;
 }
 
-* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera */
 :root::-webkit-scrollbar {
   display: none;
 }
