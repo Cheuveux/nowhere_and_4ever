@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import FolderSVG from "../assets/folderSVG";
+import FolderSVG from "../assets/FolderSVG";
 import './articles.css';
 import gsap from "gsap";
 
