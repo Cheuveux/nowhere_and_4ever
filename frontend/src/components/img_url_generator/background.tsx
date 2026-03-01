@@ -9,7 +9,7 @@ const Background: React.FC = () => {
     const fetchBackgroundUrl = async () => {
       try {
         // 1. Appel a l'endpoint Strapi pour obtenir une URL signee
-        const url = 'http://localhost:1337/api/signed-url?fileKey=background/grey-grid.png';
+        const url = 'http://localhost:1337/api/signed-url?fileKey=background/white-grid.png';
         const response = await fetch(url);
         if (!response.ok) {
           // Log status et statusText

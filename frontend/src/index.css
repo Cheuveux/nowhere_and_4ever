@@ -7,10 +7,9 @@
 }
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1.2;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(53, 51, 51, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,7 +36,10 @@ body {
   min-height: 100vh;
 }
 
-
+a {
+  color:rgb(0, 0, 0) ;
+  font-weight: 900;
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -45,7 +47,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }

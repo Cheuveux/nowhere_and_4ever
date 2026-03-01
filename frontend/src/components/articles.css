@@ -12,7 +12,7 @@
   margin-top: -150px; /* stack folders, only header visible */
   transition: margin 0.4s cubic-bezier(.77,0,.18,1), box-shadow 0.3s;
   border-radius: 12px;
-  background: transparent;
+  /* background: transparent; */
   position: relative;
   z-index: 1;
   overflow: visible;
@@ -26,7 +26,6 @@
 .folder-card:focus-within {
   margin-bottom: 2em; /* push next folder down */
   z-index: 10;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .folder-svg-wrapper {

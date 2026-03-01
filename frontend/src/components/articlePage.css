@@ -1,7 +1,9 @@
 /* Article_page header */
 .articlePage-header {
 	position: sticky;
-	background-color: #242424;
+	background-color: rgba(157, 156, 156, 0.6); /* semi-transparent */
+    backdrop-filter: blur(8px);               /* blur effect */
+    -webkit-backdrop-filter: blur(8px);   
 	z-index: 100;
 	top: 0%;
 	width: 100%;
@@ -38,7 +40,7 @@
 .article-content {
   font-size: 1.1em;
   line-height: 1.7;
-  color: #bcbc00;
+  color: #5b6821;
   text-align: justify;
   max-width: 100vw;
   display: flex;
