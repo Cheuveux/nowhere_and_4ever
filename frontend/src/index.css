@@ -5,6 +5,12 @@
   font-weight: 700;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Retro Font';
+  src: url('/fonts/FSEX300.ttf') format('');
+  font-weight: 400;
+  font-style: normal;
+}
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
@@ -15,6 +21,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --secondary-font: 'Slice Regular', Arial, sans-serif;
+  --retro-font: 'Retro font'
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

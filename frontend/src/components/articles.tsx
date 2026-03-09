@@ -10,24 +10,17 @@ export default function Article() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/posts", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Not found");
-        return res.json();
-      })
-      .then((data) => {
-        setPosts(data.data || []);
+    Promise.all([
+      fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch("http://localhost:1337/api/conversations", { headers: { Accept: "application/json" } }).then(r => r.json()),
+    ])
+      .then(([postsData, convsData]) => {
+        const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" }));
+        const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" }));
+        setPosts([...posts, ...convs]);
         setIsLoading(false);
       })
-      .catch((err) => {
-        setError(err.message);
-        setIsLoading(false);
-      });
+      .catch(err => { setError(err.message); setIsLoading(false); });
   }, []);
 
   useEffect(() => {
@@ -62,7 +55,10 @@ export default function Article() {
             <FolderSVG />
             <div className="folder-content">
               <div className="folder-header">
-                <Link to={`/article/${post.documentId}`} className="article-link">
+                <Link to={post._type === "conversation"
+                  ? `/conversation/${post.documentId}`
+                  : `/article/${post.documentId}`}
+                  className="article-link">
                   <h2 className="folder-title">{post.Title}</h2>
                 </Link>
                 <span className="folder-author">{post.Author}</span>

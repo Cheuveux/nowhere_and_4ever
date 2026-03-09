@@ -28,6 +28,16 @@
     },
     "Author": {
       "type": "string"
+    },
+    "illu": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
