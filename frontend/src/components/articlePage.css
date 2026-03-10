@@ -78,3 +78,44 @@
     width: 95vw;
   }
 }
+
+
+/* MEDIA STYLING - IMG - AUDIO - VIDEO */
+
+.article-media {
+  display: block;
+  margin: 1.5rem auto;
+}
+
+.article-image {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.article-audio {
+  width: 90%;
+  max-width: 90%;
+}
+
+.article-video {
+  max-width: 90vw;
+  max-height: 70vh;
+}
+
+.article-media-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 90vw;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+}
+
+.img-little {
+  width: 300px;
+  max-width: 50vw;
+}

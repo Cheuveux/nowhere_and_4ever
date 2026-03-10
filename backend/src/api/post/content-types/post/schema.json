@@ -38,6 +38,16 @@
         "videos",
         "audios"
       ]
+    },
+    "music_video": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
