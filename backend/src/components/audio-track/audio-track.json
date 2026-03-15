@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_audio_track_audio_tracks",
+  "info": {
+    "displayName": "audio-track"
+  },
+  "options": {},
+  "attributes": {
+    "sound": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

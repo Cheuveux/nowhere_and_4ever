@@ -12,7 +12,9 @@ export default function ArticlePage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:1337/api/posts/${id}?populate=illu&populate=music_video`)
+        fetch(
+            `http://localhost:1337/api/posts/${id}?populate=illu&populate=music_video&populate[audio_track][populate]=*`
+        )
             .then((res) => res.json())
             .then((data) => {
                 setArticle(data.data);

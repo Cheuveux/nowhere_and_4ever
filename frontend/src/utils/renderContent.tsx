@@ -29,9 +29,44 @@ export function renderContent(article: any) {
                         }
                         if (mk.type === "audio")
 						{
-                            const file = article.music_video?.[mk.idx];
-                            if (!file) return null;
-                            return <audio key={j} controls src={`${STRAPI}${file.url}`} className={`article-media article-audio${cls}`} />;
+                            const track = article.audio_track?.[mk.idx];
+                            if (!track) return null;
+
+                            const audioUrl = track.sound?.url ? `${STRAPI}${track.sound.url}` : null;
+                            const coverUrl = track.cover?.url ? `${STRAPI}${track.cover.url}` : null;
+                            if (!audioUrl) return null;
+
+                            return (
+                                <div key={j} className={`article-audio-card${cls}`}>
+                                    <div className="article-audio-visual">
+                                        {coverUrl && (
+                                            <img
+                                                src={coverUrl}
+                                                alt="audio cover"
+                                                className="article-audio-cover"
+                                            />
+                                        )}
+                                        <button
+                                            className="article-audio-play"
+                                            onClick={(e) => {
+                                                const card = (e.currentTarget as HTMLButtonElement).closest(".article-audio-card");
+                                                const audio = card?.querySelector("audio") as HTMLAudioElement | null;
+                                                if (!audio) return;
+                                                if (audio.paused) {
+                                                    audio.play();
+                                                    e.currentTarget.classList.add("is-playing");
+                                                } else {
+                                                    audio.pause();
+                                                    e.currentTarget.classList.remove("is-playing");
+                                                }
+                                            }}
+                                        >
+                                            ▶
+                                        </button>
+                                    </div>
+                                    <audio className="article-audio-element" src={audioUrl} preload="metadata" />
+                                </div>
+                            );
                         }
                         if (mk.type === "video")
 						{
