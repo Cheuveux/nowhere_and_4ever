@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_quizz_answer_quizz_answers",
+  "info": {
+    "displayName": "quizz-answers"
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "string"
+    },
+    "points": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

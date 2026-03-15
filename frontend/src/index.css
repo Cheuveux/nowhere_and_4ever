@@ -2,24 +2,23 @@
 @font-face {
   font-family: 'Slice Regular';
   src: url('/fonts/SliceRegular.otf') format('opentype');
-  font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'Retro Font';
   src: url('/fonts/FSEX300.ttf') format('');
-  font-weight: 400;
   font-style: normal;
 }
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
   color-scheme: light dark;
-  color: rgba(53, 51, 51, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --font-color-clear: rgba(252, 240, 240, 1);
+  --color-yellow-body: rgba(221, 255, 0, 0.87);
   --secondary-font: 'Slice Regular', Arial, sans-serif;
   --retro-font: 'Retro font'
 }
@@ -44,7 +43,7 @@ body {
 }
 
 a {
-  color:rgb(0, 0, 0) ;
+  color: var(--font-color-clear);
   font-weight: 900;
 }
 button {

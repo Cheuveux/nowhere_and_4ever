@@ -5,7 +5,7 @@ import Article from './components/articles'
 import ArticlePage from './components/articlePage'
 import Background from './components/img_url_generator/background'
 import ConversationPage from './components/conversationPage/conversation'
-
+import DelusionalQuiz from './quiz/DelusionalQuiz'
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Article />} />
         <Route path="/article/:id" element={<ArticlePage />} />
         <Route path="/conversation/:id" element={<ConversationPage/>} />
+        <Route path="/quiz" element={<DelusionalQuiz />} />
       </Routes>
     </>
   );

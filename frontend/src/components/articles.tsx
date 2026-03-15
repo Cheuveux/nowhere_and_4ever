@@ -4,20 +4,49 @@ import FolderSVG from "../assets/FolderSVG";
 import './articles.css';
 import gsap from "gsap";
 
+type HomeItem = {
+  documentId: string;
+  _type: "article" | "conversation" | "quiz";
+  Title?: string;
+  Author?: string;
+  Descriptiom?: string;
+  Description?: string;
+};
+
+function getItemLink(item: HomeItem): string {
+  if (item._type === "conversation") return `/conversation/${item.documentId}`;
+  if (item._type === "quiz") return "/quiz";
+  return `/article/${item.documentId}`;
+}
+
 export default function Article() {
   const [isLoading, setIsLoading] = useState(true);
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<HomeItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     Promise.all([
       fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch("http://localhost:1337/api/conversations", { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch("http://localhost:1337/api/quizzes", { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
-      .then(([postsData, convsData]) => {
-        const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" }));
-        const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" }));
-        setPosts([...posts, ...convs]);
+      .then(([postsData, convsData, quizzesData]) => {
+        const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
+        const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const }));
+
+        // Ton quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
+        const quizzesRaw = quizzesData.data || [];
+        const quizCard: HomeItem[] = quizzesRaw.length
+          ? [{
+              documentId: "quiz-entry",
+              _type: "quiz",
+              Title: "Delusional Quiz",
+              Author: "interactive",
+              Descriptiom: "10 questions. 4 possible fates.",
+            }]
+          : [];
+
+        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard]);
         setIsLoading(false);
       })
       .catch(err => { setError(err.message); setIsLoading(false); });
@@ -49,22 +78,19 @@ export default function Article() {
 
   return (
     <div className="folders-stack">
-      {posts.map((post: any) => (
+      {posts.map((post) => (
         <div className="folder-card" key={post.documentId}>
           <div className="folder-svg-wrapper">
             <FolderSVG />
             <div className="folder-content">
               <div className="folder-header">
-                <Link to={post._type === "conversation"
-                  ? `/conversation/${post.documentId}`
-                  : `/article/${post.documentId}`}
-                  className="article-link">
-                  <h2 className="folder-title">{post.Title}</h2>
+                <Link to={getItemLink(post)} className="article-link">
+                  <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
                 </Link>
-                <span className="folder-author">{post.Author}</span>
+                <span className="folder-author">{post.Author ?? "unknown"}</span>
               </div>
               <div className="drawer-desc">
-                <p className="article-desc">{post.Descriptiom}</p>
+                <p className="article-desc">{post.Descriptiom ?? post.Description ?? ""}</p>
               </div>
             </div>
           </div>

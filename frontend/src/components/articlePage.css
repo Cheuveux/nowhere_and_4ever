@@ -26,6 +26,9 @@
 
 @media screen and (max-width: 625px) {
 
+  .articlePage-header {
+    position: relative;
+  }
 	.return_btn {
 		font-size: 0.8rem;
 	}
@@ -39,8 +42,9 @@
 /* Article_page main-text content*/
 .article-content {
   font-size: 1.1em;
+  font-weight: 700 !important;
   line-height: 1.7;
-  color: #5b6821;
+  color: var(--color-yellow-body);
   text-align: justify;
   max-width: 100vw;
   display: flex;
@@ -73,7 +77,7 @@
   }
   .article-content p {
     font-size: 0.8em;
-	font-weight: 900;
+	  font-weight: 900;
     max-width: 320px;
     width: 95vw;
   }
