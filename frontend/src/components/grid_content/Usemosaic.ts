@@ -27,11 +27,18 @@ type  Media =  {
 };
 
 type MosaicItem = {
-	id: number;
-	Titre: string;
-	media: Media;
+  id: number;
+  Titre: string;
+  Date?: string;
+  Views?: number;
+  media: {
+    mime: string;
+    url: string;
+    formats?: {
+      small?: { url: string };
+    } | null;
+  };
 };
-
 type MosaicSection = {
 	id: number;
 	documentId: string;
