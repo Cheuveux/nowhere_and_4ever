@@ -183,7 +183,7 @@ export default function MosaicGrid() {
             <div className="mosaic-card__footer">
               <p className="mosaic-card__title">{item.Titre}</p>
               <div className="mosaic-card__meta">
-                {item.Date && <span className="mosaic-card__date">{item.Date}</span>}
+                {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
                 {item.Views !== undefined && <span className="mosaic-card__views">{item.Views} views</span>}
               </div>
             </div>
