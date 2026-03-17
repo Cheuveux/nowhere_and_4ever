@@ -40,6 +40,48 @@
 	height: 100%;
 }
 
+.mosaic-card-video-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.mosaic-card-video-container video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.mosaic-card-play-btn {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 255, 255, 0.95);
+	border-radius: 50%;
+	color: #000;
+	transition: all 0.2s ease;
+	z-index: 5;
+}
+
+.mosaic-card-play-btn:hover {
+	background: rgba(255, 255, 255, 1);
+	transform: scale(1.1);
+}
+
+.mosaic-card-play-btn svg {
+	width: 30px;
+	height: 30px;
+	margin-left: 2px;
+}
+
 .mosaic-card__meida img, 
 .mosaic-card__media video {
 	width: 100%;
@@ -161,6 +203,48 @@
 	background: rgba(255, 255, 255, 0.25);
 }
 
+/* Bouton play personnalisé pour la lightbox */
+.lightbox-video-container {
+	position: relative;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lightbox-video-play-btn {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 80px;
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	color: #000;
+	font-size: 1.5rem;
+	animation: fade-in 0.2s ease;
+	z-index: 10;
+}
+
+.lightbox-video-play-btn svg {
+	width: 40px;
+	height: 40px;
+	margin-left: 4px;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
 
 /* Responsive */
 
