@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mosaics",
+  "info": {
+    "singularName": "mosaic",
+    "pluralName": "mosaics",
+    "displayName": "Mosaic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titre": {
+      "type": "string"
+    },
+    "mosaic_content": {
+      "type": "component",
+      "component": "grid-content.grid-content",
+      "repeatable": true
+    }
+  }
+}

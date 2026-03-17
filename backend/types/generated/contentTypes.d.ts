@@ -499,6 +499,38 @@ export interface ApiConversationConversation
   };
 }
 
+export interface ApiMosaicMosaic extends Struct.CollectionTypeSchema {
+  collectionName: 'mosaics';
+  info: {
+    displayName: 'Mosaic';
+    pluralName: 'mosaics';
+    singularName: 'mosaic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mosaic.mosaic'
+    > &
+      Schema.Attribute.Private;
+    mosaic_content: Schema.Attribute.Component<
+      'grid-content.grid-content',
+      true
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Titre: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Struct.CollectionTypeSchema {
   collectionName: 'posts';
   info: {
@@ -1077,6 +1109,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::comment.comment': ApiCommentComment;
       'api::conversation.conversation': ApiConversationConversation;
+      'api::mosaic.mosaic': ApiMosaicMosaic;
       'api::post.post': ApiPostPost;
       'api::quizz.quizz': ApiQuizzQuizz;
       'plugin::content-releases.release': PluginContentReleasesRelease;

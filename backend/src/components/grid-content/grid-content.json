@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_grid_content_grid_contents",
+  "info": {
+    "displayName": "grid_content"
+  },
+  "options": {},
+  "attributes": {
+    "Titre": {
+      "type": "string"
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  },
+  "config": {}
+}

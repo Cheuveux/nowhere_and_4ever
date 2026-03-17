@@ -11,6 +11,17 @@ export interface AudioTrackAudioTrack extends Struct.ComponentSchema {
   };
 }
 
+export interface GridContentGridContent extends Struct.ComponentSchema {
+  collectionName: 'components_grid_content_grid_contents';
+  info: {
+    displayName: 'grid_content';
+  };
+  attributes: {
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Titre: Schema.Attribute.String;
+  };
+}
+
 export interface QuizzAnswerQuizzAnswers extends Struct.ComponentSchema {
   collectionName: 'components_quizz_answer_quizz_answers';
   info: {
@@ -26,6 +37,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'audio-track.audio-track': AudioTrackAudioTrack;
+      'grid-content.grid-content': GridContentGridContent;
       'quizz-answer.quizz-answers': QuizzAnswerQuizzAnswers;
     }
   }
