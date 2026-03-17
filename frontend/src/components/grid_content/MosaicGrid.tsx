@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect} from "react";
+import {  Link } from "react-router-dom";
 import { useMosaic, mediaUrl, isVideo } from "./Usemosaic";
 import "./MosaicGrid.css";
 
@@ -7,6 +8,8 @@ import "./MosaicGrid.css";
 type MosaicItem = {
   id: number;
   Titre: string;
+  Date?: string;
+  Views?: number;
   media: {
     mime: string;
     url: string;
@@ -136,7 +139,10 @@ export default function MosaicGrid() {
 
   return (
     <section className="mosaic-section">
-      <h2 className="mosaic-section__title">{section.Titre}</h2>
+      <div className="mosaic-header">
+        <div className="returnBtn"> <Link to="/">../home/</Link></div>
+        <h2 className="mosaic-section__title">{section.Titre}</h2>
+      </div>
 
       <div className="mosaic-grid">
         {section.mosaic_content.map((item) => (
@@ -176,6 +182,10 @@ export default function MosaicGrid() {
             </div>
             <div className="mosaic-card__footer">
               <p className="mosaic-card__title">{item.Titre}</p>
+              <div className="mosaic-card__meta">
+                {item.Date && <span className="mosaic-card__date">{item.Date}</span>}
+                {item.Views !== undefined && <span className="mosaic-card__views">{item.Views} views</span>}
+              </div>
             </div>
           </article>
         ))}

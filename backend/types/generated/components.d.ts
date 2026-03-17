@@ -17,8 +17,10 @@ export interface GridContentGridContent extends Struct.ComponentSchema {
     displayName: 'grid_content';
   };
   attributes: {
+    Date: Schema.Attribute.String;
     media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     Titre: Schema.Attribute.String;
+    Views: Schema.Attribute.Integer;
   };
 }
 

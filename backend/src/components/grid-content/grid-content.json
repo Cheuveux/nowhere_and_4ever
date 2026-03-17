@@ -17,6 +17,12 @@
         "videos",
         "audios"
       ]
+    },
+    "Date": {
+      "type": "string"
+    },
+    "Views": {
+      "type": "integer"
     }
   },
   "config": {}

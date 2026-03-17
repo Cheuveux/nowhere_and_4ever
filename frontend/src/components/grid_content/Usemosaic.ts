@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // TYPE
 const STRAPI_URL: string = import.meta.env.VITE_STRAPI_URL ?? "http://localhost:1337";
-const API_URL: string = `${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=media`;
+const API_URL: string = `${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=*`;
 
 type MediaFormat = {
 	url: string;
