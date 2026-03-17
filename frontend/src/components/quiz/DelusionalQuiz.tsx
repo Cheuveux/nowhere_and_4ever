@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "../delusionalQuiz.css";
+import "./delusionalQuiz.css";
 import type { Answer, Question, ResultData, Phase } from "./types";
 import { getResult } from "./data";
 import { useQuizQuestions } from "./useQuizQuestions";

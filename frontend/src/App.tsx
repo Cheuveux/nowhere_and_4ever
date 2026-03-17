@@ -1,10 +1,10 @@
 
 import {Routes, Route } from 'react-router-dom'
 import './App.css'
-import Article from './components/articles'
-import ArticlePage from './components/articlePage'
-import ConversationPage from './components/conversationPage/conversation'
-import DelusionalQuiz from './quiz/DelusionalQuiz'
+import Article from './components/homePage/articles'
+import ArticlePage from './components/article/articlePage'
+import ConversationPage from './components/conversation/conversation'
+import DelusionalQuiz from './components/quiz/DelusionalQuiz'
 
 function App() {
   return (

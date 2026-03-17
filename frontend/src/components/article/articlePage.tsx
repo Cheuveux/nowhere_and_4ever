@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-import { renderContent } from "../utils/renderContent";
+import { renderContent } from "../../utils/renderContent";
 import './articlePage.css'
 
 export default function ArticlePage() {
