@@ -4,28 +4,6 @@ import { useEffect, useState } from "react";
 const STRAPI_URL: string = import.meta.env.VITE_STRAPI_URL ?? "http://localhost:1337";
 const API_URL: string = `${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=*`;
 
-type MediaFormat = {
-	url: string;
-	width: number;
-	height:number;
-	size: number;
-};
-
-type  Media =  {
-	id:  number;
-	name: string;
-	mime: string;
-	url: string;
-	width: number | null;
-	height: number | null;
-	formats: {
-		thumbnail?: MediaFormat;
-		small?: MediaFormat;
-		medium?: MediaFormat;
-		large?: MediaFormat;
-	} | null;
-};
-
 type MosaicItem = {
   id: number;
   Titre: string;
