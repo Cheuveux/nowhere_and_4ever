@@ -5,6 +5,7 @@ import Article from './components/homePage/articles'
 import ArticlePage from './components/article/articlePage'
 import ConversationPage from './components/conversation/conversation'
 import DelusionalQuiz from './components/quiz/DelusionalQuiz'
+import MosaicGrid from './components/grid_content/MosaicGrid'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/article/:id" element={<ArticlePage />} />
         <Route path="/conversation/:id" element={<ConversationPage/>} />
         <Route path="/quiz" element={<DelusionalQuiz />} />
+        <Route path="/mosaics" element={<MosaicGrid />} />
       </Routes>
     </>
   );

@@ -6,7 +6,7 @@ import gsap from "gsap";
 
 type HomeItem = {
   documentId: string;
-  _type: "article" | "conversation" | "quiz";
+  _type: "article" | "conversation" | "quiz" | "mosaic";
   Title?: string;
   Author?: string;
   Descriptiom?: string;
@@ -16,6 +16,7 @@ type HomeItem = {
 function getItemLink(item: HomeItem): string {
   if (item._type === "conversation") return `/conversation/${item.documentId}`;
   if (item._type === "quiz") return "/quiz";
+  if (item._type === "mosaic") return "/mosaics";
   return `/article/${item.documentId}`;
 }
 
@@ -29,8 +30,9 @@ export default function Article() {
       fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch("http://localhost:1337/api/conversations", { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch("http://localhost:1337/api/quizzes", { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch("http://localhost:1337/api/mosaics", { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
-      .then(([postsData, convsData, quizzesData]) => {
+      .then(([postsData, convsData, quizzesData, mosaicData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const }));
 
@@ -46,7 +48,19 @@ export default function Article() {
             }]
           : [];
 
-        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard]);
+        // Mosaic card - même logique que le quiz
+        const mosaicRaw = mosaicData.data || [];
+        const mosaicCard: HomeItem[] = mosaicRaw.length
+          ? [{
+              documentId: "mosaic-entry",
+              _type: "mosaic",
+              Title: "Mosaic Gallery",
+              Author: "visual",
+              Description: "Visual gallery collection",
+            }]
+          : [];
+
+        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard]);
         setIsLoading(false);
       })
       .catch(err => { setError(err.message); setIsLoading(false); });
