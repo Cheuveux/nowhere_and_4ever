@@ -6,7 +6,7 @@
 }
 @font-face {
   font-family: 'Retro Font';
-  src: url('/fonts/FSEX300.ttf') format('');
+  src: url('/fonts/FSEX300.ttf') format('truetype');
   font-style: normal;
 }
 @font-face {
@@ -32,7 +32,7 @@
   --font-color-clear: rgba(252, 240, 240, 1);
   --color-yellow-body: rgba(221, 255, 0, 0.87);
   --secondary-font: 'Slice Regular', Arial, sans-serif;
-  --retro-font: 'Retro font'
+  --retro-font: 'Retro font';
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

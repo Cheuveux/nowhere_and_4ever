@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect} from "react";
 import {  Link } from "react-router-dom";
 import { useMosaic, mediaUrl, isVideo } from "./Usemosaic";
+import gsap from "gsap";
+
 import "./MosaicGrid.css";
 
 // On réutilise le type MosaicItem depuis le hook
@@ -28,6 +30,16 @@ type LightboxProps = {
 function Lightbox({ item, onClose }: LightboxProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  // Formate le temps en mm:ss
+  const formatTime = (seconds: number): string => {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
 
   // Auto-play la vidéo quand la lightbox s'ouvre
   useEffect(() => {
@@ -36,6 +48,23 @@ function Lightbox({ item, onClose }: LightboxProps) {
       setIsPlaying(true);
     }
   }, [item.id]);
+
+  // Met à jour le temps courant et la durée
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => setCurrentTime(video.currentTime);
+    const handleLoadedMetadata = () => setDuration(video.duration);
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+
+    return () => {
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    };
+  }, []);
 
   // Ferme si on clique sur le backdrop (pas sur le contenu)
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -91,14 +120,12 @@ function Lightbox({ item, onClose }: LightboxProps) {
                 ref={videoRef}
                 src={mediaUrl(item.media.url)}
                 playsInline
+                loop 
               />
-              {!isPlaying && (
-                <div className="lightbox-video-play-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              )}
+              {/* Timer en bas à droite (style YouTube) */}
+              <div className="lightbox-video-timer">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </div>
             </div>
           ) : (
             <img
@@ -110,6 +137,10 @@ function Lightbox({ item, onClose }: LightboxProps) {
 
           {/* Titre */}
           <p className="lightbox-title">{item.Titre}</p>
+          <div className="lightbox__meta">
+            {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
+            {item.Views !== undefined && <span className="mosaic-card__views">{item.Views} views</span>}
+          </div>
       </div>
     </div>
   );
@@ -122,7 +153,16 @@ export default function MosaicGrid() {
   // null = lightbox fermée, MosaicItem = item affiché
   const [selected, setSelected] = useState<MosaicItem | null>(null);
   const gridVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
-  const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
+  const cardRefs = useRef<HTMLElement[]>([]);
+  const [gridVideoTimes, setGridVideoTimes] = useState<{ [key: number]: { current: number; duration: number } }>({});
+
+  // Formate le temps en mm:ss
+  const formatTime = (seconds: number): string => {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
 
   const handleGridVideoClick = (e: React.MouseEvent, item: MosaicItem) => {
     e.stopPropagation();
@@ -132,6 +172,60 @@ export default function MosaicGrid() {
   const handleCardClick = (item: MosaicItem) => {
     setSelected(item);
   };
+
+  // Met à jour le temps et la durée pour chaque vidéo de la grille
+  useEffect(() => {
+    const listeners: { [key: number]: () => void } = {};
+
+    Object.entries(gridVideoRefs.current).forEach(([idStr, video]) => {
+      if (video) {
+        const id = parseInt(idStr);
+        
+        const handleTimeUpdate = () => {
+          setGridVideoTimes((prev) => ({
+            ...prev,
+            [id]: { current: video.currentTime, duration: video.duration },
+          }));
+        };
+
+        listeners[id] = handleTimeUpdate;
+        video.addEventListener("timeupdate", handleTimeUpdate);
+        video.addEventListener("loadedmetadata", handleTimeUpdate);
+      }
+    });
+
+    return () => {
+      Object.entries(gridVideoRefs.current).forEach(([idStr, video]) => {
+        if (video && listeners[parseInt(idStr)]) {
+          video.removeEventListener("timeupdate", listeners[parseInt(idStr)]);
+          video.removeEventListener("loadedmetadata", listeners[parseInt(idStr)]);
+        }
+      });
+    };
+  }, []);
+
+  // Animation GSAP des cartes au chargement
+  useEffect(() => {
+    if (!section || cardRefs.current.length === 0) return;
+
+    gsap.fromTo(
+      cardRefs.current,
+      {
+        opacity: 0,
+        x: (index) => (index % 2 === 0 ? -100 : 100), // Alternée : gauche/droite
+        y: 20,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        delay: 0.2,
+      }
+    );
+  }, [section]);
 
   if (loading) return <div className="mosaic-state">Loading…</div>;
   if (error)   return <div className="mosaic-state mosaic-state--error">Error: {error}</div>;
@@ -145,9 +239,10 @@ export default function MosaicGrid() {
       </div>
 
       <div className="mosaic-grid">
-        {section.mosaic_content.map((item) => (
+        {section.mosaic_content.map((item, index) => (
           <article
             key={item.id}
+            ref={(el) => { if (el) cardRefs.current[index] = el; }}
             className="mosaic-card"
             onClick={() => handleCardClick(item)}  // ← ouvre la lightbox
           >
@@ -160,16 +255,9 @@ export default function MosaicGrid() {
                     loop
                     playsInline
                   />
-                  <div className="mosaic-card-play-btn" onClick={(e) => handleGridVideoClick(e, item)}>
-                    {playingVideoId === item.id ? (
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    )}
+                  {/* Timer en bas à droite */}
+                  <div className="mosaic-card-video-timer" onClick={(e) => handleGridVideoClick(e, item)}>
+                    {formatTime(gridVideoTimes[item.id]?.current ?? 0)} / {formatTime(gridVideoTimes[item.id]?.duration ?? 0)}
                   </div>
                 </div>
               ) : (
@@ -197,15 +285,6 @@ export default function MosaicGrid() {
           item={selected}
           onClose={() => {
             setSelected(null);
-            // Arrête la vidéo de la grille si elle joue
-            if (playingVideoId !== null) {
-              const video = gridVideoRefs.current[playingVideoId];
-              if (video) {
-                video.pause();
-                video.currentTime = 0;
-              }
-              setPlayingVideoId(null);
-            }
           }}  // ← ferme la lightbox
         />
       )}
