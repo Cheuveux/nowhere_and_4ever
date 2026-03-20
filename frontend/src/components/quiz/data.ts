@@ -145,10 +145,10 @@ export const FALLBACK: Question[] = [
 }
 
 export function mapStrapi(data: StrapiItem[]): Question[] {
-  return data.map((item) => ({
+  return data.map((item: any) => ({
     id: item.id,
-    text: item.attributes.question,
-    answer: item.attributes.answer.map((a) => ({
+    text: item.question ?? item.attributes?.question,
+    answer: (item.answer ?? item.attributes?.answer ?? []).map((a: any) => ({
       text: a.Text,
       points: a.points,
     })),

@@ -24,15 +24,15 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
       pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
     },
     postgres: {
-      connection: {
-      connectionString: env('DATABASE_URL'),
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      schema: env('DATABASE_SCHEMA', 'public'),
+  connection: {
+    connectionString: env('DATABASE_URL'),
+    ssl: {
+      rejectUnauthorized: false,
     },
-    pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
+    schema: env('DATABASE_SCHEMA', 'public'),
   },
+  pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
+},
     sqlite: {
       connection: {
         filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),

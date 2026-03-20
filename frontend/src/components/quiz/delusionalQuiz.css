@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap');
 
+
 /* ROOT */
 .dq-root {
 	position: relative;
@@ -12,7 +13,7 @@
 		radial-gradient(circle at 10% 15%, rgba(160, 187, 202, 0.12), transparent 34%),
 		radial-gradient(circle at 85% 10%, rgba(164, 132, 147, 0.14), transparent 40%),
 		linear-gradient(180deg, #07080f 0%, #05040a 100%);
-	font-family: 'IBM Plex Mono', monospace;
+	font-family: 'VT323', monospace;
 	padding: 0 1rem 2rem;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -113,8 +114,9 @@
 	padding: 0.3rem 0.7rem;
 	background: linear-gradient(90deg, #8ea8b8, #9e8591);
 	color: #0d1016;
-	font-family: 'VT323', monospace;
 	font-size: 1.25rem;
+	font-family: 'Snell Roundhand bold', cursive;
+	font-weight: 700;
 	letter-spacing: 0.04rem;
 	text-transform: lowercase;
 }
@@ -134,7 +136,8 @@
 }
 
 .dq-title {
-	font-family: 'VT323', monospace;
+
+	font-family: 'Snell Roundhand', cursive;
 	font-size: clamp(3rem, 9vw, 5rem);
 	line-height: 0.86;
 	margin: 0 0 1.4rem;
@@ -193,7 +196,7 @@
 
 /* QUESTIONS */
 .dq-qnum {
-	font-family: 'VT323', monospace;
+	font-family: 'Snell Roundhand bold', cursive;
 	font-size: 4.1rem;
 	color: rgba(143, 168, 184, 0.33);
 	line-height: 1;
@@ -203,7 +206,8 @@
 }
 
 .dq-question {
-	font-size: 1rem;
+	font-family: 'Snell Roundhand', cursive;
+	font-size: 1.3em;
 	color: #eaf7ff;
 	line-height: 1.7;
 	margin-bottom: 1.5rem;
@@ -226,8 +230,8 @@
 	border: 1px solid rgba(143, 168, 184, 0.4);
 	padding: 0.8rem 1rem;
 	color: rgba(216, 244, 255, 0.86);
-	font-family: 'IBM Plex Mono', monospace;
-	font-size: 0.78rem;
+	font-family: 'VT323', monospace;
+	font-size: 0.95rem;
 	line-height: 1.55;
 	text-align: left;
 	cursor: pointer;
@@ -329,7 +333,7 @@
 }
 
 .dq-result-title {
-	font-family: 'VT323', monospace;
+	font-family: 'Shell Roundhand', cursive;
 	font-size: clamp(2.5rem, 7vw, 4.5rem);
 	line-height: 0.9;
 	margin: 0 0 0.45rem;
@@ -407,7 +411,7 @@
 	}
 
 	.dq-title {
-		font-size: clamp(2.5rem, 11vw, 3.8rem);
+	font-size: clamp(2.5rem, 11vw, 3.8rem);
 	}
 }
 

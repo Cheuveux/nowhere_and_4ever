@@ -25,9 +25,11 @@ export type StrapiAnswer = {
 
 export type StrapiItem = {
   id: number;
-  attributes: {
-    question: string;
-    answer: StrapiAnswer[];
+  question?: string; // v5 format
+  answer?: StrapiAnswer[]; // v5 format
+  attributes?: {
+    question: string; // v4 format
+    answer: StrapiAnswer[]; // v4 format
   };
 };
 

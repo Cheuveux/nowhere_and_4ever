@@ -9,6 +9,18 @@
   src: url('/fonts/FSEX300.ttf') format('');
   font-style: normal;
 }
+@font-face {
+  font-family: 'Snell Roundhand';
+  src: url('/fonts/snell_roundhand/SnellRoundhandLTStd-Scr.ttf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Snell Roundhand bold';
+  src: url('/fonts/snell_roundhand/SnellRoundhandLTStd-BdScr.ttf/');
+  font-style: bold;
+}
+
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
