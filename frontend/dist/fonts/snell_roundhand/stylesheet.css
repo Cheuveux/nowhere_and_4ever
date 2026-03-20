@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Snell Roundhand LT Std';
+    src: url('SnellRoundhandLTStd-BdScr.eot');
+    src: local('Snell Roundhand LT Std Bold Script'), local('SnellRoundhandLTStd-BdScr'),
+        url('SnellRoundhandLTStd-BdScr.eot?#iefix') format('embedded-opentype'),
+        url('SnellRoundhandLTStd-BdScr.woff2') format('woff2'),
+        url('SnellRoundhandLTStd-BdScr.woff') format('woff'),
+        url('SnellRoundhandLTStd-BdScr.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Snell Roundhand LT Std';
+    src: url('SnellRoundhandLTStd-BlkScr.eot');
+    src: local('Snell Roundhand LT Std Black Script'), local('SnellRoundhandLTStd-BlkScr'),
+        url('SnellRoundhandLTStd-BlkScr.eot?#iefix') format('embedded-opentype'),
+        url('SnellRoundhandLTStd-BlkScr.woff2') format('woff2'),
+        url('SnellRoundhandLTStd-BlkScr.woff') format('woff'),
+        url('SnellRoundhandLTStd-BlkScr.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Snell Roundhand LT Std';
+    src: url('SnellRoundhandLTStd-Scr.eot');
+    src: local('Snell Roundhand LT Std Script'), local('SnellRoundhandLTStd-Scr'),
+        url('SnellRoundhandLTStd-Scr.eot?#iefix') format('embedded-opentype'),
+        url('SnellRoundhandLTStd-Scr.woff2') format('woff2'),
+        url('SnellRoundhandLTStd-Scr.woff') format('woff'),
+        url('SnellRoundhandLTStd-Scr.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
