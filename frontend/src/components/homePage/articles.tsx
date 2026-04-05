@@ -38,7 +38,12 @@ export default function Article() {
       .then(([postsData, convsData, quizzesData, mosaicData, takesData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
-        const takes = (takesData.data || []).map((c: any) => ({ ...c, _type: "takes" as const })); 
+        const takes = (takesData.data || []).map((c: any) => ({ 
+          ...c, 
+          _type: "takes" as const,
+          Title: c.title,
+          Author: c.id_code || "no code"
+        })); 
 
         // quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
         const quizzesRaw = quizzesData.data || [];
@@ -47,7 +52,7 @@ export default function Article() {
               documentId: "quiz-entry",
               _type: "quiz",
               Title: "Delusional Quiz",
-              Author: "interactive",
+              Author: "?;D?;D?;D",
               Descriptiom: "10 questions. 4 possible fates.",
             }]
           : [];
@@ -59,7 +64,7 @@ export default function Article() {
               documentId: "mosaic-entry",
               _type: "mosaic",
               Title: "Mosaic Gallery",
-              Author: "visual",
+              Author: "?;D?;D?;D",
               Description: "Visual gallery collection",
             }]
           : [];

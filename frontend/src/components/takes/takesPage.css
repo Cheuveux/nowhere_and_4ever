@@ -1,7 +1,59 @@
+.takes-page {
+	width: 100%;
+	max-width: 100%;
+	height: 100vh;
+	max-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 .takes-visual {
-    max-width: 100%;
+	width: 500px;
+    max-width: 650px;
     max-height: 400px;
     object-fit: contain;
     margin-bottom: 2rem;
     border-radius: 8px;
+}
+
+/* Heading styles */
+.takes-header {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-around;
+	height: fit-content;
+	position: absolute;
+	top: 5%;
+}
+.takes-heading {
+    margin: 1.5rem 0 0.75rem 0;
+    font-weight: 900;
+    line-height: 1.3;
+	font-family: 'Snell Roundhand', cursive;
+}
+
+.takes-h1 {
+    font-size: 2.5rem;
+    color: #ecece4;
+}
+
+.takes-h2 {
+    font-size: 2rem;
+    color: #ecece4;
+    border-bottom: 2px solid var(--color-yellow-body);
+    padding-bottom: 0.5rem;
+}
+
+.takes-h3 {
+    font-size: 2.5rem;
+    color: var(--color-yellow-body);
+    letter-spacing: 0.05em;
+    margin: 1.5rem 2rem;
+}
+
+.takes-h4 {
+    font-size: 1.2rem;
+    color: #ecece4;
 }

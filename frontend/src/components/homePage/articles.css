@@ -18,14 +18,14 @@
   width: 100%;
   max-width: 700px;
   min-width: 280px;
-  height: 110px;
-  max-height: 110px;
-  margin-bottom: -70px;
+  height: 150px;
+  max-height: 150px;
+  margin-bottom: -110px;
   border-radius: 12px;
   position: relative;
   z-index: 1;
   overflow: visible;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .folder-card:first-child {

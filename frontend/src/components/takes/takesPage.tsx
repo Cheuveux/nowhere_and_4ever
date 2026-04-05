@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './takesPage.css'
@@ -31,16 +32,32 @@ export default function TakePage() {
         if (Array.isArray(content)) {
             return content.map((block: any, idx: number) => {
                 console.log("Block structure:", block); // Debug log
-                if (block.type === "paragraph" && block.children) {
-                    const text = block.children
-                        .map((child: any) => child.text || "")
-                        .join("");
-                    return text ? (
+                
+                const text = block.children
+                    ?.map((child: any) => child.text || "")
+                    .join("") || "";
+                
+                if (!text) return null;
+                
+                // Handle headings
+                if (block.type === "heading") {
+                    const level = block.level || 1;
+                    return React.createElement(
+                        `h${level}` as any,
+                        { key: idx, className: `takes-heading takes-h${level}` },
+                        text
+                    );
+                }
+                
+                // Handle paragraphs
+                if (block.type === "paragraph") {
+                    return (
                         <p key={idx} className="takes-text">
                             {text}
                         </p>
-                    ) : null;
+                    );
                 }
+                
                 return null;
             });
         }
@@ -59,7 +76,6 @@ export default function TakePage() {
                     <Link to="/">../home/</Link>
                 </div>
                 <div className="takes-title-section">
-                    <h1 className="takes-title">{takes.title}</h1>
                     {takes.id_code && <span className="takes-id-code">#{takes.id_code}</span>}
                 </div>
             </div>

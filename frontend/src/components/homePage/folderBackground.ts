@@ -12,8 +12,7 @@ const pageBackgrounds: Record<ContentType, CSSProperties> = {
     	transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
 	},
 	quiz: {
-		backgroundColor: '#ab5fcb',
-		// backgroundImage: 'url("/img_assets/3px-tile.png"), linear-gradient(135deg, #8e44ad 0%, #fff 50%,  #6634db 75%, #fff 100%)',
+		backgroundColor: '#815fcb',
 		backgroundRepeat: 'repeat',
 		backgroundSize: '50%',
 		backgroundPosition: 'center',
@@ -21,14 +20,13 @@ const pageBackgrounds: Record<ContentType, CSSProperties> = {
 	},
 	mosaic: {
 		backgroundColor: '#cb615f',
-		// backgroundImage: 'url("/img_assets/crazy_background.png")',
 		backgroundRepeat: 'repeat',
 		backgroundSize: '3%',
 		backgroundPosition: 'center',
 		transition: 'all 0.3s cubic-bezier(.77,0,.18,1)',
 	},
 	takes: {
-		backgroundColor: '#cba75f',
+		backgroundColor: '#5fcbc4',
     	transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
 	}
 };
