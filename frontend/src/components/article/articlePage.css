@@ -20,6 +20,12 @@
 	right: 2%;
 	bottom: 0%;
 }
+
+/* Article page background */
+body {
+	background-color: #1a1a1a !important;
+	background-image: none !important;
+}
 @media screen and (max-width: 900px) {
 
 }
