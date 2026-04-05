@@ -1,7 +1,7 @@
 interface ImageConfig {
 	index: number;
 	totalItems: number;
-	contentType: "article" | "conversation" | "quiz" | "mosaic";
+	contentType: "article" | "conversation" | "quiz" | "mosaic" | "takes";
 }
 
 export function getBackgroundImage({index, totalItems, contentType}: ImageConfig): string {
@@ -12,6 +12,8 @@ export function getBackgroundImage({index, totalItems, contentType}: ImageConfig
 		return "/img_assets/folder_homepage/main_content_2.png";
 	if (contentType === "mosaic")	
 		return "/img_assets/folder_homepage/main_content_1.png";
+	if (contentType === "takes")	
+		return "/img_assets/folder_homepage/main_content_2.png";
 	if (index === totalItems)
 		return "/img_assets/folder_homepage/footer_folder.png";
 	if (index % 2 === 1)

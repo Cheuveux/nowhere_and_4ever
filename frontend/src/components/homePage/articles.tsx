@@ -7,7 +7,7 @@ import './articles.css';
 
 type HomeItem = {
   documentId: string;
-  _type: "article" | "conversation" | "quiz" | "mosaic";
+  _type: "article" | "conversation" | "quiz" | "mosaic" | "takes";
   Title?: string;
   Author?: string;
   Descriptiom?: string;
@@ -16,6 +16,7 @@ type HomeItem = {
 
 function getItemLink(item: HomeItem): string {
   if (item._type === "conversation") return `/conversation/${item.documentId}`;
+  if (item._type === "takes") return `/takes/${item.documentId}`;
   if (item._type === "quiz") return "/quiz";
   if (item._type === "mosaic") return "/mosaics";
   return `/article/${item.documentId}`;
@@ -32,12 +33,14 @@ export default function Article() {
       fetch("http://localhost:1337/api/conversations", { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch("http://localhost:1337/api/quizzes", { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch("http://localhost:1337/api/mosaics", { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch("http://localhost:1337/api/takes", { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
-      .then(([postsData, convsData, quizzesData, mosaicData]) => {
+      .then(([postsData, convsData, quizzesData, mosaicData, takesData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
-        const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const }));
+        const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
+        const takes = (takesData.data || []).map((c: any) => ({ ...c, _type: "takes" as const })); 
 
-        // Ton quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
+        // quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
         const quizzesRaw = quizzesData.data || [];
         const quizCard: HomeItem[] = quizzesRaw.length
           ? [{
@@ -61,7 +64,7 @@ export default function Article() {
             }]
           : [];
 
-        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard]);
+        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard, ...(takes as HomeItem[])]);
         setIsLoading(false);
       })
       .catch(err => { setError(err.message); setIsLoading(false); });

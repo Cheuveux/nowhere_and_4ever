@@ -596,6 +596,37 @@ export interface ApiQuizzQuizz extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTakeTake extends Struct.CollectionTypeSchema {
+  collectionName: 'takes';
+  info: {
+    displayName: 'Take';
+    pluralName: 'takes';
+    singularName: 'take';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    id_code: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::take.take'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    take_illustration: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1112,6 +1143,7 @@ declare module '@strapi/strapi' {
       'api::mosaic.mosaic': ApiMosaicMosaic;
       'api::post.post': ApiPostPost;
       'api::quizz.quizz': ApiQuizzQuizz;
+      'api::take.take': ApiTakeTake;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

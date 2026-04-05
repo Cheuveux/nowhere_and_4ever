@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-type ContentType = "article" | "conversation" | "quiz" | "mosaic";
+type ContentType = "article" | "conversation" | "quiz" | "mosaic" | "takes";
 
 const pageBackgrounds: Record<ContentType, CSSProperties> = {
 	article: {
@@ -27,6 +27,10 @@ const pageBackgrounds: Record<ContentType, CSSProperties> = {
 		backgroundPosition: 'center',
 		transition: 'all 0.3s cubic-bezier(.77,0,.18,1)',
 	},
+	takes: {
+		backgroundColor: '#cba75f',
+    	transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
+	}
 };
 
 export function getPageBackground(type: ContentType): CSSProperties {
@@ -37,6 +41,7 @@ export function getPageBackground(type: ContentType): CSSProperties {
 		conversation: { title: '#d4a5d4', author: '#b390b3' },
 		quiz: { title: '#151414', author: '#101010' },
 		mosaic: { title: '#ecece4', author: '#ecece4' },
+		takes: { title: '#ecece4', author: '#ecece4' },
 	};
 
 	return {
