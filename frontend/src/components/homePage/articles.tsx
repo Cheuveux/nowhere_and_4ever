@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import FolderSVG from "../../assets/FolderSVG";
+import { getPageBackground} from './folderBackground';
+import { getBackgroundImage } from "./getBackgroundImage";
 import './articles.css';
-import gsap from "gsap";
+// import gsap from "gsap";
 
 type HomeItem = {
   documentId: string;
@@ -24,7 +25,7 @@ export default function Article() {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
   useEffect(() => {
     Promise.all([
       fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
@@ -66,50 +67,66 @@ export default function Article() {
       .catch(err => { setError(err.message); setIsLoading(false); });
   }, []);
 
-  useEffect(() => {
-    gsap.utils.toArray(".drawer-desc").forEach((el) => {
-      gsap.fromTo(
-        el as Element,
-        { y: -20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el as Element,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-  }, [posts]);
+
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!posts.length) return <p>No articles found.</p>;
 
   return (
-    <div className="folders-stack">
-      {posts.map((post) => (
-        <div className="folder-card" key={post.documentId}>
-          <div className="folder-svg-wrapper">
-            <FolderSVG />
-            <div className="folder-content">
-              <div className="folder-header">
-                <Link to={getItemLink(post)} className="article-link">
-                  <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-                </Link>
-                <span className="folder-author">{post.Author ?? "unknown"}</span>
-              </div>
-              <div className="drawer-desc">
-                <p className="article-desc">{post.Descriptiom ?? post.Description ?? ""}</p>
-              </div>
+    <div 
+      className="folders-stack"
+      style={hoveredType ? getPageBackground(hoveredType) : {}}
+    >
+      {/* Header folder at the top */}
+      <div className="folder-card folder-card--header">
+        <div className="folder-svg-wrapper">
+          <img 
+            src="/img_assets/folder_homepage/header_folder.png"
+            alt="Header"
+            className="folder-image"
+          />
+        </div>
+      </div>
+
+      {posts.map((post, index) => (
+  <div 
+    className={`folder-card folder-card--${post._type}`}
+    key={post.documentId}
+    onMouseEnter={() => setHoveredType(post._type)}
+    onMouseLeave={() => setHoveredType(null)}
+  >
+      <Link to={getItemLink(post)} className="article-link folder-image-link">
+        <div className="folder-svg-wrapper">
+          <img 
+            src={getBackgroundImage({ 
+              index, 
+              totalItems: posts.length,
+              contentType: post._type
+            })}
+            alt={post.Title ?? "Untitled"}
+            className="folder-image"
+          />
+          <div className="folder-content">
+            <div className="folder-header">
+              <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
+              <span className="folder-author">{post.Author ?? "unknown"}</span>
             </div>
           </div>
         </div>
-      ))}
+      </Link>
+  </div>
+  ))}
+    {/* Footer folder at the bottom */}
+  <div className="folder-card folder-card--footer">
+    <div className="folder-svg-wrapper">
+      <img 
+        src="/img_assets/folder_homepage/footer_folder.png"
+        alt="Footer"
+        className="folder-image"
+      />
     </div>
+  </div>
+  </div>
   );
 }

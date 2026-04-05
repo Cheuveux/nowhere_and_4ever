@@ -207,7 +207,7 @@
 
 .dq-question {
 	font-family: 'Snell Roundhand', cursive;
-	font-size: 1.3em;
+	font-size: 2em;
 	color: #eaf7ff;
 	line-height: 1.7;
 	margin-bottom: 1.5rem;
@@ -348,9 +348,9 @@
 }
 
 .dq-result-desc {
-	font-size: 0.87rem;
+	font-size: 1rem;
 	color: rgba(225, 238, 255, 0.88);
-	line-height: 1.72;
+	line-height: 1.5;
 	margin-bottom: 1.35rem;
 }
 

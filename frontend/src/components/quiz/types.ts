@@ -12,7 +12,6 @@ export type Question = {
 export type ResultData = {
   range: [number, number];
   label: string;
-  emoji: string;
   color: string;
   tag: string;
   description: string;

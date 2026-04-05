@@ -30,6 +30,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --font-color-clear: rgba(252, 240, 240, 1);
+  --font-color-dark: rgba(26, 26, 26, 0.757);
   --color-yellow-body: rgba(221, 255, 0, 0.87);
   --secondary-font: 'Slice Regular', Arial, sans-serif;
   --retro-font: 'Retro font';
@@ -52,6 +53,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: #fff;
 }
 
 a {
