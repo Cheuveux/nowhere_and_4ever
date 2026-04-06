@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import EmailPopup from "../popup_banner/popupBanner";
 import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
 import './articles.css';
@@ -23,10 +24,19 @@ function getItemLink(item: HomeItem): string {
 }
 
 export default function Article() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const popupData = {
+    heading: "LOOKING FOR A MECENE",
+    description: "LOOKING FOR A MECENE",
+    emailAdress: "LOOKING FOR A MECENE",
+  };
+
   useEffect(() => {
     Promise.all([
       fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
@@ -76,6 +86,13 @@ export default function Article() {
   }, []);
 
 
+  // Pop-uP Email Timer
+  useEffect(() => { 
+    const timer = setTimeout(() => {
+      setShowPopup(true); 
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -125,6 +142,7 @@ export default function Article() {
       </Link>
   </div>
   ))}
+  
     {/* Footer folder at the bottom */}
   <div className="folder-card folder-card--footer">
     <div className="folder-svg-wrapper">
@@ -135,6 +153,15 @@ export default function Article() {
       />
     </div>
   </div>
+
+  {/* Add the popup component */}
+  <EmailPopup
+    isOpen={showPopup}
+    onClose={()=>setShowPopup(false)}
+    heading={popupData.heading}
+    description={popupData.description}
+    emailAdress={popupData.emailAdress}
+  />
   </div>
   );
 }
