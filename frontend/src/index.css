@@ -21,6 +21,12 @@
   font-style: bold;
 }
 
+@font-face {
+  font-family: 'ITC Machine Bold';
+  src: url('/fonts/ITC Machine Bold.otf') format('opentype');
+  font-style: bold;
+}
+
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
@@ -34,6 +40,7 @@
   --color-yellow-body: rgba(221, 255, 0, 0.87);
   --secondary-font: 'Slice Regular', Arial, sans-serif;
   --retro-font: 'Retro font';
+  --popup-font: 'ITC Machine Bold', Arial, sans-serif;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

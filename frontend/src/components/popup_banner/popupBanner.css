@@ -12,17 +12,16 @@
 }
 
 .popup-content{
-	font-family: var(--retro-font);
-	background: rgba(255, 254, 254, 0.673);
-	border: solid 6px #5c5c5c;
-	border-radius: 8px;
+	font-family: var(--popup-font);
 	padding: .5rem;
-	max-width: 700px;
+	/* max-width: 700px; */
 	width: 90vw;
-	height: 50vh;
+	height: 70vh;
 	position: relative;
-	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .popup-close {
@@ -47,30 +46,36 @@
 	color: (#d94444, #fff);
 }
 
-.popup-heading {
-	font-size: clamp(2rem, 8vw, 5rem);
-	width: fit-content;
-	color: #d94444;
-	margin-bottom: 1rem;
-}
-.popup-description {
-	font-size: 3rem;
-}
-.popup-email-link {
-	display: inline-block;
-	color: var(--color-yellow-body, #fff);
-	text-decoration: none;
-	border: 1px solid var(--color-yellow-body, #fff);
-	border-radius: 4px;
-	padding-inline: 0.75rem 1.5rem ;
-	transition: all 0.3 ease;
-	position: absolute;
-	bottom: 5%;
-	left: 50%;
-	transform: translate(-50%);
+@keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 0.3; }
+	100% { opacity: 1; }
 }
 
-.popup-email-link:hover {
-	background: var(--color-yellow-body, #fff);
+.popup-email-button {
+	width: 100%;
+	/* max-width: 700px; */
+	padding: 2rem;
+	border: solid 2px #5c5c5c;
+	border-radius: 8px;
+	font-size: 7rem;
+	font-weight: 600;
 	color: #1a1a1a;
+	background: var(--color-yellow-body, #fff);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+	cursor: pointer;
+	transition: all 0.3 ease;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.popup-email-button:hover {
+	color: var(--color-yellow-body);
+	background:#1a1a1a ;
+	animation: blink 0.1s infinite;
 }

@@ -34,7 +34,7 @@ export default function Article() {
   const popupData = {
     heading: "LOOKING FOR A MECENE",
     description: "LOOKING FOR A MECENE",
-    emailAdress: "LOOKING FOR A MECENE",
+    emailAdress: "LOOKING FOR A MECENE LOOKING FOR A MECENE LOOKING FOR A MECENE",
   };
 
   useEffect(() => {
