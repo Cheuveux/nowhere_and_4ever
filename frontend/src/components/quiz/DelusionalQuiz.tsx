@@ -86,7 +86,6 @@ function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: ()
 
   return (
     <div className="dq-card">
-      <span className="dq-result-emoji">{result.emoji}</span>
       <div className="dq-result-tag">{result.tag}</div>
       <h2 className="dq-result-title" style={{ color: result.color }}>{result.label}</h2>
       <div className="dq-result-score">{totalPoints} / 300 pts</div>

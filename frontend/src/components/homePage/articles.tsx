@@ -90,7 +90,7 @@ export default function Article() {
   useEffect(() => { 
     const timer = setTimeout(() => {
       setShowPopup(true); 
-    }, 1000);
+    }, 100000);
     return () => clearTimeout(timer);
   }, []);
 

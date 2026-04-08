@@ -56,7 +56,9 @@ export default function ArticlePage() {
                 <div className="return_btn">
                     <Link to="/">../home/</Link>
                 </div>
-                <h1>{article.Title}</h1>
+                <div className="article_title">
+                    <h1>{article.Title}</h1>
+                </div>
                 <div className="article_author">
                     <h2>by {article.Author}</h2>
                 </div>
