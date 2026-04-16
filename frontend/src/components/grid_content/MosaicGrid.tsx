@@ -3,7 +3,7 @@ import {  Link } from "react-router-dom";
 import { useMosaic, mediaUrl, isVideo } from "./Usemosaic";
 import gsap from "gsap";
 
-import "./MosaicGrid.css";
+import "./Mosaicgrid.css";
 
 // On réutilise le type MosaicItem depuis le hook
 // (si tu veux l'importer directement, exporte-le depuis useMosaic.ts)
