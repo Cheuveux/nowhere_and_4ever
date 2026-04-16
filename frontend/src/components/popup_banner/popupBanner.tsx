@@ -1,48 +1,44 @@
-// import { ReactNode } from 'react';
-import { useEffect, useRef} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import './popupBanner.css';
 
-interface EmailPopupProps {
+interface MeceneButtonProps {
 	isOpen: boolean;
-	onClose: () => void;
-	heading: string;
-	description: string;
-	emailAdress: string;
 }
 
-export default function EmailPopup({
-	isOpen,
-	onClose, 
-	emailAdress,
-}: EmailPopupProps){
-
-	const contentRef = useRef<HTMLDivElement>(null);
-	const overlayRef = useRef<HTMLDivElement>(null);
+export default function MeceneButton({ isOpen }: MeceneButtonProps) {
+	const buttonRef = useRef<HTMLDivElement>(null);
+	const [isHovered, setIsHovered] = useState(false);
 
 	useEffect(() => {
-		if (isOpen && overlayRef.current) {
-			//Overlay fade-in
-			gsap.fromTo(overlayRef.current,
-				{ opacity: 0},
-				{opacity: 1, duration: 0.3, ease: "power2.out"}
+		if (isOpen && buttonRef.current) {
+			// GSAP entrance animation - slide in from top-left with fade
+			gsap.fromTo(
+				buttonRef.current,
+				{ opacity: 0, x: -50, y: -50 },
+				{ opacity: 1, x: 0, y: 0, duration: 0.6, ease: 'back.out' }
 			);
 		}
-	}, [isOpen])
-	if (!isOpen)
-		return (null);
+	}, [isOpen]);
+
+	if (!isOpen) return null;
 
 	return (
-		<div className="popup-overlay" onClick={onClose} ref={overlayRef}>
-			<div className="popup-content" onClick={(e) => e.stopPropagation()} ref={contentRef}>
-				<button className='popup-close' onClick={onClose}>x</button>
-				<a 
-					href="mailto:palomavauthier@gmail.com"
-					className="popup-email-button"
-				>
-					{emailAdress}
-				</a>
-			</div>
+		<div
+			ref={buttonRef}
+			className="mecene-button"
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+		>
+			<img
+				src={
+					isHovered
+						? '/img_assets/btn_popup/mecene_button_hover.png'
+						: '/img_assets/btn_popup/mecene_button.png'
+				}
+				alt="Mecene Button"
+				className="mecene-button-img"
+			/>
 		</div>
-	)
+	);
 }

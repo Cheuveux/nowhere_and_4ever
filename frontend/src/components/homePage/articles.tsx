@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import EmailPopup from "../popup_banner/popupBanner";
+import MeceneButton from "../popup_banner/popupBanner";
 import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
 import './articles.css';
@@ -30,12 +30,7 @@ export default function Article() {
   const [error, setError] = useState<string | null>(null);
   const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
 
-  const [showPopup, setShowPopup] = useState(false);
-  const popupData = {
-    heading: "LOOKING FOR A MECENE",
-    description: "LOOKING FOR A MECENE",
-    emailAdress: "LOOKING FOR A MECENE LOOKING FOR A MECENE LOOKING FOR A MECENE",
-  };
+  const [showMeceneBtn, setShowMeceneBtn] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -86,11 +81,11 @@ export default function Article() {
   }, []);
 
 
-  // Pop-uP Email Timer
+  // Mecene Button Timer
   useEffect(() => { 
     const timer = setTimeout(() => {
-      setShowPopup(true); 
-    }, 100000);
+      setShowMeceneBtn(true); 
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -154,14 +149,8 @@ export default function Article() {
     </div>
   </div>
 
-  {/* Add the popup component */}
-  <EmailPopup
-    isOpen={showPopup}
-    onClose={()=>setShowPopup(false)}
-    heading={popupData.heading}
-    description={popupData.description}
-    emailAdress={popupData.emailAdress}
-  />
+  {/* Add the mecene button */}
+  <MeceneButton isOpen={showMeceneBtn} />
   </div>
   );
 }

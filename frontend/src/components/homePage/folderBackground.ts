@@ -4,28 +4,35 @@ type ContentType = "article" | "conversation" | "quiz" | "mosaic" | "takes";
 
 const pageBackgrounds: Record<ContentType, CSSProperties> = {
 	article: {
+		backgroundImage: 'url(/img_assets/arabesque.png)',
 		backgroundColor: '#5f5fcb',
 		transition: 'all 0.5s cubic-bezier(.77, 0, .18, 1)',
 	},
 	conversation: {
-		backgroundColor: '#a5cb5f',
+		backgroundColor: '#db672d',
+		backgroundImage: 'url(/img_assets/3px-tile.png)',
+		backgroundSize: '20%',
+		backdropFilter: 'blur(2px)',
     	transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
 	},
 	quiz: {
-		backgroundColor: '#815fcb',
+		backgroundColor: '#6fcb5f',
+		backgroundImage: 'url(/img_assets/wild-flowers.png)',
 		backgroundRepeat: 'repeat',
 		backgroundSize: '50%',
 		backgroundPosition: 'center',
 		transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
 	},
 	mosaic: {
-		backgroundColor: '#cb615f',
+		backgroundImage: 'url(/img_assets/escheresque-dark.png)',
+		backgroundColor: '#cb6969',
 		backgroundRepeat: 'repeat',
 		backgroundSize: '3%',
 		backgroundPosition: 'center',
 		transition: 'all 0.3s cubic-bezier(.77,0,.18,1)',
 	},
 	takes: {
+		backgroundImage: 'url(/img_assets/black-thread.png)',
 		backgroundColor: '#5fcbc4',
     	transition: 'all 0.5s cubic-bezier(.77,0,.18,1)',
 	}
@@ -44,6 +51,7 @@ export function getPageBackground(type: ContentType): CSSProperties {
 
 	return {
 		...styles,
+		backdropFilter: 'blur(3px)',
 		'--text-title': textColors[type].title,
 		'--text-author': textColors[type].author,
 	} as CSSProperties & Record<string, string>;
