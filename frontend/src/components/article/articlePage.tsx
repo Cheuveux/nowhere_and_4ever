@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getEndpoint } from "../../config/api";
 gsap.registerPlugin(ScrollTrigger);
 import { renderContent } from "../../utils/renderContent";
 import './articlePage.css'
@@ -13,7 +14,7 @@ export default function ArticlePage() {
 
     useEffect(() => {
         fetch(
-            `http://localhost:1337/api/posts/${id}?populate=illu&populate=music_video&populate[audio_track][populate]=*`
+            getEndpoint(`/posts/${id}?populate=illu&populate=music_video&populate[audio_track][populate]=*`)
         )
             .then((res) => res.json())
             .then((data) => {

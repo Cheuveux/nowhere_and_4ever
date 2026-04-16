@@ -24,8 +24,9 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
 	if (!isOpen) return null;
 
 	return (
-		<div
-			ref={buttonRef}
+		<a
+			href="mailto:palomavauthier@gmail.com"
+			// ref={buttonRef}
 			className="mecene-button"
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
@@ -39,6 +40,6 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
 				alt="Mecene Button"
 				className="mecene-button-img"
 			/>
-		</div>
+		</a>
 	);
 }

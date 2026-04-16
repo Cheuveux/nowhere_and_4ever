@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import MeceneButton from "../popup_banner/popupBanner";
 import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
+import { getEndpoint } from '../../config/api';
 import './articles.css';
 // import gsap from "gsap";
 
@@ -29,16 +30,18 @@ export default function Article() {
   const [posts, setPosts] = useState<HomeItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
   const [showMeceneBtn, setShowMeceneBtn] = useState(false);
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:1337/api/posts", { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch("http://localhost:1337/api/conversations", { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch("http://localhost:1337/api/quizzes", { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch("http://localhost:1337/api/mosaics", { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch("http://localhost:1337/api/takes", { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/posts'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/conversations'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/quizzes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
       .then(([postsData, convsData, quizzesData, mosaicData, takesData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
@@ -81,6 +84,29 @@ export default function Article() {
   }, []);
 
 
+  // Detect touch device on mount
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+  }, []);
+
+  // Handle card tap on mobile
+  const handleCardTap = (e: React.MouseEvent, cardId: string, type: HomeItem['_type']) => {
+    // Only on touch devices
+    if (!isTouchDevice) return;
+
+    // If already expanded, allow navigation on second tap
+    if (expandedCardId === cardId) {
+      setExpandedCardId(null);
+      return;
+    }
+
+    // First tap - show content and change background
+    e.preventDefault();
+    e.stopPropagation();
+    setExpandedCardId(cardId);
+    setHoveredType(type);
+  };
+
   // Mecene Button Timer
   useEffect(() => { 
     const timer = setTimeout(() => {
@@ -111,12 +137,13 @@ export default function Article() {
 
       {posts.map((post, index) => (
   <div 
-    className={`folder-card folder-card--${post._type}`}
+    className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
     key={post.documentId}
-    onMouseEnter={() => setHoveredType(post._type)}
-    onMouseLeave={() => setHoveredType(null)}
+    data-type={post._type}
+    onMouseEnter={() => !isTouchDevice && setHoveredType(post._type)}
+    onMouseLeave={() => !isTouchDevice && setHoveredType(null)}
   >
-      <Link to={getItemLink(post)} className="article-link folder-image-link">
+      <Link to={getItemLink(post)} className="article-link folder-image-link" onClick={(e) => handleCardTap(e, post.documentId, post._type)}>
         <div className="folder-svg-wrapper">
           <img 
             src={getBackgroundImage({ 

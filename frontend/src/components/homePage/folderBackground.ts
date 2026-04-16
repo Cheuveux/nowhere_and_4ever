@@ -27,7 +27,7 @@ const pageBackgrounds: Record<ContentType, CSSProperties> = {
 		backgroundImage: 'url(/img_assets/escheresque-dark.png)',
 		backgroundColor: '#cb6969',
 		backgroundRepeat: 'repeat',
-		backgroundSize: '3%',
+		backgroundSize: '10%',
 		backgroundPosition: 'center',
 		transition: 'all 0.3s cubic-bezier(.77,0,.18,1)',
 	},

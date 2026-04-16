@@ -4,6 +4,8 @@
 	left: 20px;
 	z-index: 500;
 	cursor: pointer;
+	display: inline-block;
+	text-decoration: none;
 }
 
 .mecene-button-img {

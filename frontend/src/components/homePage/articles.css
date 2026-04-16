@@ -20,7 +20,7 @@
   max-width: 700px;
   min-width: 280px;
   height: 150px;
-  max-height: 150px;
+  max-height: 150px; 
   margin-bottom: -110px;
   border-radius: 12px;
   position: relative;
@@ -116,6 +116,30 @@
   color: var(--font-color-dark);
   transition: color 0.5s cubic-bezier(.77, 0, .18, 1);
   font-weight: 900;
+}
+
+/* Mobile - double tap behavior */
+@media (hover: none) and (pointer: coarse) {
+  /* Default: headers hidden */
+  .folder-header {
+    opacity: 0;
+  }
+
+  /* On first tap: show header */
+  .folder-card--expanded .folder-header {
+    opacity: 1;
+  }
+}
+
+/* Desktop - hover behavior */
+@media (hover: hover) {
+  .folder-header {
+    opacity: 0;
+  }
+
+  .folder-card:hover .folder-header {
+    opacity: 1;
+  }
 }
 
 
