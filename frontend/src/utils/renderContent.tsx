@@ -1,6 +1,6 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
-const STRAPI = "http://localhost:1337";
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
 export function renderContent(article: any) {
     if (!article?.Content) return null;
@@ -25,15 +25,15 @@ export function renderContent(article: any) {
 						{
                             const file = article.illu?.[mk.idx];
                             if (!file) return null;
-                            return <img key={j} src={`${STRAPI}${file.url}`} alt={file.alternativeText ?? ""} className={`article-media article-image${cls}`} />;
+                            return <img key={j} src={`${STRAPI_URL}${file.url}`} alt={file.alternativeText ?? ""} className={`article-media article-image${cls}`} />;
                         }
                         if (mk.type === "audio")
 						{
                             const track = article.audio_track?.[mk.idx];
                             if (!track) return null;
 
-                            const audioUrl = track.sound?.url ? `${STRAPI}${track.sound.url}` : null;
-                            const coverUrl = track.cover?.url ? `${STRAPI}${track.cover.url}` : null;
+                            const audioUrl = track.sound?.url ? `${STRAPI_URL}${track.sound.url}` : null;
+                            const coverUrl = track.cover?.url ? `${STRAPI_URL}${track.cover.url}` : null;
                             if (!audioUrl) return null;
 
                             return (
@@ -72,7 +72,7 @@ export function renderContent(article: any) {
 						{
                             const file = article.music_video?.[mk.idx];
                             if (!file) return null;
-                            return <video key={j} controls src={`${STRAPI}${file.url}`} className={`article-media article-video${cls}`} />;
+                            return <video key={j} controls src={`${STRAPI_URL}${file.url}`} className={`article-media article-video${cls}`} />;
                         }
                         return null;
                     });
