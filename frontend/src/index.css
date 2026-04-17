@@ -98,9 +98,6 @@ button:focus-visible {
   :root {
     font-size: 0.85em;
   }
-  body, h1, h2, h3, h4, h5, h6, p, a, button, div, span {
-    font-weight: 900 !important;
-  }
   h1 {
     font-size: 1.5em;
   }
