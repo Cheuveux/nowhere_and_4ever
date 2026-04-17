@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css'
 import App from './App.tsx'
 
-const basename = import.meta.env.MODE === "production" ? "/nowhere_and_4ever" : "/";
+const basename = "/";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
