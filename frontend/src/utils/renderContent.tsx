@@ -1,6 +1,97 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { useState, useRef, useEffect } from "react";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
+
+/* Radio Audio Player Component */
+function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverUrl: string | null; mk: any }) {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const isDiskInsertedRef = useRef(false);
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const diskContentRef = useRef<HTMLDivElement>(null);
+
+    const insertDisk = () => {
+        if (isDiskInsertedRef.current) return;
+        
+        const diskContent = diskContentRef.current;
+        if (!diskContent) return;
+
+        let pos = 750;
+        isDiskInsertedRef.current = true;
+
+        const animationInterval = setInterval(() => {
+            if (pos <= 0) {
+                clearInterval(animationInterval);
+            } else {
+                pos++;
+                diskContent.style.top = (800 - pos) + 'px';
+            }
+        }, 5);
+    };
+
+    const retractDisk = () => {
+        const diskContent = diskContentRef.current;
+        if (!diskContent) return;
+
+        let pos = 0;
+        isDiskInsertedRef.current = false;
+
+        const animationInterval = setInterval(() => {
+            if (pos >= 750) {
+                clearInterval(animationInterval);
+                diskContent.style.top = '800px';
+            } else {
+                pos++;
+                diskContent.style.top = (800 - pos) + 'px';
+            }
+        }, 5);
+    };
+
+    const handlePlayClick = (e: React.MouseEvent) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        if (!isDiskInsertedRef.current) {
+            insertDisk();
+        }
+
+        if (audio.paused) {
+            audio.play();
+            setIsPlaying(true);
+        } else {
+            audio.pause();
+            setIsPlaying(false);
+            retractDisk();
+        }
+    };
+
+    return (
+        <div className="radio-container">
+            <button
+                className={`radio-play-button ${isPlaying ? 'is-playing' : ''}`}
+                onClick={handlePlayClick}
+            >
+                {isPlaying ? 'STOP ME' : ' INSERT ME'}
+            </button>
+            <div className="radio-top">
+                <img src="/img_assets/radio_assets/radio_type_4ever_top.png" alt="radio top" />
+            </div>
+            <div className="radio-content" ref={diskContentRef}>
+                {coverUrl ? (
+                    <img src={coverUrl} alt="audio cover" />
+                ) : (
+                    <img src="/img_assets/radio_assets/radio_type_4ever.png" alt="radio disk" />
+                )}
+            </div>
+            <audio
+                ref={audioRef}
+                src={audioUrl}
+                preload="metadata"
+                onEnded={() => setIsPlaying(false)}
+            />
+        </div>
+    );
+}
 
 export function renderContent(article: any) {
     if (!article?.Content) return null;
@@ -37,34 +128,8 @@ export function renderContent(article: any) {
                             if (!audioUrl) return null;
 
                             return (
-                                <div key={j} className={`article-audio-card${cls}`}>
-                                    <div className="article-audio-visual">
-                                        {coverUrl && (
-                                            <img
-                                                src={coverUrl}
-                                                alt="audio cover"
-                                                className="article-audio-cover"
-                                            />
-                                        )}
-                                        <button
-                                            className="article-audio-play"
-                                            onClick={(e) => {
-                                                const card = (e.currentTarget as HTMLButtonElement).closest(".article-audio-card");
-                                                const audio = card?.querySelector("audio") as HTMLAudioElement | null;
-                                                if (!audio) return;
-                                                if (audio.paused) {
-                                                    audio.play();
-                                                    e.currentTarget.classList.add("is-playing");
-                                                } else {
-                                                    audio.pause();
-                                                    e.currentTarget.classList.remove("is-playing");
-                                                }
-                                            }}
-                                        >
-                                            ▶
-                                        </button>
-                                    </div>
-                                    <audio className="article-audio-element" src={audioUrl} preload="metadata" />
+                                <div key={j} className={cls}>
+                                    <RadioAudioPlayer audioUrl={audioUrl} coverUrl={coverUrl} mk={mk} />
                                 </div>
                             );
                         }
