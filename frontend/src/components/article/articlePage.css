@@ -279,4 +279,8 @@ body {
   .radio-container {
     height: 400px;
   }
+  .radio-play-button {
+    width: 32px;
+    height: 32px; 
+  }
 }

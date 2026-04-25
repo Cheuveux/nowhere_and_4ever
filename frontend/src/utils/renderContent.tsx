@@ -1,10 +1,10 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
 /* Radio Audio Player Component */
-function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverUrl: string | null; mk: any }) {
+function RadioAudioPlayer({ audioUrl, coverUrl }: { audioUrl: string; coverUrl: string | null }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const isDiskInsertedRef = useRef(false);
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -48,7 +48,7 @@ function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverU
         }, 5);
     };
 
-    const handlePlayClick = (e: React.MouseEvent) => {
+    const handlePlayClick = () => {
         const audio = audioRef.current;
         if (!audio) return;
 
@@ -134,7 +134,7 @@ export function renderContent(article: any) {
 
                             return (
                                 <div key={j} className={cls}>
-                                    <RadioAudioPlayer audioUrl={audioUrl} coverUrl={coverUrl} mk={mk} />
+                                    <RadioAudioPlayer audioUrl={audioUrl} coverUrl={coverUrl} />
                                 </div>
                             );
                         }
