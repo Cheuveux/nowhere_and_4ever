@@ -16,15 +16,16 @@ function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverU
         const diskContent = diskContentRef.current;
         if (!diskContent) return;
 
-        let pos = 750;
+        let currentTop = 50; // Position initiale visible (en bas)
         isDiskInsertedRef.current = true;
 
         const animationInterval = setInterval(() => {
-            if (pos <= 0) {
+            if (currentTop <= -300) { // Remonte vers le haut et disparaît derrière la radio
                 clearInterval(animationInterval);
+                diskContent.style.top = '-300px';
             } else {
-                pos++;
-                diskContent.style.top = (800 - pos) + 'px';
+                currentTop -= 2; 
+                diskContent.style.top = currentTop + 'px';
             }
         }, 5);
     };
@@ -33,16 +34,16 @@ function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverU
         const diskContent = diskContentRef.current;
         if (!diskContent) return;
 
-        let pos = 0;
+        let currentTop = -300; // Position rentrée (cachée en haut)
         isDiskInsertedRef.current = false;
 
         const animationInterval = setInterval(() => {
-            if (pos >= 750) {
+            if (currentTop >= 50) { // Redescend vers sa position de lancement et redevient visible
                 clearInterval(animationInterval);
-                diskContent.style.top = '800px';
+                diskContent.style.top = '50px';
             } else {
-                pos++;
-                diskContent.style.top = (800 - pos) + 'px';
+                currentTop += 2;
+                diskContent.style.top = currentTop + 'px';
             }
         }, 5);
     };
@@ -71,7 +72,11 @@ function RadioAudioPlayer({ audioUrl, coverUrl, mk }: { audioUrl: string; coverU
                 className={`radio-play-button ${isPlaying ? 'is-playing' : ''}`}
                 onClick={handlePlayClick}
             >
-                {isPlaying ? 'STOP ME' : ' INSERT ME'}
+            <img 
+                src={isPlaying ? '/img_assets/radio_assets/audio-pause.svg' : '/img_assets/radio_assets/audio-play.svg'} 
+                alt=""
+             />
+                
             </button>
             <div className="radio-top">
                 <img src="/img_assets/radio_assets/radio_type_4ever_top.png" alt="radio top" />
