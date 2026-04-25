@@ -14,6 +14,10 @@ export function CommentSection({articleId}: { articleId?: string}) {
     const [pseudo, setPseudo] = useState("");
     const [newCommentText, setNewCommentText] = useState("");
     const [isPosting, setIsPosting] = useState(false);
+    
+    // ETAT POUR LE POP-UP DE PRÉVENTION
+    const [showWarning, setShowWarning] = useState(false);
+    const [hasAgreed, setHasAgreed] = useState(false);
 
     useEffect(() => {
         const loadComments = async () => {
@@ -55,12 +59,47 @@ export function CommentSection({articleId}: { articleId?: string}) {
         }
     };
 
+    // QUAND ON CLIQUE POUR ECRIRE ON DECLENCHE LE POPUP SI NON VU
+    const handleInputFocus = () => {
+        if (!hasAgreed) {
+            setShowWarning(true);
+        }
+    };
+
+    // QUAND ON ACCEPTE LES REGLES DU POPUP
+    const handleAgreeWarning = () => {
+        setHasAgreed(true);
+        setShowWarning(false);
+    };
+
     if (loading) return (<div className="comments-loading">Chargement des commentaires</div>);
     if (error) return(<div className="comments-error">{error}</div>);
 
     return(
         <section className="comments-section">
-            <h3> Commentaires ({comments.length})</h3>
+            {showWarning && (
+                <div className="comment-warning-overlay">
+                    <div className="comment-warning-popup">
+                        <h2>Règles de l'espace de discussion</h2>
+                        <p>
+                            Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe. 
+                            Nous voulons faire de ce blog un espace de réflexion qui échapperait peut-être 
+                            de manière utopique aux oppositions systématiques. Merci, pour cette raison, 
+                            de préserver l'existence même de cet espace de débat en évitant les formulations 
+                            explicitement insultantes, haineuses ou diffamatoires.
+                        </p>
+                        <p>
+                            Si vous souhaitez appuyer vos idées par des articles de presse, merci de référencer 
+                            l'URL plutôt que d'en recopier le contenu, qui est une propriété intellectuelle légale.
+                        </p>
+                        <button type="button" onClick={handleAgreeWarning} className="btn-agree-warning">
+                            J'ai compris
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <h3> Espace commentaire</h3>
 
             {/* NOUVEAU FORMULAIRE */}
             <form onSubmit={handleSubmit} className="comment-form" style={{ marginBottom: '2rem' }}>
@@ -68,6 +107,8 @@ export function CommentSection({articleId}: { articleId?: string}) {
                     <select
                         value={pseudo}
                         onChange={(e) => setPseudo(e.target.value)}
+                        onFocus={handleInputFocus}
+                        onClick={handleInputFocus}
                         disabled={isPosting}
                         style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                     >
@@ -81,6 +122,8 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         placeholder="Laissez un commentaire..." 
                         value={newCommentText} 
                         onChange={(e) => setNewCommentText(e.target.value)}
+                        onFocus={handleInputFocus}
+                        onClick={handleInputFocus}
                         required
                         disabled={isPosting} 
                         rows={4}
@@ -106,10 +149,10 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         });
 
                         return (
-                            <div key={comment.id} className="commment-item" style={{ borderBottom: '1px solid #eee', margin: '1rem 0', paddingBottom: '1rem' }}>
+                            <div key={comment.id} className="comment-item" >
                                 <div className="comment-header">
                                     <strong>{comment.Pseudos || "anonymous"}</strong>
-                                    <span className="date" style={{ fontSize: '0.8em', color: 'gray', marginLeft: '10px' }}>
+                                    <span className="date">
                                         {date}
                                     </span>
                                 </div>
