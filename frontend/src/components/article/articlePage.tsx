@@ -1,3 +1,4 @@
+import { CommentSection } from "../comments/commentSection";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import gsap from "gsap";
@@ -66,6 +67,9 @@ export default function ArticlePage() {
             </div>
             <div className="article-content">
                 {renderContent(article)}
+            </div>
+            <div className="article-comments-container">
+                <CommentSection articleId={article.id} />
             </div>
         </div>
     );
