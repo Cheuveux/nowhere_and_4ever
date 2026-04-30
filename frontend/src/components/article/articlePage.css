@@ -1,3 +1,9 @@
+/* Article page background */
+body {
+	background-color: #1a1a1a !important;
+	background-image: none !important;
+}
+
 /* Article_page header */
 .articlePage-header {
 	position: relative;
@@ -52,11 +58,7 @@
   font-size: 1rem;
 }
 
-/* Article page background */
-body {
-	background-color: #1a1a1a !important;
-	background-image: none !important;
-}
+
 @media screen and (max-width: 900px) {
 
 }
@@ -65,7 +67,7 @@ body {
 
   .articlePage-header {
     position: relative;
-    height: 20vh;
+    height: 30vh;
   }
 	.return_btn {
 		font-size: 0.8rem;

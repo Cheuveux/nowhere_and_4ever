@@ -60,8 +60,10 @@ export function CommentSection({articleId}: { articleId?: string}) {
     };
 
     // QUAND ON CLIQUE POUR ECRIRE ON DECLENCHE LE POPUP SI NON VU
-    const handleInputFocus = () => {
+    const handleInputFocus = (e: React.SyntheticEvent) => {
         if (!hasAgreed) {
+            e.preventDefault();
+            (e.target as HTMLElement).blur(); // Retire le focus pour empêcher le clavier de s'ouvrir
             setShowWarning(true);
         }
     };
