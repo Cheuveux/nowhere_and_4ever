@@ -19,19 +19,19 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 function Intro({ onStart }: { onStart: () => void }) {
   return (
     <div className="dq-card">
-      <div className="dq-eyebrow">✦ political profiling ✦</div>
+      <div className="dq-eyebrow">✦ delulu profiling ✦</div>
       <h1 className="dq-title">
         <span>How</span>
         <span className="dq-title__accent">Delusional</span>
         <span>Are You?</span>
       </h1>
       <p className="dq-intro-sub">
-        10 questions. 4 possible fates.<br />
+        10 questions. 4 profils differents.<br />
         Find out where you land on the spectrum from{" "}
         <em>well-adjusted human</em> to <em>certified ideological bunker-dweller</em>.
       </p>
       <div className="dq-disclaimer">⚠ Not a real diagnosis. Mostly.</div>
-      <button className="dq-btn" onClick={onStart}>Begin the assessment →</button>
+      <button className="dq-btn" onClick={onStart}>Debuter son diagnostic →</button>
     </div>
   );
 }
@@ -74,7 +74,7 @@ function QuestionCard({ question, index, total, onAnswer }: {
         onClick={handleNext}
         disabled={selected === null}
       >
-        {index + 1 === total ? "See my result →" : "Next →"}
+        {index + 1 === total ? "Voir mon diag →" : "la suite →"}
       </button>
     </div>
   );
@@ -86,9 +86,11 @@ function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: ()
 
   return (
     <div className="dq-card">
+    <div className="dq-result-header">
       <div className="dq-result-tag">{result.tag}</div>
       <h2 className="dq-result-title" style={{ color: result.color }}>{result.label}</h2>
       <div className="dq-result-score">{totalPoints} / 300 pts</div>
+    </div>
       <p className="dq-result-desc">{result.description}</p>
       <div className="dq-bar-wrap">
         <div className="dq-bar-track">
@@ -96,7 +98,7 @@ function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: ()
         </div>
         <div className="dq-bar-labels"><span>Sane</span><span>Delulu</span></div>
       </div>
-      <button className="dq-btn dq-btn--ghost" onClick={onRestart}>↺ Retake the test</button>
+      <button className="dq-btn dq-btn--ghost" onClick={onRestart}>↺ Recommencer le test</button>
     </div>
   );
 }
