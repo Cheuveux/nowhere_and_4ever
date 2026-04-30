@@ -142,4 +142,10 @@
   }
 }
 
+@media screen and (max-width: 625px)
+{
+  .folder-card--footer {
+    width: 320px;
+  }
+}
 

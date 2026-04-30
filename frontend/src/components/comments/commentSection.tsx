@@ -99,7 +99,7 @@ export function CommentSection({articleId}: { articleId?: string}) {
                 </div>
             )}
 
-            <h3> Espace commentaire</h3>
+            <h3 className="comments-section--title"> Espace commentaire</h3>
 
             {/* NOUVEAU FORMULAIRE */}
             <form onSubmit={handleSubmit} className="comment-form" style={{ marginBottom: '2rem' }}>
@@ -139,7 +139,7 @@ export function CommentSection({articleId}: { articleId?: string}) {
 
             <div className="comments-list">
                 {comments.length === 0 ? (
-                    <div className="empty-comments">Aucun commentaire pour le moment. Soyez le premier !</div>
+                    <div className="empty-comments">Sois le/la premier.ère à laisser ta trace</div>
                 ) : (
                     comments.map((comment) => {
                         const date = new Date(comment.createdAt).toLocaleDateString("fr-Fr", {
