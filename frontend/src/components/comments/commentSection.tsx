@@ -38,8 +38,8 @@ export function CommentSection({articleId}: { articleId?: string}) {
     // NOUVELLE FONCTION POUR GERER LA SOUMISSION
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Si pas de texte ou pas d'articleId, on bloque
-        if (!articleId || !newCommentText.trim()) return;
+        // Si pas de texte, pas de pseudo ou pas d'articleId, on bloque
+        if (!articleId || !newCommentText.trim() || !pseudo) return;
 
         try {
             setIsPosting(true);
@@ -107,14 +107,16 @@ export function CommentSection({articleId}: { articleId?: string}) {
                     <select
                         value={pseudo}
                         onChange={(e) => setPseudo(e.target.value)}
-                        onFocus={handleInputFocus}
-                        onClick={handleInputFocus}
                         disabled={isPosting}
+                        required
                         style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                     >
-                        <option value="">Sélectionnez un pseudo (Anonyme)</option>
-                        <option value="sunday">sunday</option>
-                        <option value="morning">morning</option>
+                        <option value="" disabled>Choisis ton blaz</option>
+                        <option value="𐔌՞. .՞𐦯">{"𐔌՞. .՞𐦯"}</option>
+                        <option value="₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾">{"₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾"}</option>
+                        <option value="(˶>⩊<˶)">{"(˶>⩊<˶)"}</option>
+                        <option value="(╥﹏╥)">{"(╥﹏╥)"}</option>
+                        <option value="(๑ᵔ⤙ᵔ๑)">{"(๑ᵔ⤙ᵔ๑)"}</option>
                     </select>
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
@@ -130,8 +132,8 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                     />
                 </div>
-                <button type="submit" disabled={isPosting || !newCommentText.trim()}>
-                    {isPosting ? 'Envoi...' : 'Publier le commentaire'}
+                <button type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
+                    {isPosting ? 'Envoi en cours...' : 'Poster'}
                 </button>
             </form>
 

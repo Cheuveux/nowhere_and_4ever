@@ -11,27 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Pseudo": {
-      "type": "string"
-    },
     "Comment": {
       "type": "blocks"
-    },
-    "Photo_de_profil": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
     },
     "post": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::post.post",
       "inversedBy": "comments"
+    },
+    "Pseudos": {
+      "type": "string"
     }
   }
 }
