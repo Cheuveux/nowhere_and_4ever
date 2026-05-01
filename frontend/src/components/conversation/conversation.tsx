@@ -1,5 +1,6 @@
 import {useParams, Link } from "react-router-dom";
 import { useEffect, useState, useRef, useMemo} from "react";
+import { getEndpoint } from "../../config/api";
 import './conversation.css'
 import '../../index.css'
 interface Message {
@@ -136,7 +137,7 @@ export default function ConversationPage() {
 	const bottomRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		fetch(`http://localhost:1337/api/conversations/${id}?populate=Visual_content`)
+		fetch(getEndpoint(`/conversations/${id}?populate=Visual_content`))
 			.then(res => res.json())
 			.then(data => {
 				setPost(data.data ?? null);
@@ -144,9 +145,10 @@ export default function ConversationPage() {
 			});
 	}, [id]);
 
-	const windowUrl = post?.Visual_content?.[0]?.url
-		? `http://localhost:1337${post.Visual_content[0].url}`
-		: '';
+const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
+const windowUrl = post?.Visual_content?.[0]?.url
+    ? `${strapiUrl}${post.Visual_content[0].url}`
+    : '';
 
 	const messages = useMemo(() =>
 		post?.Conversation_content ? parseConversationBlocks(post.Conversation_content) : [],
