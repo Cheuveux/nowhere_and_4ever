@@ -8,6 +8,23 @@ interface Message {
 	text: string;
 }
 
+function getRandomBashPrefix() {
+	const users = ["user", "cheveut", "fisher", "vautiez", "boneTet"];
+	const hosts = ["localhost", "bin", "void", "dreambox", "02"];
+	const paths = ["~", "/home", "/etc", "/var/log", "/dreams"];
+	
+	const user = users[Math.floor(Math.random() * users.length)];
+	const host = hosts[Math.floor(Math.random() * hosts.length)];
+	const path = paths[Math.floor(Math.random() * paths.length)];
+	
+	return `${user}@${host}:${path}$`;
+}
+
+function getRandomPrefixColor() {
+	const colors = ["#205320", "#7c227c", "#1cafaf", "#b7b723", "#aa5f2d"];
+	return colors[Math.floor(Math.random() * colors.length)];
+}
+
 function parseConversationBlocks(blocks: any[]): Message[] {
 	const raw = blocks
 		.filter(b => b.type === "paragraph")
@@ -34,14 +51,30 @@ function parseConversationBlocks(blocks: any[]): Message[] {
 }
 
 function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
-	const [typed, setTyped] = useState<{sender: "left"|"right"; name:string; text: string}[]>([]);
+	const [typed, setTyped] = useState<{sender: "left"|"right"; name:string; text: string; bashPrefix: string; prefixColor: string}[]>([]);
 	const msgIdxRef = useRef(0);
 	const charIdxRef = useRef(0);
+	const bashPrefixesRef = useRef<{prefix: string; color: string}[]>([]);
+	const glitchTimesRef = useRef<Set<number>>(new Set());
 
 	useEffect(() => {
 		if (!messages.length) return;
 		msgIdxRef.current = 0;
 		charIdxRef.current = 0;
+		
+		// Générer les prefixes et couleurs une seule fois
+		bashPrefixesRef.current = messages.map(() => ({
+			prefix: getRandomBashPrefix(),
+			color: getRandomPrefixColor()
+		}));
+		
+		// Générer 2-3 indices aléatoires pour faire glitch
+		glitchTimesRef.current = new Set();
+		const glitchCount = Math.floor(Math.random() * 5) + 5; // 2 ou 3
+		for (let i = 0; i < glitchCount; i++) {
+			glitchTimesRef.current.add(Math.floor(Math.random() * messages.length));
+		}
+		
 		setTyped([]);
 
 		let active = true;
@@ -55,11 +88,19 @@ function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
 			const msg = messages[msgIdx];
 			charIdxRef.current++;
 			const charIdx = charIdxRef.current;
+			
+			// Faire glitch le prefix si c'est l'heure
+			let bashPrefix = bashPrefixesRef.current[msgIdx].prefix;
+			let prefixColor = bashPrefixesRef.current[msgIdx].color;
+			if (glitchTimesRef.current.has(msgIdx) && Math.random() > 0.5) {
+				bashPrefix = getRandomBashPrefix();
+				prefixColor = getRandomPrefixColor();
+			}
 
 			// Affiche le texte courant
 			setTyped(prev => {
 				const updated = [...prev];
-				updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text.slice(0, charIdx) };
+				updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text.slice(0, charIdx), bashPrefix, prefixColor };
 				return updated;
 			});
 
@@ -67,7 +108,7 @@ function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
 				// Message complet : force le texte intégral puis passe au suivant
 				setTyped(prev => {
 					const updated = [...prev];
-					updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text };
+					updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text, bashPrefix, prefixColor };
 					return updated;
 				});
 				msgIdxRef.current++;
@@ -134,12 +175,18 @@ export default function ConversationPage() {
 				<div className="chat-messages">
 					{typed.map((msg, i) => (
 						<div key={i} className={`bubble-wrapper ${msg.sender}`}>
+							{msg.sender === "left" && (
+								<span className="bash-prefix" style={{ color: msg.prefixColor }}>{msg.bashPrefix}</span>
+							)}
 							<div className={`bubble ${msg.sender}`}>
 								{msg.text}
 								{i === typed.length - 1 && i < messages.length - 1 && (
 									<span className="cursor">|</span>
 								)}
 							</div>
+							{msg.sender === "right" && (
+								<span className="bash-prefix" style={{ color: msg.prefixColor }}>{msg.bashPrefix}</span>
+							)}
 						</div>
 						))}
 						<div ref= {bottomRef}/>
