@@ -122,6 +122,10 @@
 		left: 50%;
 		transform: translateX(-50%);
 	}
+	.chat-messages {
+		bottom: 10%;
+		gap: 6px;
+	}
 	.bubble {
 	max-width: 60%;
 	padding: 4px 6px;

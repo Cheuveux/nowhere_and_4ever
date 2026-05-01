@@ -22,7 +22,7 @@ function getRandomBashPrefix() {
 }
 
 function getRandomPrefixColor() {
-	const colors = ["#205320", "#7c227c", "#1cafaf", "#b7b723", "#aa5f2d"];
+	const colors = ["#0004ff", "#fa0f0f", "#6aff00", "#000000", "#9900ff"];
 	return colors[Math.floor(Math.random() * colors.length)];
 }
 

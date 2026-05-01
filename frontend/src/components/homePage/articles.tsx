@@ -30,6 +30,7 @@ export default function Article() {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
   const [introText, setIntroText] = useState<any>(null);
+  const [showIntro, setShowIntro] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -82,6 +83,12 @@ export default function Article() {
 
         if (introsData?.data?.[0]?.Texte) {
           setIntroText(introsData.data[0].Texte);
+          // Vérifier si on a déjà vu l'intro
+          const hasSeenIntro = localStorage.getItem('hasSeenBlogIntro');
+          if (!hasSeenIntro) {
+            setShowIntro(true);
+            localStorage.setItem('hasSeenBlogIntro', 'true');
+          }
         }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard, ...(takes as HomeItem[])]);
@@ -128,7 +135,7 @@ export default function Article() {
 
   return (
     <>
-      {introText && (
+      {showIntro && introText && (
         <div 
           className="blog-intro"
           style={hoveredType ? getPageBackground(hoveredType) : {}}

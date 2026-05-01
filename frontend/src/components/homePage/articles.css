@@ -11,6 +11,7 @@
   background-color: var(--home-page-bg-color);
   color: rgb(1, 0, 0);
   line-height: 1.7;
+  font-family: 'Andale Mono', monospace;
 }
 
 .blog-intro p {

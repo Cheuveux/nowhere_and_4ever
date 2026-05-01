@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "start": "node server.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -13,6 +14,7 @@
   },
   "dependencies": {
     "@strapi/blocks-react-renderer": "^1.0.2",
+    "express": "^4.18.2",
     "gsap": "^3.14.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
