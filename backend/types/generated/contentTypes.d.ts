@@ -495,6 +495,31 @@ export interface ApiConversationConversation
   };
 }
 
+export interface ApiIntroIntro extends Struct.CollectionTypeSchema {
+  collectionName: 'intros';
+  info: {
+    displayName: 'Intro';
+    pluralName: 'intros';
+    singularName: 'intro';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::intro.intro'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Texte: Schema.Attribute.Blocks;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMosaicMosaic extends Struct.CollectionTypeSchema {
   collectionName: 'mosaics';
   info: {
@@ -1136,6 +1161,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::comment.comment': ApiCommentComment;
       'api::conversation.conversation': ApiConversationConversation;
+      'api::intro.intro': ApiIntroIntro;
       'api::mosaic.mosaic': ApiMosaicMosaic;
       'api::post.post': ApiPostPost;
       'api::quizz.quizz': ApiQuizzQuizz;

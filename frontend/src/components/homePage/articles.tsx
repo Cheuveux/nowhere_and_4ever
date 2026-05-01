@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import MeceneButton from "../popup_banner/popupBanner";
 import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
@@ -28,6 +29,7 @@ export default function Article() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
+  const [introText, setIntroText] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -42,8 +44,9 @@ export default function Article() {
       fetch(getEndpoint('/quizzes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/intros'), { headers: { Accept: "application/json" } }).then(r => r.json()).catch(() => null),
     ])
-      .then(([postsData, convsData, quizzesData, mosaicData, takesData]) => {
+      .then(([postsData, convsData, quizzesData, mosaicData, takesData, introsData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
         const takes = (takesData.data || []).map((c: any) => ({ 
@@ -76,6 +79,10 @@ export default function Article() {
               Description: "Visual gallery collection",
             }]
           : [];
+
+        if (introsData?.data?.[0]?.Texte) {
+          setIntroText(introsData.data[0].Texte);
+        }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard, ...(takes as HomeItem[])]);
         setIsLoading(false);
@@ -120,11 +127,21 @@ export default function Article() {
   if (!posts.length) return <p>No articles found.</p>;
 
   return (
-    <div 
-      className="folders-stack"
-      style={hoveredType ? getPageBackground(hoveredType) : {}}
-    >
-      {/* Header folder at the top */}
+    <>
+      {introText && (
+        <div 
+          className="blog-intro"
+          style={hoveredType ? getPageBackground(hoveredType) : {}}
+        >
+          
+          <BlocksRenderer content={introText} />
+        </div>
+      )}
+      <div 
+        className="folders-stack"
+        style={hoveredType ? getPageBackground(hoveredType) : {}}
+      >
+        {/* Header folder at the top */}
       <div className="folder-card folder-card--header">
         <div className="folder-svg-wrapper">
           <img 
@@ -179,5 +196,6 @@ export default function Article() {
   {/* Add the mecene button */}
   <MeceneButton isOpen={showMeceneBtn} />
   </div>
+    </>
   );
 }
