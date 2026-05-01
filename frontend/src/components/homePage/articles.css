@@ -22,6 +22,7 @@
 {
   .blog-intro {
     padding: .5rem;
+    line-height: 1.2;
   }
   .blog-intro p {
     max-width: 350px;
@@ -175,6 +176,14 @@
 
 @media screen and (max-width: 625px)
 {
+  .folders-stack {
+    height: auto;
+    min-height: 80vh;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
   .folder-card--footer {
     width: 320px;
   }
