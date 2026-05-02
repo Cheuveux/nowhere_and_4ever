@@ -8,9 +8,9 @@ import { getEndpoint } from '../../config/api';
 import './articles.css';
 // import gsap from "gsap";
 
-// ===== ICÔNES ALÉATOIRES =====
-// Importez le conteneur pour envelopper le contenu avec des icônes décoratives
-import { IconSpotContainer } from '../random-icon/RandomIconSpot';
+// ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
+// Utilisez InteractiveIconContainer pour avoir les icônes cliquables + modal de partage
+import { InteractiveIconContainer } from '../random-icon/InteractiveIcon';
 
 type HomeItem = {
   documentId: string;
@@ -87,12 +87,8 @@ export default function Article() {
 
         if (introsData?.data?.[0]?.Texte) {
           setIntroText(introsData.data[0].Texte);
-          // Vérifier si on a déjà vu l'intro
-          const hasSeenIntro = localStorage.getItem('hasSeenBlogIntro');
-          if (!hasSeenIntro) {
-            setShowIntro(true);
-            localStorage.setItem('hasSeenBlogIntro', 'true');
-          }
+          // ✅ Afficher l'intro à chaque fois (sans localStorage)
+          setShowIntro(true);
         }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard, ...(takes as HomeItem[])]);
@@ -150,27 +146,33 @@ export default function Article() {
       )}
       
       {/* 
-        ===== ICÔNES ALÉATOIRES =====
-        Cet IconSpotContainer affiche des icônes décoratives aléatoires
-        aux coins de la section principal.
+        ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
+        
+        Cet InteractiveIconContainer affiche des icônes cliquables
+        avec randomness sur la taille et la position.
+        
+        💡 CLIQUEZ SUR UNE ICÔNE = Modal de partage s'ouvre!
         
         PARAMÈTRES :
-        - probability: 0.3 = 30% de chance que chaque icône s'affiche
-        - spotCount: 2 = 2 emplacements pour des icônes
-        - positions: ['top-left', 'bottom-right'] = aux coins
-        - iconSize: 45 = taille en pixels
+        - probability: 1 = 100% d'affichage (changez en 0.3-0.7 pour du aléatoire)
+        - spotCount: 2 = 2 icônes
+        - positions: positions d'affichage (essayez 'random' pour aléatoire!)
+        - iconSize: 80 = taille en pixels
+        - sizeVariation: 0.3 = la taille varie de ±30% ✨
+        - positionVariation: 30 = la position varie de ±30px ✨
         
-        MODIFIEZ CES VALEURS :
-        - Augmentez probability pour plus d'icônes (0.5, 0.7, etc)
-        - Modifiez spotCount pour plus d'emplacements
-        - Changez positions : 'top-right', 'bottom-left', 'center'
-        - Ajustez iconSize pour la taille (30-80 pixels)
+        TEST :
+        - Rafraîchissez la page plusieurs fois
+        - Voyez comment les icônes changent de taille/position
+        - Cliquez sur une icône pour partager!
       */}
-      <IconSpotContainer 
+      <InteractiveIconContainer
         probability={1}
         spotCount={2}
-        positions={['top-right', 'bottom-right']}
-        iconSize={150}
+        positions={['bottom-left', 'bottom-right']}
+        iconSize={180}
+        sizeVariation={0.3}        // ✨ Variation de taille
+        positionVariation={30}     // ✨ Variation de position
       >
         <div 
           className="folders-stack"
@@ -228,7 +230,7 @@ export default function Article() {
       </div>
     </div>
         </div>
-      </IconSpotContainer>
+      </InteractiveIconContainer>
 
   {/* Add the mecene button */}
   <MeceneButton isOpen={showMeceneBtn} />

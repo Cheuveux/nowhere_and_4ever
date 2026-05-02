@@ -3,15 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './takesPage.css'
 
-// ===== ICÔNES ALÉATOIRES =====
-// Importez le composant pour ajouter des icônes positionnées
-import { RandomIconSpot } from '../random-icon/RandomIconSpot';
+// ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
+// Utilisez InteractiveIcon pour des icônes cliquables avec modal de partage
+import { InteractiveIcon } from '../random-icon/InteractiveIcon';
 
 export default function TakePage() {
     const { id } = useParams();
     const [takes, setArticle] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const  icon_size = 150;
+
     useEffect(() => {
         // Include all relations/media with populate=*
         fetch(
@@ -76,32 +76,28 @@ export default function TakePage() {
     return (
         <div className="takes-page" style={{ position: 'relative' }}>
             {/* 
-              ===== ICÔNES ALÉATOIRES (Coin haut droit) =====
-              Cet élément ajoute une icône aléatoire au coin haut droit.
+              ✨ ICÔNES ALÉATOIRES + PARTAGE (Coin haut droit)
+              Cliquez sur l'icône pour partager!
               
-              PARAMÈTRES :
-              - position: les options sont 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'center'
-              - probability: 0.5 = 50% de chance d'affichage
-              - size: 50 = taille en pixels
-              - animate: true = animation flottante
-              
-              ESSAYEZ :
-              - Changez position en 'top-left' ou 'bottom-left'
-              - Modifiez probability : 0.1 (rare), 0.7 (fréquent), 1 (toujours)
-              - Ajustez size : 30 (petit), 60 (grand)
+              sizeVariation={0.3} = taille varie de ±30%
+              positionVariation={30} = position varie de ±30px
             */}
-            <RandomIconSpot 
+            <InteractiveIcon 
               position="top-right" 
-              probability={1} 
-              size={icon_size}
+              probability={1}
+              size={80}
+              sizeVariation={0.3}
+              positionVariation={30}
               animate={true}
             />
             
-            {/* ===== ICÔNES ALÉATOIRES (Coin bas gauche) ===== */}
-            <RandomIconSpot 
+            {/* ✨ Deuxième icône (Coin bas gauche) */}
+            <InteractiveIcon 
               position="bottom-left" 
-              probability={1} 
-              size={icon_size}
+              probability={1}
+              size={80}
+              sizeVariation={0.3}
+              positionVariation={30}
               animate={true}
             />
             
