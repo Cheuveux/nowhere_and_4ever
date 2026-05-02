@@ -1,0 +1,51 @@
+services:
+  # ============================================
+  # Frontend Service (React + Express)
+  # ============================================
+  - type: web
+    name: 4ever-site-frontend
+    env: node
+    region: frankfurt  # Ou autre région proche
+    plan: free  # Ou paid si nécessaire
+    
+    # 📁 Répertoire racine du code frontend
+    rootDir: frontend
+    
+    # 📦 Installation des dépendances
+    buildCommand: npm install && npm run build
+    
+    # 🚀 Commande pour démarrer le serveur
+    startCommand: npm start
+    
+    # 🎯 Port (Render assignera automatiquement un PORT)
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: NODE_ENV
+        value: production
+    
+    # 🔍 Health check
+    healthCheckPath: /
+    
+    # ⏱️ Timeout (augmenté car Render peut être lent au démarrage)
+    numInstances: 1
+
+  # ============================================
+  # Backend Service (Strapi) - OPTIONNEL
+  # ============================================
+  # Décommenter si vous avez aussi un service backend
+  # - type: web
+  #   name: 4ever-site-backend
+  #   env: node
+  #   region: frankfurt
+  #   plan: free
+  #   rootDir: backend
+  #   buildCommand: npm install
+  #   startCommand: npm start
+  #   envVars:
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: 4ever-db
+  #         property: connectionString
+  #     - key: NODE_ENV
+  #       value: production
