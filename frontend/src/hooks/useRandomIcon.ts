@@ -38,7 +38,7 @@ export const useRandomIcon = (
 };
 
 // Variant: Hook pour générer plusieurs icônes aléatoires
-export const useRandomIcons = (count: number, options: UseRandomIconOptions = []): RandomIcon[] => {
+export const useRandomIcons = (count: number, options: UseRandomIconOptions | UseRandomIconOptions[] = {}): RandomIcon[] => {
   const [icons, setIcons] = useState<RandomIcon[]>([]);
 
   useEffect(() => {

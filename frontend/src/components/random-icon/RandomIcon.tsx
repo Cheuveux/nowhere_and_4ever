@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRandomIcon } from '../hooks/useRandomIcon';
+import { useRandomIcon } from '../../hooks/useRandomIcon';
 
 interface RandomIconProps {
   // Taille de l'icône en pixels (par défaut 40)
