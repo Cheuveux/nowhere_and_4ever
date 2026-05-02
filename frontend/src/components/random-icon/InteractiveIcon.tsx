@@ -23,6 +23,8 @@ interface InteractiveIconProps {
   animate?: boolean;
   // ✨ URL à partager quand on clique sur l'icône
   shareUrl?: string;
+  // ✨ Position fixe (reste en place en scrollant)
+  fixed?: boolean;
 }
 
 export const InteractiveIcon: React.FC<InteractiveIconProps> = ({
@@ -33,6 +35,7 @@ export const InteractiveIcon: React.FC<InteractiveIconProps> = ({
   probability = 0.5,
   animate = true,
   shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://example.com',
+  fixed = false,
 }) => {
   const [showShareModal, setShowShareModal] = useState(false);
 
@@ -48,6 +51,7 @@ export const InteractiveIcon: React.FC<InteractiveIconProps> = ({
         animate={animate}
         onClick={() => setShowShareModal(true)}
         className="interactive-icon"
+        fixed={fixed}
       />
 
       {/* Modal de partage */}
@@ -83,6 +87,8 @@ interface InteractiveIconContainerProps {
   className?: string;
   // ✨ URL à partager
   shareUrl?: string;
+  // ✨ Position fixe
+  fixed?: boolean;
 }
 
 export const InteractiveIconContainer: React.FC<InteractiveIconContainerProps> = ({
@@ -95,6 +101,7 @@ export const InteractiveIconContainer: React.FC<InteractiveIconContainerProps> =
   positionVariation = 20,
   className = '',
   shareUrl,
+  fixed = false,
 }) => {
   return (
     <div className={`interactive-icon-container ${className}`} style={{ position: 'relative' }}>
@@ -109,6 +116,7 @@ export const InteractiveIconContainer: React.FC<InteractiveIconContainerProps> =
           positionVariation={positionVariation}
           animate={true}
           shareUrl={shareUrl}
+          fixed={fixed}
         />
       ))}
 

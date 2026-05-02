@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
 import './ShareModal.css';
 
 interface ShareModalProps {
@@ -19,6 +20,45 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   onClose,
 }) => {
   const [copied, setCopied] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  // Animation GSAP d'apparition/disparition
+  useEffect(() => {
+    if (!modalRef.current || !overlayRef.current) return;
+
+    if (isOpen) {
+      // Apparition
+      gsap.fromTo(
+        overlayRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' }
+      );
+
+      gsap.fromTo(
+        modalRef.current,
+        { x: -400, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+      );
+    } else {
+      // Disparition
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.in',
+      });
+
+      gsap.to(modalRef.current, {
+        x: -400,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.in',
+        onComplete: () => {
+          // Optionnel: nettoyer après l'animation
+        },
+      });
+    }
+  }, [isOpen]);
 
   // ✅ Copier le lien dans le presse-papiers
   const handleCopyLink = async () => {
@@ -33,16 +73,28 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     }
   };
 
-  // ✅ Ne pas afficher si fermé
-  if (!isOpen) return null;
+  // Ne pas rendre le DOM si fermé au début (mais garder l'animation)
+  if (!isOpen && !modalRef.current) return null;
 
   return (
     <>
       {/* Fond semi-transparent */}
-      <div className="share-modal-overlay" onClick={onClose} />
+      <div 
+        ref={overlayRef}
+        className="share-modal-overlay" 
+        onClick={onClose}
+        style={{ opacity: 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+      />
       
       {/* Popup */}
-      <div className="share-modal">
+      <div 
+        ref={modalRef}
+        className="share-modal"
+        style={{ 
+          opacity: 0,
+          pointerEvents: isOpen ? 'auto' : 'none'
+        }}
+      >
         <div className="share-modal-header">
           <h2>{title}</h2>
           <button className="share-modal-close" onClick={onClose}>
@@ -61,38 +113,15 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             className={`share-modal-copy-btn ${copied ? 'copied' : ''}`}
             onClick={handleCopyLink}
           >
-            {copied ? '✅ Copié!' : '📋 Copier le lien'}
+            {copied ? '💖 Copied 💖' : ' 💕 Copy it 💕'}
           </button>
 
           {/* Message de confirmation */}
           {copied && (
             <p className="share-modal-success">
-              Le lien a été copié dans votre presse-papiers!
+              Link ready to be shared!
             </p>
           )}
-
-          {/* Autres options de partage (optionnel) */}
-          <div className="share-modal-other-options">
-            <p className="share-modal-label">Ou partager via:</p>
-            <div className="share-modal-buttons">
-              <a 
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-modal-social twitter"
-              >
-                𝕏 Twitter
-              </a>
-              <a 
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-modal-social facebook"
-              >
-                f Facebook
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </>

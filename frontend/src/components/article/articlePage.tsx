@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getEndpoint } from "../../config/api";
 gsap.registerPlugin(ScrollTrigger);
 import { renderContent } from "../../utils/renderContent";
+import { InteractiveIconContainer } from '../random-icon/InteractiveIcon';
 import './articlePage.css'
 
 export default function ArticlePage() {
@@ -53,7 +54,16 @@ export default function ArticlePage() {
     if (loading) return <p>Loading...</p>;
     if (!article) return <p>Article not found.</p>;
     return (
-        <div>
+        <InteractiveIconContainer
+          probability={1}
+          spotCount={1}
+          positions={['bottom-left']}
+          iconSize={120}
+          sizeVariation={0.3}
+          positionVariation={0}
+          fixed={true}
+        >
+        <div className="article-page-wrapper">
             <div className="articlePage-header">
                 <div className="return_btn">
                     <Link to="/">../home/</Link>
@@ -72,5 +82,6 @@ export default function ArticlePage() {
                 <CommentSection articleId={article.id} />
             </div>
         </div>
+        </InteractiveIconContainer>
     );
 }

@@ -11,39 +11,38 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  animation: fadeIn 0.3s ease-out;
 }
 
-/* Popup principal */
+/* Popup principal - sur le côté gauche */
 .share-modal {
   position: fixed;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 5%;
+  width: 350px;
+  max-width: calc(100% - 40px);
+  transform: translateY(-50%);
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  max-width: 500px;
-  width: 90%;
-  animation: slideUp 0.3s ease-out;
   overflow: hidden;
 }
 
 /* Header du modal */
 .share-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+	font-family: var(--retro-font);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	border-bottom: 1px solid #eee;
+	background: linear-gradient(135deg, #bb8ad3 0%, #d14e8b 100%);
+	color: rgb(65, 61, 61);
 }
 
 .share-modal-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
@@ -51,7 +50,7 @@
 .share-modal-close {
   background: none;
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 24px;
   cursor: pointer;
   padding: 0;
@@ -94,7 +93,7 @@
 
 /* Bouton Copier */
 .share-modal-copy-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #c3aec5 0%, #ff7ffd 100%);
   color: white;
   border: none;
   padding: 12px 20px;
@@ -112,20 +111,18 @@
 }
 
 .share-modal-copy-btn.copied {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-  animation: pulse 0.5s ease-out;
+  background: linear-gradientt(135deg, #ff96f6 0%, #850d45 100%);
 }
 
 /* Message de succès */
 .share-modal-success {
-  color: #4caf50;
+  color: #af4c75;
   font-size: 0.95rem;
   text-align: center;
   margin: 0;
   padding: 10px;
-  background-color: rgba(76, 175, 80, 0.1);
+  background-color: rgba(175, 76, 147, 0.1);
   border-radius: 6px;
-  animation: slideDown 0.3s ease-out;
 }
 
 /* Autres options de partage */
@@ -178,50 +175,6 @@
 .share-modal-social.facebook:hover {
   background-color: #365899;
   transform: translateY(-2px);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 /* Responsif */

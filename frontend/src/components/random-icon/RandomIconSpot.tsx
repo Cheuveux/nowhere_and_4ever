@@ -21,6 +21,8 @@ interface IconSpotProps {
   className?: string;
   // ✨ NOUVEAU: Callback quand on clique sur l'icône
   onClick?: () => void;
+  // ✨ NOUVEAU: Fixed position (statique sur la page, ne scroll pas)
+  fixed?: boolean;
 }
 
 export const RandomIconSpot: React.FC<IconSpotProps> = ({
@@ -34,6 +36,7 @@ export const RandomIconSpot: React.FC<IconSpotProps> = ({
   animate = true,
   className = '',
   onClick,
+  fixed = false,
 }) => {
   const [shouldDisplay, setShouldDisplay] = React.useState(false);
   const [iconId, setIconId] = React.useState<number | null>(null);
@@ -90,53 +93,59 @@ export const RandomIconSpot: React.FC<IconSpotProps> = ({
 
   const getPositionStyle = (): React.CSSProperties => {
     const baseStyle: React.CSSProperties = {
-      position: 'absolute',
+      position: fixed ? 'fixed' : 'absolute',
       width: `${randomSize}px`,
       height: `${randomSize}px`,
-      zIndex: 10,
+      zIndex: fixed ? 100 : 10,
       cursor: onClick ? 'pointer' : 'default',
     };
 
     const offsetX = randomOffsetX;
     const offsetY = randomOffsetY;
 
+    // Pour fixed: utiliser des marges de screen (px), pour absolute: utiliser les valeurs calculées
+    const topOffset = fixed ? '20px' : 'auto';
+    const rightOffset = fixed ? '20px' : 'auto';
+    const bottomOffset = fixed ? '20px' : 'auto';
+    const leftOffset = fixed ? '20px' : 'auto';
+
     switch (finalPosition) {
       case 'top-left':
         return { 
           ...baseStyle, 
-          top: `calc(20px + ${offsetY}px)`, 
-          left: `calc(20px + ${offsetX}px)` 
+          top: fixed ? `calc(${topOffset} + ${offsetY}px)` : `calc(20px + ${offsetY}px)`, 
+          left: fixed ? `calc(${leftOffset} + ${offsetX}px)` : `calc(20px + ${offsetX}px)` 
         };
       case 'top-right':
         return { 
           ...baseStyle, 
-          top: `calc(20px + ${offsetY}px)`, 
-          right: `calc(20px - ${offsetX}px)` 
+          top: fixed ? `calc(${topOffset} + ${offsetY}px)` : `calc(20px + ${offsetY}px)`, 
+          right: fixed ? `calc(${rightOffset} - ${offsetX}px)` : `calc(20px - ${offsetX}px)` 
         };
       case 'bottom-left':
         return { 
           ...baseStyle, 
-          bottom: `calc(20px - ${offsetY}px)`, 
-          left: `calc(20px + ${offsetX}px)` 
+          bottom: fixed ? `calc(${bottomOffset} - ${offsetY}px)` : `calc(20px - ${offsetY}px)`, 
+          left: fixed ? `calc(${leftOffset} + ${offsetX}px)` : `calc(20px + ${offsetX}px)` 
         };
       case 'bottom-right':
         return { 
           ...baseStyle, 
-          bottom: `calc(20px - ${offsetY}px)`, 
-          right: `calc(20px - ${offsetX}px)` 
+          bottom: fixed ? `calc(${bottomOffset} - ${offsetY}px)` : `calc(20px - ${offsetY}px)`, 
+          right: fixed ? `calc(${rightOffset} - ${offsetX}px)` : `calc(20px - ${offsetX}px)` 
         };
       case 'center':
         return { 
           ...baseStyle, 
-          top: `calc(50% + ${offsetY}px)`, 
-          left: `calc(50% + ${offsetX}px)`, 
+          top: fixed ? `calc(50vh + ${offsetY}px)` : `calc(50% + ${offsetY}px)`, 
+          left: fixed ? `calc(50vw + ${offsetX}px)` : `calc(50% + ${offsetX}px)`, 
           transform: 'translate(-50%, -50%)' 
         };
       case 'custom':
         return { 
           ...baseStyle, 
-          top: `calc(${y}% + ${offsetY}px)`, 
-          left: `calc(${x}% + ${offsetX}px)` 
+          top: fixed ? `calc(${y}vh + ${offsetY}px)` : `calc(${y}% + ${offsetY}px)`, 
+          left: fixed ? `calc(${x}vw + ${offsetX}px)` : `calc(${x}% + ${offsetX}px)` 
         };
       default:
         return baseStyle;
