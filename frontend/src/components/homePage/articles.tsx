@@ -8,6 +8,10 @@ import { getEndpoint } from '../../config/api';
 import './articles.css';
 // import gsap from "gsap";
 
+// ===== ICÔNES ALÉATOIRES =====
+// Importez le conteneur pour envelopper le contenu avec des icônes décoratives
+import { IconSpotContainer } from '../random-icon/RandomIconSpot';
+
 type HomeItem = {
   documentId: string;
   _type: "article" | "conversation" | "quiz" | "mosaic" | "takes";
@@ -144,65 +148,90 @@ export default function Article() {
           <BlocksRenderer content={introText} />
         </div>
       )}
-      <div 
-        className="folders-stack"
-        style={hoveredType ? getPageBackground(hoveredType) : {}}
+      
+      {/* 
+        ===== ICÔNES ALÉATOIRES =====
+        Cet IconSpotContainer affiche des icônes décoratives aléatoires
+        aux coins de la section principal.
+        
+        PARAMÈTRES :
+        - probability: 0.3 = 30% de chance que chaque icône s'affiche
+        - spotCount: 2 = 2 emplacements pour des icônes
+        - positions: ['top-left', 'bottom-right'] = aux coins
+        - iconSize: 45 = taille en pixels
+        
+        MODIFIEZ CES VALEURS :
+        - Augmentez probability pour plus d'icônes (0.5, 0.7, etc)
+        - Modifiez spotCount pour plus d'emplacements
+        - Changez positions : 'top-right', 'bottom-left', 'center'
+        - Ajustez iconSize pour la taille (30-80 pixels)
+      */}
+      <IconSpotContainer 
+        probability={1}
+        spotCount={2}
+        positions={['top-right', 'bottom-right']}
+        iconSize={150}
       >
-        {/* Header folder at the top */}
-      <div className="folder-card folder-card--header">
-        <div className="folder-svg-wrapper">
-          <img 
-            src="/img_assets/folder_homepage/header_folder.png"
-            alt="Header"
-            className="folder-image"
-          />
-        </div>
-      </div>
-
-      {posts.map((post, index) => (
-  <div 
-    className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
-    key={post.documentId}
-    data-type={post._type}
-    onMouseEnter={() => !isTouchDevice && setHoveredType(post._type)}
-    onMouseLeave={() => !isTouchDevice && setHoveredType(null)}
-  >
-      <Link to={getItemLink(post)} className="article-link folder-image-link" onClick={(e) => handleCardTap(e, post.documentId, post._type)}>
-        <div className="folder-svg-wrapper">
-          <img 
-            src={getBackgroundImage({ 
-              index, 
-              totalItems: posts.length,
-              contentType: post._type
-            })}
-            alt={post.Title ?? "Untitled"}
-            className="folder-image"
-          />
-          <div className="folder-content">
-            <div className="folder-header">
-              <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-              <span className="folder-author">{post.Author ?? "unknown"}</span>
-            </div>
+        <div 
+          className="folders-stack"
+          style={hoveredType ? getPageBackground(hoveredType) : {}}
+        >
+          {/* Header folder at the top */}
+        <div className="folder-card folder-card--header">
+          <div className="folder-svg-wrapper">
+            <img 
+              src="/img_assets/folder_homepage/header_folder.png"
+              alt="Header"
+              className="folder-image"
+            />
           </div>
         </div>
-      </Link>
-  </div>
-  ))}
-  
-    {/* Footer folder at the bottom */}
-  <div className="folder-card folder-card--footer">
-    <div className="folder-svg-wrapper">
-      <img 
-        src="/img_assets/folder_homepage/footer_folder.png"
-        alt="Footer"
-        className="folder-image"
-      />
+
+        {posts.map((post, index) => (
+    <div 
+      className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
+      key={post.documentId}
+      data-type={post._type}
+      onMouseEnter={() => !isTouchDevice && setHoveredType(post._type)}
+      onMouseLeave={() => !isTouchDevice && setHoveredType(null)}
+    >
+        <Link to={getItemLink(post)} className="article-link folder-image-link" onClick={(e) => handleCardTap(e, post.documentId, post._type)}>
+          <div className="folder-svg-wrapper">
+            <img 
+              src={getBackgroundImage({ 
+                index, 
+                totalItems: posts.length,
+                contentType: post._type
+              })}
+              alt={post.Title ?? "Untitled"}
+              className="folder-image"
+            />
+            <div className="folder-content">
+              <div className="folder-header">
+                <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
+                <span className="folder-author">{post.Author ?? "unknown"}</span>
+              </div>
+            </div>
+          </div>
+        </Link>
     </div>
-  </div>
+    ))}
+    
+      {/* Footer folder at the bottom */}
+    <div className="folder-card folder-card--footer">
+      <div className="folder-svg-wrapper">
+        <img 
+          src="/img_assets/folder_homepage/footer_folder.png"
+          alt="Footer"
+          className="folder-image"
+        />
+      </div>
+    </div>
+        </div>
+      </IconSpotContainer>
 
   {/* Add the mecene button */}
   <MeceneButton isOpen={showMeceneBtn} />
-  </div>
     </>
   );
 }
