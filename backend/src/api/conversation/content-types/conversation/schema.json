@@ -17,7 +17,7 @@
     "Conversation_content": {
       "type": "blocks"
     },
-    "Visual_content": {
+    "Sound": {
       "type": "media",
       "multiple": true,
       "allowedTypes": [

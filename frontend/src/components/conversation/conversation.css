@@ -9,7 +9,7 @@
 	position: relative;
 	width: 100%;
 	height: 100vh;
-	max-height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -32,29 +32,104 @@
 .chat-header h2 {
 	font-size: 2rem;
 }
-.chatWindow {
-	position: absolute;
-	top: 20%;
-	width: 590px;           /* ajuste à la largeur exacte de ton PNG */
-	aspect-ratio: 590/590;  /*ajuste au ratio largeur/hauteur de ton PNG  */
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	flex-shrink: 0;
+
+/* RADIO PLAYER */
+ 
+.audio-player-wrapper {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
 }
 
-.chat-messages {
-	font-family: var(--retro-font);
+.radio-container {
+	position: relative;
+	width: 420px;
+	height: 560px;
+	margin-bottom: 1rem;
+}
+
+.radio-play-button {
 	position: absolute;
-	top: 22%;      /* ajuste : début de la zone messages dans le PNG */
-	bottom: 20%;   /* ajuste : fin de la zone (au-dessus du clavier) */
-	left: 5%;
-	right: 5%;
-	overflow-y: auto;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
+	background: none;
+	border: none;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.8;
+	transition: opacity 0.2s;
+}
+
+.radio-play-button:hover {
+	opacity: 1;
+}
+
+.radio-play-button img {
+	width: 100%;
+	height: 100%;
+}
+
+.radio-top {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 5;
+	width: 100%;
+}
+
+.radio-top img {
+	width: 100%;
+	display: block;
+}
+
+.radio-content {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	z-index: 4;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+.radio-content img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+
+
+.chatWindow {
+	position: relative;
+	width: 100%;
+	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	min-height: 0;
+}
+.chat-messages {
+	font-family: var(--retro-font);
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
 	gap: 8px;
 	padding: 0 8px;
 	scrollbar-width: none;
+	margin-bottom: 2rem;
+	justify-content: center;
+	align-items: center;
 }
 .chat-messages::-webkit-scrollbar { 
 	display: none; 
@@ -67,13 +142,15 @@
 	justify-content: flex-start; 
 	align-items: center;
 	text-align: start;
-	width: 100%;
+	width: 950px;
+	max-width: 90vw;
 }
 .bubble-wrapper.right {
 	justify-content: flex-end;
 	align-items: center;
 	text-align: end;
-	width: 100%;
+	width: 950px;
+	max-width: 90vw;
 }
 
 .bubble {
@@ -81,16 +158,16 @@
 	padding: 8px 12px;
 	/* border-radius: 18px; */
 	font-family: 'FSEX300', monospace;
-	font-size: 0.85rem;
+	font-size: 1.25rem;
 	line-height: 1.4;
 	word-break: break-word;
 }
 .bubble.left {
-	color: #000;
+	color: #afcb9a;
 	border-bottom-left-radius: 4px;
 }
 .bubble.right {
-	color: #463c3c;
+	color: #c1c7ae;
 	border-bottom-right-radius: 4px;
 }
 
@@ -100,7 +177,7 @@
 }
 .bash-prefix {
 	font-family: 'FSEX300', monospace;
-	font-size: 0.7rem;
+	font-size: 1.2rem;
 	color: #888;
 	margin-right: 4px;
 	padding: 8px 12px;
@@ -114,29 +191,63 @@
 	animation: blink 0.8s infinite;
 }
 
-@media (max-width: 625px) {
-	.chatWindow {
-		width: 95vw;
-		position: absolute;
-		top: 25%;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	.chat-messages {
-		bottom: 10%;
-		gap: 6px;
-	}
+@media (max-width: 825px) {
+
 	.bubble {
 	max-width: 60%;
 	padding: 4px 6px;
 	/* border-radius: 18px; */
 	font-family: 'FSEX300', monospace;
-	font-size: 0.75rem;
+	font-size: 0.95rem;
 	line-height: 1.2;
 	word-break: break-word;
+	}
+
+	.audio-player-wrapper {
+	display: flex;
+	justify-content: start;
+	margin-bottom: 1rem;
+	}
+
+	.radio-container {
+		width: 320px;
+		height: 400px;
+	}
+	
+	.radio-top {
+		width: 320px;
+	}
+	
+	.radio-content {
+		width: 270px;
+		height: fit-content;
+		top: 35px;
+	}
+	
+	.radio-play-button {
+		width: 30px;
+		height: 30px;
+	}
+
+	.conv-page {
+		padding-bottom: 0rem;
+	}
+	.chat-messages {
+	font-family: var(--retro-font);
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	justify-content: center;
+	align-items: center;
+	top: 30%;
+	gap: 8px;
+	padding: 0 8px;
+	scrollbar-width: none;
+	margin-bottom: 3rem;
+	width: 100%;
 }
-.conv-page {
-	padding-bottom: 0rem;
-}
+	.bash-prefix {
+		font-size: 1rem;
+	}
 
 }

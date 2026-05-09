@@ -484,14 +484,14 @@ export interface ApiConversationConversation
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    Sound: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Visual_content: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
   };
 }
 

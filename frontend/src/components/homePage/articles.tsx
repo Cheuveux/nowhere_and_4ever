@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import MeceneButton from "../popup_banner/popupBanner";
-import { getPageBackground} from './folderBackground';
+// import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
 import { getEndpoint } from '../../config/api';
 import './articles.css';
-// import gsap from "gsap";
-
-// ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
-// Utilisez InteractiveIconContainer pour avoir les icônes cliquables + modal de partage
 import { InteractiveIconContainer } from '../random-icon/InteractiveIcon';
 
 type HomeItem = {
@@ -36,7 +32,7 @@ export default function Article() {
   const [introText, setIntroText] = useState<any>(null);
   const [showIntro, setShowIntro] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
+  // const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
@@ -118,7 +114,7 @@ export default function Article() {
     e.preventDefault();
     e.stopPropagation();
     setExpandedCardId(cardId);
-    setHoveredType(type);
+    // setHoveredType(type);
   };
 
   // Mecene Button Timer
@@ -138,7 +134,7 @@ export default function Article() {
       {showIntro && introText && (
         <div 
           className="blog-intro"
-          style={hoveredType ? getPageBackground(hoveredType) : {}}
+          // style={hoveredType ? getPageBackground(hoveredType) : {}}
         >
           
           <BlocksRenderer content={introText} />
@@ -176,7 +172,7 @@ export default function Article() {
       >
         <div 
           className="folders-stack"
-          style={hoveredType ? getPageBackground(hoveredType) : {}}
+          // style={hoveredType ? getPageBackground(hoveredType) : {}}
         >
           {/* Header folder at the top */}
         <div className="folder-card folder-card--header">
@@ -194,8 +190,8 @@ export default function Article() {
       className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
       key={post.documentId}
       data-type={post._type}
-      onMouseEnter={() => !isTouchDevice && setHoveredType(post._type)}
-      onMouseLeave={() => !isTouchDevice && setHoveredType(null)}
+      // onMouseEnter={() => !isTouchDevice && setHoveredType(post._type)}
+      // onMouseLeave={() => !isTouchDevice && setHoveredType(null)}
     >
         <Link to={getItemLink(post)} className="article-link folder-image-link" onClick={(e) => handleCardTap(e, post.documentId, post._type)}>
           <div className="folder-svg-wrapper">
