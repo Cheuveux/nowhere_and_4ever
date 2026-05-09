@@ -105,11 +105,28 @@ function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: ()
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
 
-export default function DelusionalQuiz() {
-  const { questions, loading } = useQuizQuestions();
+export default function DelusionalQuiz({ quizData }: { quizData?: any[] }) {
+  const { questions: fetchedQuestions, loading: fetchLoading } = useQuizQuestions();
   const [phase, setPhase] = useState<Phase>("intro");
   const [currentQ, setCurrentQ] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
+
+  // Use passed quizData if available, otherwise use fetched questions
+  const questions = quizData && quizData.length > 0 
+    ? (quizData as any[]).map(q => {
+        console.log("Quiz item:", q); // DEBUG
+        return {
+          id: q.id,
+          text: q.question,
+          answer: (q.answer || []).map((a: any) => ({
+            text: a.Text,  // Note: It's Text with capital T, not answer_text
+            points: a.points || 0
+          }))
+        };
+      })
+    : fetchedQuestions;
+  
+  const loading = quizData ? false : fetchLoading;
 
   const handleStart = () => { setCurrentQ(0); setTotalPoints(0); setPhase("quiz"); };
 

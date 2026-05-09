@@ -58,16 +58,8 @@ export default function Article() {
         })); 
 
         // quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
-        const quizzesRaw = quizzesData.data || [];
-        const quizCard: HomeItem[] = quizzesRaw.length
-          ? [{
-              documentId: "quiz-entry",
-              _type: "quiz",
-              Title: "Delusional Quiz",
-              Author: "?;D?;D?;D",
-              Descriptiom: "10 questions. 4 possible fates.",
-            }]
-          : [];
+        // REMOVED: Quizzes now appear only in article "Pillow talk" sections
+        const quizCard: HomeItem[] = [];
 
         // Mosaic card - même logique que le quiz
         const mosaicRaw = mosaicData.data || [];
