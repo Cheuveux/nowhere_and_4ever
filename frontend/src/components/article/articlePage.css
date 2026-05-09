@@ -14,9 +14,6 @@ body {
 /* Article_page header */
 .articlePage-header {
 	position: relative;
-	background-color: transparent; /* semi-transparent */
-    backdrop-filter: blur(8px);               /* blur effect */
-    -webkit-backdrop-filter: blur(8px);   
 	z-index: 100;
 	top: 0%;
 	width: 100%;
@@ -51,10 +48,10 @@ body {
   font-size: 4rem;
   color: var(--color-yellow-body);
   position: absolute;
-  top: 10%;
+  top: 0%;
 	left: 2%;
   height: fit-content;
-  max-height: fit-content;
+  max-height: 250px;
   max-width: 700px;
 
 }
@@ -74,7 +71,7 @@ body {
 
   .articlePage-header {
     position: relative;
-    height: 30vh;
+    height: 25vh;
   }
 	.return_btn {
 		font-size: 0.8rem;

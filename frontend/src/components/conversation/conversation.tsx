@@ -106,18 +106,6 @@ interface Message {
 	audioIndex?: number;
 }
 
-// function getRandomBashPrefix() {
-//	const users = ["user", "cheveut", "fisher", "vautiez", "boneTet"];
-//	const hosts = ["localhost", "bin", "void", "dreambox", "02"];
-//	const paths = ["~", "/home", "/etc", "/var/log", "/dreams"];
-//	
-//	const user = users[Math.floor(Math.random() * users.length)];
-//	const host = hosts[Math.floor(Math.random() * hosts.length)];
-//	const path = paths[Math.floor(Math.random() * paths.length)];
-//	
-//	return `${user}@${host}:${path}$`;
-// }
-
 function parseConversationBlocks(blocks: any[]): Message[] {
 	const raw = blocks
 		.filter(b => b.type === "paragraph")
@@ -133,7 +121,6 @@ function parseConversationBlocks(blocks: any[]): Message[] {
 			let text = match[2].trim();
 			let audioIndex: number | undefined = undefined;
 
-			// Extraire le marqueur audio si présent
 			const audioMatch = text.match(/\[audio:(\d+)\]/);
 			if (audioMatch) {
 				audioIndex = parseInt(audioMatch[1], 10);
@@ -170,13 +157,11 @@ function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
 		charIdxRef.current = 0;
 		hasAudioStartedRef.current = false;
 		
-		// Générer les prefixes et couleurs une seule fois
 		bashPrefixesRef.current = messages.map((msg) => ({
 			prefix: msg.sender === "right" ? "whisper_02" : "whisper_01",
 			color: msg.sender === "right" ? "#9900ff" : "#fa0f0f"
 		}));
 		
-		// Générer 2-3 indices aléatoires pour faire glitch
 		glitchTimesRef.current = new Set();
 		const glitchCount = Math.floor(Math.random() * 5) + 5;
 		for (let i = 0; i < glitchCount; i++) {
@@ -191,7 +176,6 @@ function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
 		const tick = () => {
 			if (!active) return;
 			
-			// Attendre que l'audio se lance avant de commencer
 			if (!hasAudioStartedRef.current) {
 				timerId = setTimeout(tick, 100);
 				return;

@@ -100,7 +100,7 @@ export default function Article() {
   }, []);
 
   // Handle card tap on mobile
-  const handleCardTap = (e: React.MouseEvent, cardId: string, type: HomeItem['_type']) => {
+  const handleCardTap = (e: React.MouseEvent, cardId: string, _type: HomeItem['_type']) => {
     // Only on touch devices
     if (!isTouchDevice) return;
 
@@ -114,7 +114,6 @@ export default function Article() {
     e.preventDefault();
     e.stopPropagation();
     setExpandedCardId(cardId);
-    // setHoveredType(type);
   };
 
   // Mecene Button Timer
