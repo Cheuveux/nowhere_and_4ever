@@ -19,7 +19,8 @@
 @media screen and (max-width: 625px)
 {
 	.mecene-button {
-		top: 50px;
+		position: absolute;
+		top: 110%;
 	}
 	.mecene-button-img {
 		max-width: 150px;

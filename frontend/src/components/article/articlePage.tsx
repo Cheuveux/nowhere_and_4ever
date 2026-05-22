@@ -90,7 +90,7 @@ export default function ArticlePage() {
             <div className="article-content">
                 {renderContent(article)}
             </div>
-            {article.documentId === "n6cb5cfnokbm5z7wfkujy8d1" && quizQuestions.length > 0 && (
+            {(article.documentId === "n6cb5cfnokbm5z7wfkujy8d1" || article.documentId === "abi1xfga6rtew6lqut6bqqpv"  ) && quizQuestions.length > 0 && (
                 <div className="article-quizz-container">
                     <div className="article-quizz-preview">
                         <h3>Pillow Talk</h3>
