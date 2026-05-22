@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./delusionalQuiz.css";
 import type { Answer, Question, ResultData, Phase } from "./types";
 import { getResult } from "./data";
 import { useQuizQuestions } from "./useQuizQuestions";
 
-// ─── SOUS-COMPOSANTS ──────────────────────────────────────────────────────────
+// ─── UTILITAIRES ──────────────────────────────────────────────────────────
+
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
   return (
@@ -41,6 +50,14 @@ function QuestionCard({ question, index, total, onAnswer }: {
 }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [leaving, setLeaving] = useState(false);
+  const [shuffledAnswers, setShuffledAnswers] = useState<Answer[]>([]);
+
+  // Mélanger les réponses au montage de la question
+  useEffect(() => {
+    setShuffledAnswers(shuffleArray(question.answer));
+    setSelected(null);
+    setLeaving(false);
+  }, [question]);
 
   const handleSelect = (i: number): void => {
     setSelected(i);
@@ -49,7 +66,7 @@ function QuestionCard({ question, index, total, onAnswer }: {
   const handleNext = (): void => {
     if (selected === null) return;
     setLeaving(true);
-    setTimeout(() => onAnswer(question.answer[selected].points), 300);
+    setTimeout(() => onAnswer(shuffledAnswers[selected].points), 300);
   };
 
   return (
@@ -58,7 +75,7 @@ function QuestionCard({ question, index, total, onAnswer }: {
       <div className="dq-qnum">Q{index + 1}</div>
       <p className="dq-question">{question.text}</p>
       <div className="dq-answers">
-        {question.answer.map((ans: Answer, i: number) => (
+        {shuffledAnswers.map((ans: Answer, i: number) => (
           <button
             key={i}
             className={["dq-answer", selected === i ? "dq-answer--selected" : "", selected !== null && selected !== i ? "dq-answer--dimmed" : ""].filter(Boolean).join(" ")}

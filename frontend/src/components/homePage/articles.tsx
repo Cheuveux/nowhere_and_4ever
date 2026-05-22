@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import MeceneButton from "../popup_banner/popupBanner";
 // import { getPageBackground} from './folderBackground';
@@ -26,6 +27,7 @@ function getItemLink(item: HomeItem): string {
 }
 
 export default function Article() {
+  const articlesRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
@@ -42,12 +44,11 @@ export default function Article() {
     Promise.all([
       fetch(getEndpoint('/posts'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/conversations'), { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch(getEndpoint('/quizzes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/intros'), { headers: { Accept: "application/json" } }).then(r => r.json()).catch(() => null),
     ])
-      .then(([postsData, convsData, quizzesData, mosaicData, takesData, introsData]) => {
+      .then(([postsData, convsData, mosaicData, takesData, introsData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
         const takes = (takesData.data || []).map((c: any) => ({ 
@@ -57,11 +58,7 @@ export default function Article() {
           Author: c.id_code || "no code"
         })); 
 
-        // quiz page est /quiz (pas /quiz/:id), donc une seule card suffit
-        // REMOVED: Quizzes now appear only in article "Pillow talk" sections
-        const quizCard: HomeItem[] = [];
-
-        // Mosaic card - même logique que le quiz
+        // Mosaic card
         const mosaicRaw = mosaicData.data || [];
         const mosaicCard: HomeItem[] = mosaicRaw.length
           ? [{
@@ -79,7 +76,7 @@ export default function Article() {
           setShowIntro(true);
         }
 
-        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...quizCard, ...mosaicCard, ...(takes as HomeItem[])]);
+        setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
         setIsLoading(false);
       })
       .catch(err => { setError(err.message); setIsLoading(false); });
@@ -116,12 +113,22 @@ export default function Article() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Animation d'entrée smooth
+  useEffect(() => {
+    gsap.from(articlesRef.current, {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: "power2.out"
+    });
+  }, []);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!posts.length) return <p>No articles found.</p>;
 
   return (
-    <>
+    <div ref={articlesRef}>
       {showIntro && introText && (
         <div 
           className="blog-intro"
@@ -219,8 +226,8 @@ export default function Article() {
         </div>
       </InteractiveIconContainer>
 
-  {/* Add the mecene button */}
-  <MeceneButton isOpen={showMeceneBtn} />
-    </>
+      {/* Add the mecene button */}
+      <MeceneButton isOpen={showMeceneBtn} />
+    </div>
   );
 }
