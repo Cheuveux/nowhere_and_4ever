@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import gsap from "gsap";
 import './animIntro.css'
 
@@ -10,7 +10,7 @@ export default function  AnimIntro()
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [showPrompt, setShowPrompt] = useState(true);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const checkMobile = () => {
 			setIsMobile(window.innerWidth < 750);
 		}

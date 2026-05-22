@@ -12,7 +12,7 @@
 	background:
 		radial-gradient(circle at 10% 15%, rgba(160, 187, 202, 0.12), transparent 34%),
 		radial-gradient(circle at 85% 10%, rgba(164, 132, 147, 0.14), transparent 40%),
-		linear-gradient(180deg, #07080f 0%, #05040a 100%);
+		linear-gradient(180deg, #2e3777 0%, #160f33 100%);
 	font-family: 'VT323', monospace;
 	padding: 0 1rem 2rem;
 	box-sizing: border-box;
@@ -68,6 +68,7 @@
 	position: fixed;
 	inset: 0;
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+	
 	pointer-events: none;
 	z-index: 0;
 	opacity: 0.45;

@@ -361,8 +361,8 @@ body {
   top: 1rem;
   right: 1rem;
   color: #fff;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: #00000001;
   cursor: pointer;
@@ -374,8 +374,8 @@ body {
   z-index: 10000;
 }
 .article-quizz-close img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 .article-quizz-close:hover {
   background: rgba(255, 255, 255, 0.2);
