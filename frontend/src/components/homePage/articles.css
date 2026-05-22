@@ -1,4 +1,40 @@
 
+/* REPLAY INTRO BUTTON */
+.intro_replay_btn {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 500;
+	background: none;
+	border: none;
+	color: rgb(148, 163, 61);
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	font-family: 'Snell Roundhand', cursive;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.intro_replay_btn:hover {
+	transform: scale(1.1);
+	text-shadow: 0 0 10px rgba(35, 41, 0, 0.5);
+}
+
+.intro_replay_btn:active {
+	transform: scale(0.95);
+}
+
+@media screen and (max-width: 625px) {
+	.intro_replay_btn {
+		font-size: 0.85rem;
+		top: 10px;
+		right: 10px;
+		padding: 0.3rem 0.8rem;
+	}
+}
+
 /* texte d'intro */
 .blog-intro {
   padding: 2rem;

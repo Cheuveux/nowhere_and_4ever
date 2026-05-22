@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import MeceneButton from "../popup_banner/popupBanner";
@@ -28,6 +28,7 @@ function getItemLink(item: HomeItem): string {
 
 export default function Article() {
   const articlesRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
@@ -105,6 +106,11 @@ export default function Article() {
     setExpandedCardId(cardId);
   };
 
+  const handleReplayIntro = () => {
+    sessionStorage.removeItem('introWatched');
+    navigate('/intro');
+  };
+
   // Mecene Button Timer
   useEffect(() => { 
     const timer = setTimeout(() => {
@@ -129,6 +135,9 @@ export default function Article() {
 
   return (
     <div ref={articlesRef}>
+      <button className="intro_replay_btn" onClick={handleReplayIntro} title="Replay intro">
+        ✦ intro ✦
+      </button>
       {showIntro && introText && (
         <div 
           className="blog-intro"
