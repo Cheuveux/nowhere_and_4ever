@@ -100,7 +100,9 @@ export default function ArticlePage() {
                     </div>
                     {showQuizz && (
                         <div className="article-quizz-modal">
-                            <button className="article-quizz-close" onClick={() => setShowQuizz(false)}>✕</button>
+                            <button className="article-quizz-close" onClick={() => setShowQuizz(false)}>
+                                <img src="/img_assets/icons/close_icon_quiz.gif" alt="Close quiz" />
+                            </button>
                             <DelusionalQuiz quizData={quizQuestions} />
                         </div>
                     )}

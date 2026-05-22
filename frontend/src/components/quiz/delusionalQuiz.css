@@ -94,6 +94,8 @@
 	z-index: 2;
 	width: 100%;
 	max-width: 700px;
+	height: 700px;
+	max-height: 90vh;
 	background: linear-gradient(180deg, rgba(16, 20, 34, 0.95), rgba(11, 13, 24, 0.98));
 	border: 2px solid #8fa8b8;
 	border-radius: 0;

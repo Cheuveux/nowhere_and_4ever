@@ -34,7 +34,7 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
 			<img
 				src={
 					isHovered
-						? '/img_assets/btn_popup/mecene_button_hover.png'
+						? '/img_assets/btn_popup/mecene_button_hover.gif'
 						: '/img_assets/btn_popup/mecene_button.png'
 				}
 				alt="Mecene Button"

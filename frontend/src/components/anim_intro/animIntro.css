@@ -5,9 +5,98 @@
 	width: 100%;
 	height: 100%;
 	background: #000;
+	display: flex;
 	justify-content: center;
 	align-items: center;
+}
 
+.intro-prompt {
+	position: absolute;
+	z-index: 100;
+	background: transparent;
+	border: 3px solid #666969;
+	background-color: #1617165c;
+	padding: 2rem;
+	width: 700px;
+	max-width: 80vh;
+	font-family: var(--retro-font);
+}
+
+.intro-prompt-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.intro-prompt-text {
+	color: #f6e0e0;
+	font-size: 1.8rem;
+	font-weight: bold;
+	letter-spacing: 0.2rem;
+	margin: 0;
+	text-shadow: 0 0 20px rgb(169, 105, 32);
+	animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+	0%, 18%, 22%, 25%, 54%, 56%, 100% {
+		text-shadow: 0 0 10px rgba(255, 149, 63, 0.8);
+	}
+	20%, 24%, 55% {
+		text-shadow: 0 0 5px rgba(255, 102, 0, 0.838);
+	}
+}
+
+.intro-prompt-buttons {
+	display: flex;
+	gap: 2rem;
+	justify-content: center;
+}
+
+.intro-btn-yes,
+.intro-btn-no {
+	padding: 0.8rem 1.5rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 0.15rem;
+	border: 3px solid;
+	cursor: pointer;
+	font-family: var(--retro-font);
+	transition: all 0.1s ease;
+	text-transform: uppercase;
+}
+
+.intro-btn-yes {
+	color: #9a9a9a;
+	border-color: #414141;
+}
+
+.intro-btn-yes:hover {
+	color: #ffffff;
+	background: rgba(0, 255, 0, 0.1);
+	box-shadow: 0 0 5px rgba(0, 255, 0, 0.9), inset 0 0 5px rgba(0, 255, 0, 0.3);
+	transform: scale(1.05);
+}
+
+.intro-btn-yes:active {
+	transform: scale(0.95);
+}
+
+.intro-btn-no {
+	color: #9a9a9a;
+	border-color: #414141;
+}
+
+.intro-btn-no:hover {
+	color: #ffffff;
+	background: rgba(255, 0, 0, 0.1);
+	box-shadow: 0 0 5px rgba(255, 0, 0, 0.9), inset 0 0 5px rgba(255, 0, 0, 0.3);
+	transform: scale(1.05);
+}
+
+.intro-btn-no:active {
+	transform: scale(0.95);
 }
 
 .intro-video {
