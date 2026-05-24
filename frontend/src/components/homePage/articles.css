@@ -215,7 +215,7 @@
 {
   .folders-stack {
     height: auto;
-    min-height: 80vh;
+    min-height: 100vh;
     justify-content: flex-start;
     overflow-y: auto;
     padding-top: 1rem;

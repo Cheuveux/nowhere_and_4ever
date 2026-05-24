@@ -98,7 +98,6 @@
 .share-modal-url-link {
   font-family: var(--copy-link-font);
   color: #ff007b;
-  text-decoration: none;
   font-size: 1rem;
   text-transform: uppercase;
   cursor: pointer;
@@ -131,22 +130,20 @@
 @media (max-width: 600px) {
   .share-modal-bg {
   display: block;
-  width: 350px;
+  width: 250px;
   border-radius: 5px;
   height: auto;
   max-width: 100%;
   object-fit: contain;
 }
-  .share-modal-header h2 {
-    font-size: 1.2rem;
+  .share-modal-header {
+    padding: 0;
+    padding-top: 10px;
   }
-
-  .share-modal-buttons {
-    flex-direction: column;
+  .share-modal-close {
+    font-size: 17px;
   }
-
-  .share-modal-social {
-    width: 100%;
-    min-width: unset;
+  .share-modal-content {
+    padding: 80px 20px;
   }
 }
