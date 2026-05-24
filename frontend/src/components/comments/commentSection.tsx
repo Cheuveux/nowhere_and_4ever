@@ -101,72 +101,70 @@ export function CommentSection({articleId}: { articleId?: string}) {
                 </div>
             )}
 
-            <h3 className="comments-section--title"> Espace commentaire</h3>
+            <div className="comments-first-part">
 
-            {/* NOUVEAU FORMULAIRE */}
-            <form onSubmit={handleSubmit} className="comment-form" style={{ marginBottom: '2rem' }}>
-                <div style={{ marginBottom: '1rem' }}>
-                    <select
-                        value={pseudo}
-                        onChange={(e) => setPseudo(e.target.value)}
-                        disabled={isPosting}
-                        required
-                        style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
-                    >
-                        <option value="" disabled>Pseudo</option>
-                        <option value="𐔌՞. .՞𐦯">{"𐔌՞. .՞𐦯"}</option>
-                        <option value="₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾">{"₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾"}</option>
-                        <option value="(˶>⩊<˶)">{"(˶>⩊<˶)"}</option>
-                        <option value="(╥﹏╥)">{"(╥﹏╥)"}</option>
-                        <option value="(๑ᵔ⤙ᵔ๑)">{"(๑ᵔ⤙ᵔ๑)"}</option>
-                    </select>
-                </div>
-                <div style={{ marginBottom: '1rem' }}>
-                    <textarea 
-                        placeholder="Laissez un commentaire..." 
-                        value={newCommentText} 
-                        onChange={(e) => setNewCommentText(e.target.value)}
-                        onFocus={handleInputFocus}
-                        onClick={handleInputFocus}
-                        required
-                        disabled={isPosting} 
-                        rows={4}
-                        style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
-                    />
-                </div>
-                <button type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
-                    {isPosting ? 'Envoi en cours...' : 'Poster'}
-                </button>
-            </form>
+                <h3 className="comments-section--title"> Espace commentaire</h3>
 
+                {/* NOUVEAU FORMULAIRE */}
+                <form onSubmit={handleSubmit} className="comment-form" style={{ marginBottom: '2rem' }}>
+                    <div style={{ marginBottom: '1rem' }}>
+                        <select
+                            value={pseudo}
+                            onChange={(e) => setPseudo(e.target.value)}
+                            disabled={isPosting}
+                            required
+                            style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
+                        >
+                            <option value="" disabled>Pseudo</option>
+                            <option value="𐔌՞. .՞𐦯">{"𐔌՞. .՞𐦯"}</option>
+                            <option value="₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾">{"₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾"}</option>
+                            <option value="(˶>⩊<˶)">{"(˶>⩊<˶)"}</option>
+                            <option value="(╥﹏╥)">{"(╥﹏╥)"}</option>
+                            <option value="(๑ᵔ⤙ᵔ๑)">{"(๑ᵔ⤙ᵔ๑)"}</option>
+                        </select>
+                    </div>
+                    <div style={{ marginBottom: '1rem' }}>
+                        <textarea 
+                            placeholder="Laissez un commentaire..." 
+                            value={newCommentText} 
+                            onChange={(e) => setNewCommentText(e.target.value)}
+                            onFocus={handleInputFocus}
+                            onClick={handleInputFocus}
+                            required
+                            disabled={isPosting} 
+                            rows={4}
+                            style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
+                        />
+                    </div>
+                    <button type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
+                        {isPosting ? 'Envoi en cours...' : 'Poster'}
+                    </button>
+                </form>
+                </div>
             <div className="comments-list">
-                {comments.length === 0 ? (
-                    <div className="empty-comments">Sois le/la premier.ère à laisser ta trace</div>
-                ) : (
-                    comments.map((comment) => {
-                        const date = new Date(comment.createdAt).toLocaleDateString("fr-Fr", {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        });
+                {comments.map((comment) => {
+                    const date = new Date(comment.createdAt).toLocaleDateString("fr-Fr", {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                    });
 
-                        return (
-                            <div key={comment.id} className="comment-item" >
-                                <div className="comment-header">
-                                    <strong>{comment.Pseudos || "anonymous"}</strong>
-                                    <span className="date">
-                                        {date}
-                                    </span>
-                                </div>
-                                <div className="comment-body">
-                                    <BlocksRenderer content={comment.Comment as any}/>
-                                </div>
+                    return (
+                        <div key={comment.id} className="comment-item" >
+                            <div className="comment-header">
+                                <strong>{comment.Pseudos || "anonymous"}</strong>
+                                <span className="date">
+                                    {date}
+                                </span>
                             </div>
-                        );
-                    })
-                )}
+                            <div className="comment-body">
+                                <BlocksRenderer content={comment.Comment as any}/>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </section>
     );
