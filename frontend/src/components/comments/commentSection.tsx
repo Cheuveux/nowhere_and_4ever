@@ -113,7 +113,7 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         required
                         style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                     >
-                        <option value="" disabled>Choisis ton blaz</option>
+                        <option value="" disabled>Pseudo</option>
                         <option value="𐔌՞. .՞𐦯">{"𐔌՞. .՞𐦯"}</option>
                         <option value="₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾">{"₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾"}</option>
                         <option value="(˶>⩊<˶)">{"(˶>⩊<˶)"}</option>

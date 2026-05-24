@@ -39,9 +39,18 @@ body {
 
 .return_btn {
 	position: absolute;
-  top: 10%;
+  top: 3%;
 	left: 2%;
   z-index: 1000;
+  width: 120px;
+  height: auto;
+}
+
+.return_btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .article_title {
   font-family: 'Snell Roundhand', cursive;

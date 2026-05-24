@@ -34,6 +34,15 @@
 	font-family: 'Snell Roundhand', cursive;
 }
 
+.return_btn {
+	position: absolute;
+    top: 0%;
+	left: 2%;
+    z-index: 1000;
+    width: 120px;
+    height: auto;
+}
+
 .takes-h1 {
     font-size: 2.5rem;
     color: #ecece4;

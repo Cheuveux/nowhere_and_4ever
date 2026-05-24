@@ -78,7 +78,9 @@ export default function ArticlePage() {
         <div className="article-page-wrapper">
             <div className="articlePage-header">
                 <div className="return_btn">
-                    <Link to="/">../home/</Link>
+                    <Link to="/">
+                        <img src="/img_assets/icons/home.png" alt="" />
+                    </Link>
                 </div>
                 <div className="article_title">
                     <h1>{article.Title}</h1>

@@ -101,9 +101,11 @@ export default function TakePage() {
               animate={true}
             />
             
-            <div className="takes-header">
+            <div className="takes-header"> 
                 <div className="return_btn">
-                    <Link to="/">../home/</Link>
+                    <Link to="/">
+                        <img src="/img_assets/icons/home.png" alt="" />
+                    </Link>
                 </div>
                 <div className="takes-title-section">
                     {takes.id_code && <span className="takes-id-code">#{takes.id_code}</span>}
