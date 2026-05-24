@@ -59,7 +59,6 @@ export const InteractiveIcon: React.FC<InteractiveIconProps> = ({
         isOpen={showShareModal}
         onClose={() => setShowShareModal(false)}
         url={shareUrl}
-        title="✨ Share it to others"
       />
     </>
   );

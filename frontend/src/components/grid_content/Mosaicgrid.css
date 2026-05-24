@@ -1,26 +1,45 @@
 /* Section */
 
 .mosaic-section {
-	padding: 3rem 1.5rem;
 	max-width: 98vw;
 	margin: 0 auto;
+	height: auto;
 }
 
+/* Header */
+
+.mosaic-header {
+	position: relative;
+	display: flex;
+	width: 100%;
+	max-width: 100%;
+	justify-content: center;
+	align-items: center;
+	border-bottom: dotted white 2px;
+	padding: 2rem 0rem;
+}
+.mosaic-return_btn {
+	position: absolute;
+	top: -40%;
+	left: 0%;
+	width: 120px;
+}
+.mosaic-return_btn img {
+	width: 100%;
+	height: 100%;
+}
 .mosaic-section__title {
 	font-family: var(--retro-font);
-	text-transform: uppercase;
-	font-size: clamp(3rem, 6vw, 1.8rem);
+	font-size: 2.5rem;
 	font-weight: 600;
-	width: 600px;
-	max-width: 95vw;
 	text-align: start;
-	margin-bottom: 2rem;
+	margin: 2rem 0;
 	color: inherit;
-	word-spacing: -1rem;
 }
 
 /* Grille */
 .mosaic-grid {
+	margin-top: 1rem;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 1rem;
@@ -86,9 +105,9 @@
 	right: 8px;
 	background: rgba(0, 0, 0, 0.8);
 	color: var(--mosaic-bg-color);
-	padding: 3px 6px;
+	padding: 2px 4px;
 	border-radius: 2px;
-	font-size: 0.75rem;
+	font-size: 0.6rem;
 	font-weight: 500;
 	font-family: Arial, sans-serif;
 	z-index: 5;
@@ -114,10 +133,8 @@
 
 .mosaic-card__title {
 	color: #8f6ab9;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-family: var(--retro-font);
-	text-transform: uppercase;
-	font-weight: 500;
 	margin: 0;
 	line-height: 1.2;
 	word-wrap: break-word;
@@ -153,7 +170,6 @@
 
 	.mosaic-card {
 		width: 30vw;
-		height: 30vh;
 	}
 
 	.mosaic-card__title {
@@ -166,13 +182,30 @@
 	
 }
 @media screen and (max-width: 500px) {
+
+	.mosaic-return_btn {
+		position: absolute;
+		top: -20%;
+		left: 0%;
+		width: 60px;
+	}
+	
 	.mosaic-grid {
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(4, 1fr);
+		overflow-x: auto;
+		overflow-y: hidden;
+		width: 95%;
+		gap: 0.5rem;
+		scroll-snap-type: x mandatory;
+		padding: 0 0.5rem;
 	}
 	
 	.mosaic-card {
-	width: 40vw;
-	height: 25vh;
+		min-width: 22vw;
+		width: 22vw;
+		min-height: 18vh;
+		scroll-snap-align: start;
+		flex-shrink: 0;
 	}
 
 	.mosaic-card__media {
@@ -184,7 +217,7 @@
 	}
 	
 	.mosaic-card__title {
-		font-size: 1rem;
+		font-size: .5rem;
 		line-height: 1;
 	}
 
@@ -254,10 +287,9 @@
 
 .lightbox-title {
 	font-family: var(--retro-font);
-	font-size: 3rem;
+	font-size: 2rem;
 	text-align: start;
 	width: 95%;
-	text-transform: uppercase;
 	color: #8f6ab9;
 	font-weight: 600;
 	margin: 0;
@@ -360,13 +392,14 @@
 	}
 	.lightbox-media img,
 	.lightbox-media video{
-		width: 75vw;
+		width: 65vw;
 		max-width: 75vw;
+		max-height: 250px;
 		border: 7px solid rgba(0, 0, 0, 0.553);
 	}
 
 	.lightbox-title {
-		font-size: 2.5rem;
+		font-size: 1.5rem;
 	}
 	.lightbox-close {
 		font-size: 1.5rem;

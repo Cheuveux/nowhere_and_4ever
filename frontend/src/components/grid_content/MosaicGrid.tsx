@@ -139,7 +139,7 @@ function Lightbox({ item, onClose }: LightboxProps) {
           <p className="lightbox-title">{item.Titre}</p>
           <div className="lightbox__meta">
             {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
-            {item.Views !== undefined && <span className="mosaic-card__views">{item.Views} views</span>}
+            {item.Views && item.Views > 0 && <span className="mosaic-card__views">{item.Views} views</span>}
           </div>
       </div>
     </div>
@@ -234,7 +234,11 @@ export default function MosaicGrid() {
   return (
     <section className="mosaic-section">
       <div className="mosaic-header">
-        <div className="returnBtn"> <Link to="/">../home/</Link></div>
+        <div className="mosaic-return_btn">
+            <Link to="/">
+                <img src="/img_assets/icons/home.png" alt="" />
+            </Link>
+        </div>
         <h2 className="mosaic-section__title">{section.Titre}</h2>
       </div>
 
@@ -272,7 +276,7 @@ export default function MosaicGrid() {
               <p className="mosaic-card__title">{item.Titre}</p>
               <div className="mosaic-card__meta">
                 {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
-                {item.Views !== undefined && <span className="mosaic-card__views">{item.Views} views</span>}
+                {item.Views && item.Views > 0 && <span className="mosaic-card__views">{item.Views} views</span>}
               </div>
             </div>
           </article>

@@ -82,9 +82,14 @@ body {
     position: relative;
     height: 25vh;
   }
+
 	.return_btn {
-		font-size: 0.8rem;
+    width: 60px;
 	}
+  .return_btn img {
+    width: 50%;
+    height: 50%;
+  }
   .article_title {
     max-width: 90vw;
     font-size: 2.5rem; 

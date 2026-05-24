@@ -19,8 +19,6 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	/* background-image: url('/img_assets/espace_comm.jpg');
-	background-size: 100%; */
 }
 .comments-section--title {
 	/* 1. Le dégradé est posé comme background */
@@ -53,7 +51,7 @@
 	font-family: var(--retro-font);
 	background-color: rgb(252, 250, 250);
 	backdrop-filter: blur(3px);
-	font-size: 16px; /* Empêche le zoom auto sur iOS */
+	font-size: 12px; /* Empêche le zoom auto sur iOS */
 }
 .comment-form select {
 	padding: 0.5rem;
@@ -183,10 +181,6 @@ span.date{
 
 
 @media screen and (max-width: 625px){
-	.comments-section--title {
-		font-size: 2.5rem;
-	}
-
 	.comment-warning-popup {
 		max-width: 250px;
 	}
@@ -198,4 +192,13 @@ span.date{
 		font-size: 1rem;
 		line-height: 1.2;
 	}
+	.comments-section--title {
+		font-size: 1.5rem;
+		font-family: var(--retro-font);
+		min-height: 12vh;
+	}
+	.comment-form select,
+	.comment-form textarea{
+		font-size: 10px; /* Empêche le zoom auto sur iOS */
+	}	
 }

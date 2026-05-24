@@ -142,7 +142,17 @@ export function CommentSection({articleId}: { articleId?: string}) {
                 </form>
                 </div>
             <div className="comments-list">
-                {comments.map((comment) => {
+                {comments.map((comment, index) => {
+                    // Compter combien de fois ce pseudo apparaît APRÈS ce commentaire
+                    const pseudoCountAfter = comments
+                        .slice(index + 1)
+                        .filter(c => c.Pseudos === comment.Pseudos).length;
+                    
+                    // Afficher le pseudo avec le numéro s'il y a des doublons après
+                    const displayPseudo = pseudoCountAfter > 0 
+                        ? `${comment.Pseudos || "anonymous"}_(${pseudoCountAfter})`
+                        : (comment.Pseudos || "anonymous");
+
                     const date = new Date(comment.createdAt).toLocaleDateString("fr-Fr", {
                         year: 'numeric',
                         month: 'long',
@@ -154,7 +164,7 @@ export function CommentSection({articleId}: { articleId?: string}) {
                     return (
                         <div key={comment.id} className="comment-item" >
                             <div className="comment-header">
-                                <strong>{comment.Pseudos || "anonymous"}</strong>
+                                <strong>{displayPseudo}</strong>
                                 <span className="date">
                                     {date}
                                 </span>
