@@ -12,7 +12,11 @@ export default function ChatRoomWrapper() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!slug) return;
+    if (!slug) {
+      setError('Room slug is missing');
+      setIsLoading(false);
+      return;
+    }
 
     async function loadMessages() {
       try {
@@ -29,9 +33,9 @@ export default function ChatRoomWrapper() {
 
         const roomId = roomData.data[0].id;
 
-        // ✅ Step 2: Fetch messages WITH relations
+        // ✅ Step 2: Fetch messages WITH relations (including nested children)
         const res = await fetch(
-          getEndpoint(`/messages?populate=*`)
+          getEndpoint(`/messages?populate=*&sort=createdAt:asc`)
         );
 
         if (!res.ok) {
@@ -52,22 +56,29 @@ export default function ChatRoomWrapper() {
             return matchRoom && !item.parent?.id;
           })
           .map((item: any) => {
+            const children = item.messages?.map((child: any) => ({
+              id: child.id,
+              content: extractTextFromBlocks(child.content),
+              username: child.pseudo,
+              createdAt: child.createdAt,
+            })) ?? [];
+
+            console.log(`📨 Message ${item.id}: ${children.length} enfants`);
+
             const mapped = {
               id: item.id,
               content: extractTextFromBlocks(item.content),
               username: item.pseudo,
               createdAt: item.createdAt,
-              children: item.children?.map((child: any) => ({
-                id: child.id,
-                content: extractTextFromBlocks(child.content),
-                username: child.pseudo,
-                createdAt: child.createdAt,
-              })) ?? [],
+              children,
             };
             return mapped;
           });
 
         console.log('✅ Final messages:', messages);
+        messages.forEach(msg => {
+          console.log(`  Message ${msg.id}: "${msg.content.substring(0, 30)}" - ${msg.children.length} réponses`);
+        });
         setInitialMessages(messages);
       } catch (err) {
         console.error('Error loading messages:', err);

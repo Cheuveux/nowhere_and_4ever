@@ -53,13 +53,10 @@ function MessageItem({
 
       {msg.children && msg.children.length > 0 && (
         <div className="replies-list">
-          <div style={{ fontSize: '0.85rem', color: '#999', paddingLeft: '0.2rem', marginBottom: '0.3rem' }}>
-            ↳ {msg.children.length} réponse{msg.children.length > 1 ? 's' : ''}
-          </div>
           {msg.children.map((child) => (
             <div key={child.id} className="reply-bubble">
               <div className="message-header">
-                <span className="reply-username">➤ {child.username}</span>
+                <span className="reply-username">@{child.username}</span>
                 <span className="message-time">
                   {new Date(child.createdAt).toLocaleTimeString('fr-FR', {
                     hour: '2-digit',
