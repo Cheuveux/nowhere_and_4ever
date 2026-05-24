@@ -32,10 +32,7 @@ export default function Article() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<HomeItem[]>([]);
-  const [introText, setIntroText] = useState<any>(null);
-  const [showIntro, setShowIntro] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const [hoveredType, setHoveredType] = useState<HomeItem['_type'] | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
@@ -47,7 +44,6 @@ export default function Article() {
       fetch(getEndpoint('/conversations'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch(getEndpoint('/intros'), { headers: { Accept: "application/json" } }).then(r => r.json()).catch(() => null),
     ])
       .then(([postsData, convsData, mosaicData, takesData, introsData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
@@ -70,13 +66,6 @@ export default function Article() {
               Description: "Visual gallery collection",
             }]
           : [];
-
-        if (introsData?.data?.[0]?.Texte) {
-          setIntroText(introsData.data[0].Texte);
-          // ✅ Afficher l'intro à chaque fois (sans localStorage)
-          setShowIntro(true);
-        }
-
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
         setIsLoading(false);
       })
@@ -138,16 +127,6 @@ export default function Article() {
       <button className="intro_replay_btn" onClick={handleReplayIntro} title="Replay intro">
         ✦ intro ✦
       </button>
-      {showIntro && introText && (
-        <div 
-          className="blog-intro"
-          // style={hoveredType ? getPageBackground(hoveredType) : {}}
-        >
-          
-          <BlocksRenderer content={introText} />
-        </div>
-      )}
-      
       {/* 
         ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
         

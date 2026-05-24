@@ -6,13 +6,15 @@ export default function  AnimIntro()
 {
 	const	videoRef = useRef<HTMLVideoElement>(null);
 	const introPageRef = useRef<HTMLDivElement>(null);
+	const introImageRef = useRef<HTMLDivElement>(null);
 	const [isMobile, setIsMobile] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [showPrompt, setShowPrompt] = useState(true);
+	const [showIntroImage, setShowIntroImage] = useState(false);
 
 	useLayoutEffect(() => {
 		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 750);
+			setIsMobile(window.innerWidth < 1050);
 		}
 
 		checkMobile();
@@ -20,13 +22,21 @@ export default function  AnimIntro()
 		return () => window.removeEventListener('resize', checkMobile);
 	}, []);
 
+	// Sur desktop, lancer la vidéo automatiquement sans bouton
+	// Sur mobile, afficher le prompt
 	useEffect(() => {
-		if (videoRef.current && !isPlaying && !showPrompt) {
+		setShowPrompt(isMobile);
+	}, [isMobile]);
+
+	useEffect(() => {
+		// Sur desktop: lancer la vidéo automatiquement
+		// Sur mobile: attendre le click sur YES
+		if (videoRef.current && !isPlaying && !showPrompt && !isMobile) {
 			videoRef.current.play().catch(err => {
 				console.warn('Autoplay blocked', err);
 			});
 		}
-	}, [isPlaying, showPrompt]);
+	}, [isPlaying, showPrompt, isMobile]);
 
 	const handlePromptResponse = (answer: 'yes' | 'no') => {
 		if (answer === 'yes') {
@@ -40,54 +50,56 @@ export default function  AnimIntro()
 	};
 
 	const handleVideoEnded = () => {
-		// Animation GSAP : fade out smooth
-		gsap.to(introPageRef.current, {
-			opacity: 0,
-			duration: 1.5,
-			ease: "power2.inOut",
-			onComplete: () => {
-				window.location.href = '/';
-			}
-		});
+		// Cacher la vidéo et afficher l'image intro
+		if (videoRef.current) {
+			videoRef.current.style.display = 'none';
+		}
+		setShowIntroImage(true);
 	};
 
 	return(
 		<div className="intro-page" ref={introPageRef}>
 			{showPrompt && (
 				<div className="intro-prompt">
-					<div className="intro-prompt-content">
-						<p className="intro-prompt-text">ENTER :</p>
-						<div className="intro-prompt-buttons">
-							<button 
-								className="intro-btn-yes"
-								onClick={() => handlePromptResponse('yes')}
-							>
-								YES
-							</button>
-							<button 
-								className="intro-btn-no"
-								onClick={() => handlePromptResponse('no')}
-							>
-								NO
-							</button>
-						</div>
-						<div className="intro-prompt-footer">
-							<p>the magic of the illusion of choice</p>
-						</div>
-					</div>
+					<img 
+						src="/img_assets/icons/enter_btn.gif" 
+						alt="Enter to start"
+						className="intro-prompt-image"
+						onClick={() => handlePromptResponse('yes')}
+					/>
 				</div>
 			)}
-			<video 
-				ref={videoRef}
-				className="intro-video"
-				muted
-				onEnded={handleVideoEnded}
-			>
-				<source
-					src={isMobile ? '/anim_intro/4ever_mobile_intro.mp4' : '/anim_intro/4ever_intro_ordi.mp4'}
-				/>
-				Probleme de video a cause du navigateur.
-			</video>
+			{!showIntroImage && (
+				<video 
+					ref={videoRef}
+					className="intro-video"
+					muted
+					onEnded={handleVideoEnded}
+				>
+					<source
+						src={isMobile ? '/anim_intro/4ever_mobile_intro.mp4' : '/anim_intro/4ever_intro_ordi.mp4'}
+					/>
+					Probleme de video a cause du navigateur.
+				</video>
+			)}
+			{showIntroImage && (
+				<div className="intro-image-container" ref={introImageRef}>
+					<img 
+						src="/img_assets/intro.png" 
+						alt="Intro content"
+						className="intro-image"
+					/>
+					<button 
+						className="intro-post-button"
+						onClick={() => window.location.href = '/'}
+					>
+						<img 
+							src="/img_assets/post_intro_btn.png" 
+							alt="Enter homepage"
+						/>
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }
