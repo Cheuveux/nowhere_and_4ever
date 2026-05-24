@@ -77,7 +77,7 @@ export default function ChatRoomWrapper() {
 
         console.log('✅ Final messages:', messages);
         messages.forEach((msg: Message) => {
-          console.log(`  Message ${msg.id}: "${msg.content.substring(0, 30)}" - ${msg.children.length} réponses`);
+          console.log(`  Message ${msg.id}: "${msg.content.substring(0, 30)}" - ${msg.children?.length ?? 0} réponses`);
         });
         setInitialMessages(messages);
       } catch (err) {
