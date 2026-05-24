@@ -22,7 +22,7 @@ export default function ChatRoomWrapper() {
       try {
         // ✅ Step 1: Fetch room by slug to get its ID
         const roomRes = await fetch(
-          getEndpoint(`/rooms?filters[slug][$eq]=${encodeURIComponent(slug)}`)
+          getEndpoint(`/rooms?filters[slug][$eq]=${encodeURIComponent(slug || '')}`)
         );
         if (!roomRes.ok) throw new Error('Failed to load room');
         const roomData = await roomRes.json();
@@ -76,7 +76,7 @@ export default function ChatRoomWrapper() {
           });
 
         console.log('✅ Final messages:', messages);
-        messages.forEach(msg => {
+        messages.forEach((msg: Message) => {
           console.log(`  Message ${msg.id}: "${msg.content.substring(0, 30)}" - ${msg.children.length} réponses`);
         });
         setInitialMessages(messages);
