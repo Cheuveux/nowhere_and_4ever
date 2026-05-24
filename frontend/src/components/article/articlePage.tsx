@@ -25,8 +25,8 @@ export default function ArticlePage() {
             .then((data) => {
                 setArticle(data.data);
                 
-                // Fetch quiz questions only for the specific article
-                if (data.data?.documentId === "n6cb5cfnokbm5z7wfkujy8d1") {
+                // Fetch quiz questions for specific articles
+                if (data.data?.documentId === "n6cb5cfnokbm5z7wfkujy8d1" || data.data?.documentId === "abi1xfga6rtew6lqut6bqqpv") {
                     fetch(getEndpoint(`/quizzes?populate[answer]=*&sort=order:asc`))
                         .then((res) => res.json())
                         .then((quizData) => setQuizQuestions(quizData.data || []))
@@ -95,9 +95,8 @@ export default function ArticlePage() {
             {(article.documentId === "n6cb5cfnokbm5z7wfkujy8d1" || article.documentId === "abi1xfga6rtew6lqut6bqqpv"  ) && quizQuestions.length > 0 && (
                 <div className="article-quizz-container">
                     <div className="article-quizz-preview">
-                        <h3>Pillow Talk</h3>
                         <button onClick={() => setShowQuizz(true)} className="article-quizz-button">
-                            Start Quiz →
+                            <img src="/img_assets/icons/quizz_button.png" alt="Start Quiz" />
                         </button>
                     </div>
                     {showQuizz && (

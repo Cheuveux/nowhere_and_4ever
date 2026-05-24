@@ -94,54 +94,51 @@
   z-index: 2;
 }
 
-/* Affichage de l'URL */
-.share-modal-url-display {
+/* Affichage de l'URL comme lien cliquable */
+.share-modal-url-link {
+  font-family: var(--copy-link-font);
+  color: #ff007b;
+  text-decoration: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
   padding: 15px;
   border-radius: 8px;
+  display: block;
+  word-break: break-all;
+  transition: all 0.2s ease;
+}
+
+.share-modal-url-link:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+/* Ancien style pour compatibilité (si besoin) */
+.share-modal-url-display {
+  display: none;
 }
 
 .share-modal-url {
-	font-family: var(--copy-link-font);
-	color: #ff007b;
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 1rem;
+  display: none;
 }
 
-/* Bouton Copier */
+/* Bouton Copier (ancien - à supprimer si plus utilisé) */
 .share-modal-copy-btn {
-  background-color: transparent;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  display: none;
 }
 
-.share-modal-copy-btn:hover {
-  transform: translateY(-2px);
-}
-
-.share-modal-copy-btn.copied {
-  background: linear-gradientt(135deg, #ff96f6 0%, #850d45 100%);
-}
-
-/* Responsif */
 @media (max-width: 600px) {
-  .share-modal {
-    width: 95%;
-    max-width: 100%;
-  }
-
+  .share-modal-bg {
+  display: block;
+  width: 350px;
+  border-radius: 5px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
   .share-modal-header h2 {
     font-size: 1.2rem;
-  }
-
-  .share-modal-content {
-    padding: 20px 15px;
   }
 
   .share-modal-buttons {

@@ -108,19 +108,24 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         </div>
 
         <div className="share-modal-content">
-          {/* Afficher l'URL */}
-          <div className="share-modal-url-display">
-            <p className="share-modal-url">{url}</p>
-          </div>
-
-          {/* Bouton Copier */}
-          <button 
-            className={`share-modal-copy-btn ${copied ? 'copied' : ''}`}
-            onClick={handleCopyLink}
+          {/* Afficher l'URL comme lien cliquable */}
+          <a 
+            href="#" 
+            className="share-modal-url-link"
+            onClick={(e) => {
+              e.preventDefault();
+              handleCopyLink();
+            }}
           >
-            {copied ? '💖 Copied 💖' : ' 💕 Copy it 💕'}
-          </button>
+            {url}
+          </a>
 
+          {/* Message Copied */}
+          {copied && (
+            <p className="share-modal-success">
+              💖 Copied! 💖
+            </p>
+          )}
         </div>
       </div>
     </>
