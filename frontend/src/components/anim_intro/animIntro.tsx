@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
-import gsap from "gsap";
 import './animIntro.css'
 
 export default function  AnimIntro()

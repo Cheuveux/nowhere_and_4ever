@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import MeceneButton from "../popup_banner/popupBanner";
 // import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
@@ -45,7 +44,7 @@ export default function Article() {
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
-      .then(([postsData, convsData, mosaicData, takesData, introsData]) => {
+      .then(([postsData, convsData, mosaicData, takesData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
         const takes = (takesData.data || []).map((c: any) => ({ 
