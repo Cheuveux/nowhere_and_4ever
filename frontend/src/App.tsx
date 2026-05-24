@@ -8,6 +8,7 @@ import ConversationPage from './components/conversation/conversation'
 import DelusionalQuiz from './components/quiz/DelusionalQuiz'
 import MosaicGrid from './components/grid_content/MosaicGrid'
 import AnimIntro from './components/anim_intro/animIntro'
+import ChatRoomWrapper from './components/chat_room/ChatRoomWrapper'
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/article/:id" element={<ArticlePage />} />
         <Route path="/takes/:id" element={<TakePage />} />
         <Route path="/conversation/:id" element={<ConversationPage/>} />
+        <Route path="/chat/:slug" element={<ChatRoomWrapper />} />
         <Route path="/quiz" element={<DelusionalQuiz />} />
         <Route path="/mosaics" element={<MosaicGrid />} />
       </Routes>

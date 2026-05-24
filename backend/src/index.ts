@@ -1,20 +1,58 @@
-// import type { Core } from '@strapi/strapi';
+// backend/src/index.ts
+import { Core } from '@strapi/strapi';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register({ strapi }: { strapi: Core.Strapi }) {},
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    try {
+      const io = require('socket.io')(strapi.server.httpServer, {
+        cors: {
+          origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+          methods: ['GET', 'POST'],
+        },
+      });
+
+      io.on('connection', (socket: any) => {
+        socket.on('join-room', (roomSlug: string) => {
+          socket.join(roomSlug);
+        });
+
+        socket.on('send-message', async ({roomSlug, content, username, parentId}: any) => {
+          // ✅ Chercher la room par slug
+          const room = await strapi.db.query('api::room.room').findOne({ 
+            where: { slug: roomSlug } 
+          });
+
+          if (!room) {
+            socket.emit('error', { message: 'Room not found' });
+            return;
+          }
+
+          // ✅ Créer le message avec l'ID de la room
+          try {
+            const message = await strapi.entityService.create('api::message.message', {
+              data: {
+                content: [
+                  {
+                    type: 'paragraph',
+                    children: [{ type: 'text', text: content }],
+                  },
+                ],
+                pseudo: username,
+                room: room.id,
+                publishedAt: new Date(),
+                ...(parentId && { parent: parentId }),
+              },
+            });
+            io.to(roomSlug).emit('new-message', message);
+          } catch (err) {
+            console.error('Message création error:', err);
+          }
+        });
+      });
+    } catch (err) {
+      console.error('Socket.io initialization error:', err);
+    }
+  },
 };

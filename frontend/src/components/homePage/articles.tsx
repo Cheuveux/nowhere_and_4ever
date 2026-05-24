@@ -34,6 +34,7 @@ export default function Article() {
   const [error, setError] = useState<string | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+  const [gossipRoomSlug, setGossipRoomSlug] = useState<string | null>(null);
 
   const [showMeceneBtn, setShowMeceneBtn] = useState(false);
 
@@ -43,8 +44,9 @@ export default function Article() {
       fetch(getEndpoint('/conversations'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint(`/rooms?filters[Name][$eq]=${encodeURIComponent('Gossip Room')}`), { headers: { Accept: "application/json" } }).then(r => r.json()),
     ])
-      .then(([postsData, convsData, mosaicData, takesData]) => {
+      .then(([postsData, convsData, mosaicData, takesData, roomData]) => {
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
         const takes = (takesData.data || []).map((c: any) => ({ 
@@ -65,6 +67,13 @@ export default function Article() {
               Description: "Visual gallery collection",
             }]
           : [];
+
+        // ✅ Récupère le slug de la Gossip Room
+        const gossipRoom = roomData.data?.[0];
+        if (gossipRoom) {
+          setGossipRoomSlug(gossipRoom.slug);
+        }
+
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
         setIsLoading(false);
       })
@@ -99,6 +108,12 @@ export default function Article() {
     navigate('/intro');
   };
 
+  const handleOpenGossipRoom = () => {
+    if (gossipRoomSlug) {
+      navigate(`/chat/${gossipRoomSlug}`);
+    }
+  };
+
   // Mecene Button Timer
   useEffect(() => { 
     const timer = setTimeout(() => {
@@ -126,6 +141,15 @@ export default function Article() {
       <button className="intro_replay_btn" onClick={handleReplayIntro} title="Replay intro">
         ✦ intro ✦
       </button>
+      {gossipRoomSlug && (
+        <button 
+          className="gossip-room-btn" 
+          onClick={handleOpenGossipRoom}
+          title="Open Gossip Room"
+        >
+          <img src="/img_assets/icons/room_btn.gif" alt="Gossip Room" />
+        </button>
+      )}
       {/* 
         ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
         

@@ -35,6 +35,41 @@
 	}
 }
 
+/* GOSSIP ROOM BUTTON */
+.gossip-room-btn {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 500;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	transition: all 0.3s ease;
+}
+
+.gossip-room-btn img {
+	width: 60px;
+	height: auto;
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.gossip-room-btn:hover img {
+	transform: scale(1.1);
+}
+
+.gossip-room-btn:active img {
+	transform: scale(0.95);
+}
+
+@media screen and (max-width: 625px) {
+	.gossip-room-btn img {
+		width: 45px;
+	}
+}
+
 /* texte d'intro */
 .blog-intro {
   padding: 2rem;
