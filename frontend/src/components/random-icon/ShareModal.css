@@ -18,26 +18,39 @@
   position: fixed;
   top: 50%;
   left: 5%;
-  width: 350px;
+  width: fit-content;
+  height: fit-content;
   max-width: calc(100% - 40px);
   transform: translateY(-50%);
-  background: white;
-  border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
   z-index: 1000;
-  overflow: hidden;
+  overflow: visible;
+  background-color: transparent;
+}
+
+/* Image de background - prend tout l'espace sans déformation */
+.share-modal-bg {
+  display: block;
+  width: 350px;
+  border-radius: 5px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 /* Header du modal */
 .share-modal-header {
-	font-family: var(--retro-font);
+	font-family: var(--copy-link-font);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
-	border-bottom: 1px solid #eee;
-	background: linear-gradient(135deg, #bb8ad3 0%, #d14e8b 100%);
-	color: rgb(65, 61, 61);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;
 }
 
 .share-modal-header h2 {
@@ -64,36 +77,40 @@
 }
 
 .share-modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+	color: #ff007b;
 }
 
 /* Contenu */
 .share-modal-content {
-  padding: 30px 20px;
+  padding: 120px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 }
 
 /* Affichage de l'URL */
 .share-modal-url-display {
-  background: #f5f5f5;
   padding: 15px;
   border-radius: 8px;
-  border: 2px solid #e0e0e0;
 }
 
 .share-modal-url {
+	font-family: var(--copy-link-font);
+	color: #ff007b;
+  text-transform: uppercase;
   margin: 0;
-  word-break: break-all;
-  color: #333;
-  font-size: 0.9rem;
-  font-family: 'Courier New', monospace;
+  font-size: 1rem;
 }
 
 /* Bouton Copier */
 .share-modal-copy-btn {
-  background: linear-gradient(135deg, #c3aec5 0%, #ff7ffd 100%);
+  background-color: transparent;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -102,79 +119,14 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .share-modal-copy-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .share-modal-copy-btn.copied {
   background: linear-gradientt(135deg, #ff96f6 0%, #850d45 100%);
-}
-
-/* Message de succès */
-.share-modal-success {
-  color: #af4c75;
-  font-size: 0.95rem;
-  text-align: center;
-  margin: 0;
-  padding: 10px;
-  background-color: rgba(175, 76, 147, 0.1);
-  border-radius: 6px;
-}
-
-/* Autres options de partage */
-.share-modal-other-options {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-}
-
-.share-modal-label {
-  margin: 0 0 12px 0;
-  color: #666;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.share-modal-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.share-modal-social {
-  flex: 1;
-  min-width: 120px;
-  padding: 10px 15px;
-  border-radius: 6px;
-  text-decoration: none;
-  text-align: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.share-modal-social.twitter {
-  background-color: #1da1f2;
-  color: white;
-}
-
-.share-modal-social.twitter:hover {
-  background-color: #1a91da;
-  transform: translateY(-2px);
-}
-
-.share-modal-social.facebook {
-  background-color: #4267B2;
-  color: white;
-}
-
-.share-modal-social.facebook:hover {
-  background-color: #365899;
-  transform: translateY(-2px);
 }
 
 /* Responsif */

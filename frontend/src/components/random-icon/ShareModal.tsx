@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './ShareModal.css';
+import shareButtonImage from '../../../public/img_assets/btn_popup/share_button_remix.png';
 
 interface ShareModalProps {
   // URL à partager
   url: string;
-  // Titre optionnel
-  title?: string;
   // Si le modal est ouvert
   isOpen: boolean;
   // Callback pour fermer
@@ -15,7 +14,6 @@ interface ShareModalProps {
 
 export const ShareModal: React.FC<ShareModalProps> = ({
   url,
-  title = 'Share it to others',
   isOpen,
   onClose,
 }) => {
@@ -95,8 +93,15 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           pointerEvents: isOpen ? 'auto' : 'none'
         }}
       >
+        {/* Background image - définit la taille du conteneur */}
+        <img 
+          src={shareButtonImage}
+          alt="Share Modal Background"
+          className="share-modal-bg"
+        />
+
+        {/* Overlay du contenu par-dessus l'image */}
         <div className="share-modal-header">
-          <h2>{title}</h2>
           <button className="share-modal-close" onClick={onClose}>
             ✕
           </button>
@@ -116,12 +121,6 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             {copied ? '💖 Copied 💖' : ' 💕 Copy it 💕'}
           </button>
 
-          {/* Message de confirmation */}
-          {copied && (
-            <p className="share-modal-success">
-              Link ready to be shared!
-            </p>
-          )}
         </div>
       </div>
     </>

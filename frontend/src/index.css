@@ -27,6 +27,11 @@
   font-style: bold;
 }
 
+@font-face {
+  font-family: 'UnivesalCondBlack Regular';
+  src: url('frontend/public/fonts/UniversalCondBlack Regular.ttf') format('truetype');
+}
+
 :root {
   font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.2;
@@ -45,6 +50,7 @@
   --retro-font: 'Retro Font', Arial, sans-serif;
   --popup-font: 'ITC Machine Bold', Arial, sans-serif;
   --hand-font: 'Snell Roundhand', cursive;
+  --copy-link-font: 'UnivesalCondBlack Regular', Arial, sans-serif;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
