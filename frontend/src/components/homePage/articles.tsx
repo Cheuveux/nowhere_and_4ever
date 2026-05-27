@@ -6,7 +6,6 @@ import MeceneButton from "../popup_banner/popupBanner";
 import { getBackgroundImage } from "./getBackgroundImage";
 import { getEndpoint } from '../../config/api';
 import './articles.css';
-import { InteractiveIconContainer } from '../random-icon/InteractiveIcon';
 
 type HomeItem = {
   documentId: string;
@@ -138,47 +137,15 @@ export default function Article() {
 
   return (
     <div ref={articlesRef}>
-      <button className="intro_replay_btn" onClick={handleReplayIntro} title="Replay intro">
-        ✦ intro ✦
-      </button>
       {gossipRoomSlug && (
         <button 
           className="gossip-room-btn" 
           onClick={handleOpenGossipRoom}
           title="Open Gossip Room"
         >
-          <img src="/img_assets/icons/room_btn.gif" alt="Gossip Room" />
+          <img src="/img_assets/icons/room_btn.png" alt="Gossip Room" />
         </button>
       )}
-      {/* 
-        ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
-        
-        Cet InteractiveIconContainer affiche des icônes cliquables
-        avec randomness sur la taille et la position.
-        
-        💡 CLIQUEZ SUR UNE ICÔNE = Modal de partage s'ouvre!
-        
-        PARAMÈTRES :
-        - probability: 1 = 100% d'affichage (changez en 0.3-0.7 pour du aléatoire)
-        - spotCount: 2 = 2 icônes
-        - positions: positions d'affichage (essayez 'random' pour aléatoire!)
-        - iconSize: 80 = taille en pixels
-        - sizeVariation: 0.3 = la taille varie de ±30% ✨
-        - positionVariation: 30 = la position varie de ±30px ✨
-        
-        TEST :
-        - Rafraîchissez la page plusieurs fois
-        - Voyez comment les icônes changent de taille/position
-        - Cliquez sur une icône pour partager!
-      */}
-      <InteractiveIconContainer
-        probability={1}
-        spotCount={2}
-        positions={['bottom-left', 'bottom-right']}
-        iconSize={180}
-        sizeVariation={0.3}        // ✨ Variation de taille
-        positionVariation={30}     // ✨ Variation de position
-      >
         <div 
           className="folders-stack"
           // style={hoveredType ? getPageBackground(hoveredType) : {}}
@@ -235,7 +202,6 @@ export default function Article() {
       </div>
     </div>
         </div>
-      </InteractiveIconContainer>
 
       {/* Add the mecene button */}
       <MeceneButton isOpen={showMeceneBtn} />

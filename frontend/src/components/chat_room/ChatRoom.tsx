@@ -1,25 +1,28 @@
 import { useState, useRef, useEffect } from 'react';
+import {  Link } from "react-router-dom";
 import { useChat } from './useChat';
 import type { Message } from './chat';
 import './ChatRoom.css';
 
 // Liste de pseudos disponibles (comme pour les commentaires)
 const AVAILABLE_USERNAMES = [
-  '🎭',
-  '👁️',
-  '🐍',
-  '🦋',
-  '🌙',
-  '☀️',
-  '🌸',
-  '🔥',
-  '🌊',
-  '💎',
-  '👻',
-  '🎀',
-  '🎪',
-  '🎨',
-  '🎬',
+  'Mulet cyrus ',
+  'Jim carré ',
+  'Chief kiffe',
+  'Alain Deloin',
+  'Leticia Cassetoidela',
+  'Kim Kardashein',
+  'Leonardo Di Caprisun',
+  'Carla Brulée',
+  'Demi Moite',
+  'Tylor the créatine',
+  'Naomi Cambouis',
+  'Will Splif',
+  'Timothée Chalamerde',
+  'Tom Crush',
+  'Lille wayne',
+  'Christina Aguerisol',
+  'Angelica diddle',
 ];
 
 // --- Sous-composant : un message + ses replies ---
@@ -87,7 +90,7 @@ export default function ChatRoom({
   const [replyTo, setReplyTo] = useState<{ id: number; username: string } | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const { messages, send } = useChat(roomSlug, initialMessages);
+  const { messages, send, connectionCount } = useChat(roomSlug, initialMessages);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -136,18 +139,22 @@ export default function ChatRoom({
     <div id="chat-room">
       {/* Header */}
       <div id="chat-header">
-        <span id="chat-status-dot" />
-        <span id="chat-room-name">Chat — {roomSlug}</span>
-        <span id="chat-current-user">
-          Connecté en tant que <strong>{username}</strong>
-        </span>
+          <div id="return_btn">
+            <Link to="/">
+                <img src="/img_assets/icons/home.png" alt="" />
+            </Link>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+          <span id="chat-room-name">{roomSlug}</span>
+          <span id="room-connected">👥 {connectionCount} connecté{connectionCount > 1 ? 's' : ''}</span>
+        </div>
+        <div id="img-room--header">
+          <img src="/img_assets/header_room.gif" alt="" />
+        </div>
       </div>
 
       {/* Messages */}
       <div id="messages-list">
-        {messages.length === 0 && (
-          <p id="empty-state">Aucun message pour l'instant. Soyez le premier !</p>
-        )}
         {messages.map((msg) => (
           <MessageItem
             key={msg.id}

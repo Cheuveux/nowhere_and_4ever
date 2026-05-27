@@ -5,6 +5,7 @@ import { extractTextFromBlocks } from './utils';
 
 export function useChat(roomSlug: string, initialMessages: Message[]) {
 	const	[messages, setMessages] = useState<Message[]>(initialMessages);
+	const	[connectionCount, setConnectionCount] = useState(0);
 
 	useEffect(() => {
 		const socket = getSocket();
@@ -35,9 +36,15 @@ export function useChat(roomSlug: string, initialMessages: Message[]) {
 				return [...prev, processedMsg];
 			});
 		});
+
+		// Ecoute les mises à jour du nombre de connexions
+		socket.on('room-users-count', (count: number) => {
+			setConnectionCount(count);
+		});
 		
 		return () => {
 			socket.off('new-message');
+			socket.off('room-users-count');
 			socket.emit('leave-room', roomSlug);
 		};
 
@@ -52,5 +59,5 @@ export function useChat(roomSlug: string, initialMessages: Message[]) {
 		});
 	};
 
-	return { messages, send };
+	return { messages, send, connectionCount };
 }
