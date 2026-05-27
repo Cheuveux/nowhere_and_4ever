@@ -12,7 +12,7 @@ export function useChat(roomSlug: string, initialMessages: Message[]) {
 
 		// Rejoins room cote socket.io
 		socket.emit('join-room', roomSlug);
-		
+		console.log("Emit join-room pour:", roomSlug);	
 		// Ecoute des nouveaux messages broadcastes par Socket.io
 		socket.on('new-message', (msg: any) => {
 			// Extraire le texte du format blocks

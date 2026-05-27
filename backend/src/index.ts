@@ -17,7 +17,7 @@ export default {
       io.on('connection', (socket: any) => {
         console.log('✅ Socket connected:', socket.id);
         
-        // ✅ JOIN ROOM - avec compteur utilisateurs
+        //  JOIN ROOM - avec compteur utilisateurs
         socket.on('join-room', (roomSlug: string) => {
           socket.join(roomSlug);
           console.log(`📍 User joined room: ${roomSlug}`);
@@ -28,7 +28,7 @@ export default {
           io.to(roomSlug).emit('room-users-count', userCount);
         });
 
-        // ✅ LEAVE ROOM
+        // LEAVE ROOM
         socket.on('leave-room', (roomSlug: string) => {
           socket.leave(roomSlug);
           console.log(`📍 User left room: ${roomSlug}`);
@@ -39,7 +39,7 @@ export default {
           io.to(roomSlug).emit('room-users-count', userCount); 
         });
 
-        // ✅ DISCONNECT
+        //  DISCONNECT
         socket.on('disconnect', () => {
           console.log('❌ Socket disconnected:', socket.id);
 
@@ -53,7 +53,7 @@ export default {
           });
         });
 
-        // ✅ SEND MESSAGE
+        //  SEND MESSAGE
         socket.on('send-message', async ({roomSlug, content, username, parentId}: any) => {
           console.log('📨 RECV send-message:', {roomSlug, content, username, parentId, type: typeof parentId});
           
