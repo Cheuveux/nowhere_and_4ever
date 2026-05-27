@@ -143,93 +143,44 @@ function parseConversationBlocks(blocks: any[]): Message[] {
 		}));
 }
 
-function useTpeWriter(messages: Message[], charSpeed = 40, pauseBetween = 700) {
-	const [typed, setTyped] = useState<{sender: "left"|"right"; name:string; text: string; bashPrefix: string; prefixColor: string; audioIndex?: number}[]>([]);
-	const hasAudioStartedRef = useRef(false);
-	const msgIdxRef = useRef(0);
-	const charIdxRef = useRef(0);
-	const bashPrefixesRef = useRef<{prefix: string; color: string}[]>([]);
-	const glitchTimesRef = useRef<Set<number>>(new Set());
+function useProgressiveDisplay(messages: Message[], initialPause = 1200, speedMultiplier = 0.55) {
+	const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
-		if (!messages.length) return;
-		msgIdxRef.current = 0;
-		charIdxRef.current = 0;
-		hasAudioStartedRef.current = false;
-		
-		bashPrefixesRef.current = messages.map((msg) => ({
-			prefix: msg.sender === "right" ? "whisper_02" : "whisper_01",
-			color: msg.sender === "right" ? "#9900ff" : "#fa0f0f"
-		}));
-		
-		glitchTimesRef.current = new Set();
-		const glitchCount = Math.floor(Math.random() * 5) + 5;
-		for (let i = 0; i < glitchCount; i++) {
-			glitchTimesRef.current.add(Math.floor(Math.random() * messages.length));
+		if (!messages.length) {
+			setDisplayedMessages([]);
+			return;
 		}
-		
-		setTyped([]);
 
+		setDisplayedMessages([]);
 		let active = true;
+		let msgIdx = 0;
 		let timerId: ReturnType<typeof setTimeout>;
 
-		const tick = () => {
+		const showNextMessage = () => {
 			if (!active) return;
-			
-			if (!hasAudioStartedRef.current) {
-				timerId = setTimeout(tick, 100);
-				return;
-			}
 
-			const msgIdx = msgIdxRef.current;
-			if (msgIdx >= messages.length) return;
-
-			const msg = messages[msgIdx];
-			charIdxRef.current++;
-			const charIdx = charIdxRef.current;
-			
-			let bashPrefix = bashPrefixesRef.current[msgIdx].prefix;
-			let prefixColor = bashPrefixesRef.current[msgIdx].color;
-			if (glitchTimesRef.current.has(msgIdx) && Math.random() > 0.5) {
-				const sender = messages[msgIdx].sender;
-				bashPrefix = sender === "right" ? "whisper_02" : "whisper_01";
-				prefixColor = sender === "right" ? "#9900ff" : "#fa0f0f";
-			}
-
-			setTyped(prev => {
-				const updated = [...prev];
-				updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text.slice(0, charIdx), bashPrefix, prefixColor, audioIndex: msg.audioIndex };
-				return updated;
-			});
-
-			if (charIdx >= msg.text.length) {
-				setTyped(prev => {
-					const updated = [...prev];
-					updated[msgIdx] = { sender: msg.sender, name: msg.name, text: msg.text, bashPrefix, prefixColor, audioIndex: msg.audioIndex };
-					return updated;
-				});
-				msgIdxRef.current++;
-				charIdxRef.current = 0;
-				timerId = setTimeout(tick, pauseBetween);
-			} else {
-				timerId = setTimeout(tick, charSpeed);
+			if (msgIdx < messages.length) {
+				setDisplayedMessages(prev => [...prev, messages[msgIdx]]);
+				msgIdx++;
+				// Chaque message s'affiche plus vite que le précédent
+				const nextPause = Math.max(100, initialPause * Math.pow(speedMultiplier, msgIdx));
+				timerId = setTimeout(showNextMessage, nextPause);
 			}
 		};
 
-		timerId = setTimeout(tick, 500);
+		timerId = setTimeout(showNextMessage, initialPause);
+
 		return () => {
 			active = false;
 			clearTimeout(timerId);
 		};
-	}, [messages]);
+	}, [messages, initialPause, speedMultiplier]);
 
-	const handlePlayStart = () => {
-		console.log('Audio started, beginning conversation');
-		hasAudioStartedRef.current = true;
-	};
-
-	return { typed, handlePlayStart };
+	return { displayedMessages };
 }
+
+
 
 export default function ConversationPage() {
 	const { id } = useParams();
@@ -252,20 +203,14 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 		post?.Conversation_content ? parseConversationBlocks(post.Conversation_content) : [],
 		[post]
 	);
-	const { typed, handlePlayStart } = useTpeWriter(messages);
+	
+	const { displayedMessages } = useProgressiveDisplay(messages, 1200, 0.85);
+	
 	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth"});
-	}, [typed]);
+	}, [displayedMessages]);
 
 	const audioUrl = post?.Sound?.[0]?.url ? `${strapiUrl}${post.Sound[0].url}` : null;
-
-	// Si pas d'audio, lancer la conversation directement
-	useEffect(() => {
-		if (!audioUrl) {
-			console.warn('No audio available for this conversation, starting immediately');
-			handlePlayStart();
-		}
-	}, [audioUrl, handlePlayStart]);
 
 	if (loading) 
 		return (<p> Loading...</p>);
@@ -281,37 +226,32 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
                     </Link>
                 </div>
 				<h2>{post.Title}</h2>
+
 			</div>
-			<div className="chatWindow"
-			// style={windowUrl ? {backgroundImage: `url(${windowUrl})`} : undefined}
-			>
-			{audioUrl ? (
+			<div className="chatWindow">
+			{audioUrl && (
 				<div className="audio-player-wrapper">
 					<RadioAudioPlayer 
 						audioUrl={audioUrl} 
 						coverUrl={null}
-						onPlayStart={handlePlayStart}
 					/>
-				</div>
-			) : (
-				<div style={{textAlign: 'center', padding: '1rem', color: '#888'}}>
-					<p>Audio not available - starting conversation</p>
 				</div>
 			)}
 				<div className="chat-messages">
-					{typed.map((msg, i) => (
+					{displayedMessages.filter(msg => msg && msg.sender).map((msg, i) => (
 					<div key={i} className={`bubble-wrapper ${msg.sender}`}>
 						{msg.sender === "left" && (
-							<span className="bash-prefix" style={{ color: msg.prefixColor }}>{msg.bashPrefix}</span>
+							<span className="bash-prefix" style={{ color: msg.sender === "right" ? "#9900ff" : "#fa0f0f" }}>
+								{msg.sender === "right" ? "whisper_02" : "whisper_01"}
+							</span>
 						)}
 						<div className={`bubble ${msg.sender}`}>
 							{msg.text}
-							{i === typed.length - 1 && i < messages.length - 1 && (
-								<span className="cursor">|</span>
-							)}
 						</div>
 						{msg.sender === "right" && (
-							<span className="bash-prefix" style={{ color: msg.prefixColor }}>{msg.bashPrefix}</span>
+							<span className="bash-prefix" style={{ color: msg.sender === "right" ? "#9900ff" : "#fa0f0f" }}>
+								{msg.sender === "right" ? "whisper_02" : "whisper_01"}
+							</span>
 						)}
 					</div>
 				))}
