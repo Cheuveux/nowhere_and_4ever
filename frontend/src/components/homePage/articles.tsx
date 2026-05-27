@@ -68,9 +68,9 @@ export default function Article() {
             }]
           : [];
 
-        // ✅ Cherche la Gossip Room (insensible à la casse)
+        // ✅ Cherche la Gossip Room (insensible à la casse ET aux espaces)
         const gossipRoom = (roomData.data || []).find((r: any) => 
-          r.Name?.toLowerCase() === 'gossip room' || r.name?.toLowerCase() === 'gossip room'
+          r.name?.trim().toLowerCase() === 'gossip room'
         );
         
         if (gossipRoom) {
