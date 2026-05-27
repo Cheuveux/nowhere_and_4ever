@@ -42,9 +42,11 @@ export default function Article() {
       fetch(getEndpoint('/conversations'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/mosaics'), { headers: { Accept: "application/json" } }).then(r => r.json()),
       fetch(getEndpoint('/takes'), { headers: { Accept: "application/json" } }).then(r => r.json()),
-      fetch(getEndpoint(`/rooms?filters[Name][$eq]=${encodeURIComponent('Gossip Room')}`), { headers: { Accept: "application/json" } }).then(r => r.json()),
+      fetch(getEndpoint('/rooms'), { headers: { Accept: "application/json" } }).then(r => r.json()), // ✅ Sans filtrer d'abord
     ])
       .then(([postsData, convsData, mosaicData, takesData, roomData]) => {
+        console.log('📋 ALL ROOMS from Strapi:', roomData.data); // Affiche TOUT
+        
         const posts = (postsData.data || []).map((p: any) => ({ ...p, _type: "article" as const }));
         const convs = (convsData.data || []).map((c: any) => ({ ...c, _type: "conversation" as const })); 
         const takes = (takesData.data || []).map((c: any) => ({ 
@@ -66,13 +68,17 @@ export default function Article() {
             }]
           : [];
 
-        // ✅ Récupère le slug de la Gossip Room
-        const gossipRoom = roomData.data?.[0];
+        // ✅ Cherche la Gossip Room (insensible à la casse)
+        const gossipRoom = (roomData.data || []).find((r: any) => 
+          r.Name?.toLowerCase() === 'gossip room' || r.name?.toLowerCase() === 'gossip room'
+        );
+        
         if (gossipRoom) {
           setGossipRoomSlug(gossipRoom.slug);
-          console.log('✅ Gossip Room trouvée:', gossipRoom.slug);
+          console.log('✅ Gossip Room trouvée:', gossipRoom.slug, gossipRoom);
         } else {
-          console.log('❌ Gossip Room NOT found. Response:', roomData);
+          console.log('❌ Gossip Room NOT found.');
+          console.log('Rooms disponibles:', (roomData.data || []).map((r: any) => ({ name: r.Name || r.name, slug: r.slug })));
         }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
