@@ -158,7 +158,7 @@ export default function Article() {
           onClick={handleOpenGossipRoom}
           title="Open Gossip Room"
         >
-          <img src="/img_assets/icons/room_btn.png" alt="Gossip Room" />
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/gossip_header.png" alt="Gossip Room" />
         </button>
       )}
         <div 

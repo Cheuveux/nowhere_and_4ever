@@ -61,7 +61,7 @@ export default function  AnimIntro()
 			{showPrompt && (
 				<div className="intro-prompt">
 					<img 
-						src="/img_assets/icons/enter_btn.gif" 
+						src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/enter_btn.gif" 
 						alt="Enter to start"
 						className="intro-prompt-image"
 						onClick={() => handlePromptResponse('yes')}
@@ -77,7 +77,7 @@ export default function  AnimIntro()
 					onEnded={handleVideoEnded}
 				>
 					<source
-						src={isMobile ? '/anim_intro/4ever_mobile_intro.mp4' : '/anim_intro/4ever_intro_ordi.mp4'}
+						src={isMobile ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/4ever_mobile_intro.mp4' : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/4ever_intro_ordi.mp4'}
 					/>
 					Probleme de video a cause du navigateur.
 				</video>
@@ -94,7 +94,7 @@ export default function  AnimIntro()
 						onClick={() => window.location.href = '/'}
 					>
 						<img 
-							src="/img_assets/post_intro_btn.png" 
+							src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/post_intro_btn.png" 
 							alt="Enter homepage"
 						/>
 					</button>

@@ -236,7 +236,7 @@ export default function MosaicGrid() {
       <div className="mosaic-header">
         <div className="mosaic-return_btn">
             <Link to="/">
-                <img src="/img_assets/icons/home.png" alt="" />
+                <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
             </Link>
         </div>
         <h2 className="mosaic-section__title">{section.Titre}</h2>

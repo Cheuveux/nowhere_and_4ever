@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './ShareModal.css';
-import shareButtonImage from '../../../public/img_assets/btn_popup/share_button_remix.png';
+
+const shareButtonImage = 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/share_button_remix.png';
 
 interface ShareModalProps {
-  // URL à partager
   url: string;
-  // Si le modal est ouvert
   isOpen: boolean;
-  // Callback pour fermer
   onClose: () => void;
 }
 

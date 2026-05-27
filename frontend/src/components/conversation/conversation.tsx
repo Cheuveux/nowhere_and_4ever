@@ -275,9 +275,11 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 	return (
 		<div className="conv-page">
 			<div className="chat-header">
-				<div className="returnBtn">
-					<Link to="/">../home/</Link>
-				</div>
+				<div className="return_btn">
+                    <Link to="/">
+                        <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
+                    </Link>
+                </div>
 				<h2>{post.Title}</h2>
 			</div>
 			<div className="chatWindow"

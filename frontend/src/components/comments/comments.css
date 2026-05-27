@@ -8,7 +8,7 @@
 	color: rgb(255, 255, 255);
 	width: 100%;
 	height: 100%;
-	background-image: url('/img_assets/espace_comm.jpg');
+	background-image: url('https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/espace_comm.jpg');
 	background-size: 100%;
 }
 
@@ -130,7 +130,7 @@ span.date{
 .comment-warning-popup {
 	background-color: rgba(255, 255, 255, 0.265);
 	backdrop-filter: blur(8px);               /* blur effect */
-	-webkit-backdrop-filter: blur(8px);   
+	-webkit-backdrop-filter: blur(8px);
 	color: #c5c1c1;
 	font-weight: 900;
 	padding: 2rem;
@@ -152,12 +152,11 @@ span.date{
 }
 
 .comment-warning-popup p {
-	font-family: 'ITC Machine Bold';
-	color: #0b0a0ae8;
+	font-family: var(--copy-link-font);
+	color: #cfcacae8;
 	line-height: 1.6;
 	font-size: 1.15rem;
 	margin-bottom: 1rem;
-	text-transform: uppercase;
 }
 
 .btn-agree-warning {

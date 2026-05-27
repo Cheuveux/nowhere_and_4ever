@@ -141,7 +141,7 @@ export default function ChatRoom({
       <div id="chat-header">
           <div id="return_btn">
             <Link to="/">
-                <img src="/img_assets/icons/home.png" alt="" />
+                <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
             </Link>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
@@ -149,7 +149,7 @@ export default function ChatRoom({
           <span id="room-connected">👥 {connectionCount} connecté.e{connectionCount > 1 ? 's' : ''}</span>
         </div>
         <div id="img-room--header">
-          <img src="/img_assets/header_room.gif" alt="" />
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/header_room_nobg.gif" alt="" />
         </div>
       </div>
 
