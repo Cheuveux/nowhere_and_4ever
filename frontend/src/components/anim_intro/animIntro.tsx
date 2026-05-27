@@ -73,6 +73,7 @@ export default function  AnimIntro()
 					ref={videoRef}
 					className="intro-video"
 					muted
+					controls={false}
 					onEnded={handleVideoEnded}
 				>
 					<source
