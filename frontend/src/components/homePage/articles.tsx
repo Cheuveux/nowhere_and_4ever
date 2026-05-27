@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import MeceneButton from "../popup_banner/popupBanner";
-// import { getPageBackground} from './folderBackground';
 import { getBackgroundImage } from "./getBackgroundImage";
 import { getEndpoint } from '../../config/api';
 import './articles.css';
@@ -100,11 +99,6 @@ export default function Article() {
     e.preventDefault();
     e.stopPropagation();
     setExpandedCardId(cardId);
-  };
-
-  const handleReplayIntro = () => {
-    sessionStorage.removeItem('introWatched');
-    navigate('/intro');
   };
 
   const handleOpenGossipRoom = () => {
