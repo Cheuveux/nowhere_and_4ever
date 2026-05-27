@@ -130,6 +130,23 @@
   z-index: 1;
   overflow: visible;
   transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.folder-card.folder-card--expanded {
+  z-index: 100;
+  position: relative;
+}
+
+/* Sur mobile: garder le chevauchement normal */
+@media (hover: none) and (pointer: coarse) {
+  .folder-card {
+    margin-bottom: -110px; /* Revenir au chevauchement normal */
+  }
+  
+  .folder-card {
+    position: relative;
+  }
 }
 
 .folder-card:first-child {
@@ -228,19 +245,50 @@
     opacity: 0;
   }
 
-  /* On first tap: show header */
+  /* On first tap: show header + elevate */
+  .folder-card--expanded {
+    margin-bottom: 50px;
+  }
+
   .folder-card--expanded .folder-header {
     opacity: 1;
+  }
+
+  /* Dim other cards when one is expanded */
+  .folder-card--expanded ~ .folder-card,
+  .folder-card--expanded ~ .folder-card ~ .folder-card {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .folder-card + .folder-card--expanded ~ .folder-card {
+    opacity: 0.5;
   }
 }
 
 /* Desktop - hover behavior */
 @media (hover: hover) {
+  .folder-card {
+    position: relative;
+  }
+
+  /* Pseudo-élément invisible pour zone hover tampon */
+  .folder-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    pointer-events: auto;
+  }
+
   .folder-header {
     opacity: 0;
   }
 
-  .folder-card:hover .folder-header {
+  .folder-card:hover .folder-header,
+  .folder-card:has(> *:hover)::after:hover ~ .folder-header {
     opacity: 1;
   }
 }

@@ -93,20 +93,34 @@ export default function Article() {
     setIsTouchDevice(window.matchMedia('(hover: none)').matches);
   }, []);
 
-  // Handle card tap on mobile
+  // Handle card tap on mobile - avec meilleure détection
   const handleCardTap = (e: React.MouseEvent, cardId: string, _type: HomeItem['_type']) => {
     // Only on touch devices
     if (!isTouchDevice) return;
 
-    // If already expanded, allow navigation on second tap
+    // ✅ Vérifier que c'est vraiment la carte cliquée (pas une autre derrière)
+    const target = e.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const clickY = e.clientY;
+    
+    // Si le clic est trop bas (dans la zone de chevauchement très strict), ignorer
+    // Seulement les 15px du bas pour garder l'aspect dense
+    if (clickY > rect.bottom - 15) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Si on clique sur la même carte, la fermer
     if (expandedCardId === cardId) {
       setExpandedCardId(null);
       return;
     }
 
-    // First tap - show content and change background
-    e.preventDefault();
-    e.stopPropagation();
+    // Si on clique sur une autre carte, l'ouvrir (ferme la précédente)
     setExpandedCardId(cardId);
   };
 
