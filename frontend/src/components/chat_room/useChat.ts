@@ -39,9 +39,17 @@ export function useChat(roomSlug: string, initialMessages: Message[]) {
 
 		// Ecoute les mises à jour du nombre de connexions
 		socket.on('room-users-count', (count: number) => {
+			console.log("rooms-users-count", count);
 			setConnectionCount(count);
 		});
 		
+		socket.on('connect', () => {
+			console.log('Socket connected', socket.id);
+		})
+		
+		socket.on('disconnect', () => {
+			console.log('Socket disconnected', socket.id);
+		})
 		return () => {
 			socket.off('new-message');
 			socket.off('room-users-count');
