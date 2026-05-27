@@ -99,11 +99,12 @@
 }
 
 #chat-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
   width: 100%;
   max-width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-items: center;
   gap: 1rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -114,8 +115,14 @@
 #room-connected {
   color: white;
 }
-#return_btn img{
+#return_btn {
   width: 120px;
+  display: flex;
+  justify-content: center;
+}
+#return_btn img{
+  width: 100%;
+  max-width: 120px;
 }
 #chat-room-name {
 	/* 1. Le dégradé est posé comme background */
@@ -128,17 +135,26 @@
   /* 3. Le texte devient transparent pour laisser voir le fond */
   -webkit-text-fill-color: transparent;
   color: transparent; /* fallback */
+  height: 10vh;
   font-family: var(--retro-font);
   font-size: 1.8rem;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 5vh;
   align-items: center;
-  flex-grow: 1;
+  gap: 0.5rem;
+  grid-column: 2;
 }
 
+#img-room--header {
+  width: 120px;
+  display: flex;
+  justify-content: end; 
+}
 #img-room--header img{
-  width: 100px;
+  width: 100%;
+  max-width: 120px;
 }
 
 
@@ -371,6 +387,10 @@
 
 /* Responsive */
 @media screen and (max-width: 625px) {
+  #pseudo-screen {
+    background-position: center;
+    background-size: 33%;
+  }
   #pseudo-card {
     margin: 1rem;
   }
@@ -397,11 +417,21 @@
   }
 
   #chat-header {
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
+  #return_btn {
+    justify-content: start;
+  }
+  #return_btn img {
+    width: 60px;
+  }
   #chat-room-name {
+    font-size: 1.2rem;
+    height: 10vh;
     width: 100%;
+  }
+  #img-room--header {
+    justify-content: end;
   }
 }

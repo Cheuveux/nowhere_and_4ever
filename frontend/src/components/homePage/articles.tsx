@@ -111,16 +111,14 @@ export default function Article() {
       return;
     }
 
-    e.preventDefault();
-    e.stopPropagation();
-
-    // Si on clique sur la même carte, la fermer
+    // ✅ Si la carte est déjà expandue, laisser le lien fonctionner (ne pas prevent)
     if (expandedCardId === cardId) {
-      setExpandedCardId(null);
-      return;
+      return; // Laisse le <Link> naviguer
     }
 
-    // Si on clique sur une autre carte, l'ouvrir (ferme la précédente)
+    // ✅ Sinon, expand la carte et empêche la navigation
+    e.preventDefault();
+    e.stopPropagation();
     setExpandedCardId(cardId);
   };
 

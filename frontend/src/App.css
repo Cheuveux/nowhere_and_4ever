@@ -39,9 +39,6 @@
 
 /* Responsive styles */
 @media (max-width: 900px) {
-  #root {
-    padding: 1rem;
-  }
   .card {
     padding: 1em;
   }
@@ -51,9 +48,6 @@
 }
 
 @media (max-width: 625px) {
-  #root {
-    padding: 0.5rem;
-  }
   .card {
     padding: 0.5em;
   }

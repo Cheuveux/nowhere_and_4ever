@@ -8,14 +8,18 @@ export default {
     try {
       const io = require('socket.io')(strapi.server.httpServer, {
         cors: {
-          origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+          origin: (process.env.FRONTEND_URL || 'http://localhost:3000').split(','),
           methods: ['GET', 'POST'],
+          credentials: true,
         },
       });
 
       io.on('connection', (socket: any) => {
+        console.log('✅ Socket connected:', socket.id);
+        
         socket.on('join-room', (roomSlug: string) => {
           socket.join(roomSlug);
+          console.log(`📍 User joined room: ${roomSlug}`);
         });
 
         socket.on('send-message', async ({roomSlug, content, username, parentId}: any) => {
@@ -65,6 +69,15 @@ export default {
           } catch (err) {
             console.error('❌ Message création error:', err);
           }
+        });
+
+        socket.on('leave-room', (roomSlug: string) => {
+          socket.leave(roomSlug);
+          console.log(`📍 User left room: ${roomSlug}`);
+        });
+
+        socket.on('disconnect', () => {
+          console.log('❌ Socket disconnected:', socket.id);
         });
       });
     } catch (err) {
