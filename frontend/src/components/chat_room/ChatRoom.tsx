@@ -146,7 +146,7 @@ export default function ChatRoom({
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
           <span id="chat-room-name">{roomSlug}</span>
-          <span id="room-connected">👥 {connectionCount} connecté{connectionCount > 1 ? 's' : ''}</span>
+          <span id="room-connected">👥 {connectionCount} connecté.e{connectionCount > 1 ? 's' : ''}</span>
         </div>
         <div id="img-room--header">
           <img src="/img_assets/header_room.gif" alt="" />

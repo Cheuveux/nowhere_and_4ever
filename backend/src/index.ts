@@ -17,15 +17,46 @@ export default {
       io.on('connection', (socket: any) => {
         console.log('✅ Socket connected:', socket.id);
         
+        // ✅ JOIN ROOM - avec compteur utilisateurs
         socket.on('join-room', (roomSlug: string) => {
           socket.join(roomSlug);
           console.log(`📍 User joined room: ${roomSlug}`);
+        
+          const roomClients = io.sockets.adapter.rooms.get(roomSlug);
+          const userCount = roomClients ? roomClients.size : 0;
+          console.log(`👥 Room ${roomSlug} has now ${userCount} users`);
+          io.to(roomSlug).emit('room-users-count', userCount);
         });
 
+        // ✅ LEAVE ROOM
+        socket.on('leave-room', (roomSlug: string) => {
+          socket.leave(roomSlug);
+          console.log(`📍 User left room: ${roomSlug}`);
+
+          const roomClients = io.sockets.adapter.rooms.get(roomSlug);
+          const userCount = roomClients ? roomClients.size : 0;
+          console.log(`👥 Room ${roomSlug} has now ${userCount} users`);
+          io.to(roomSlug).emit('room-users-count', userCount); 
+        });
+
+        // ✅ DISCONNECT
+        socket.on('disconnect', () => {
+          console.log('❌ Socket disconnected:', socket.id);
+
+          socket.rooms.forEach((room) => {
+            if (room !== socket.id) {
+              const roomClients = io.sockets.adapter.rooms.get(room);
+              const userCount = roomClients ? roomClients.size : 0;
+              console.log(`👥 Room ${room} has now ${userCount} users`);
+              io.to(room).emit('room-users-count', userCount);
+            }
+          });
+        });
+
+        // ✅ SEND MESSAGE
         socket.on('send-message', async ({roomSlug, content, username, parentId}: any) => {
           console.log('📨 RECV send-message:', {roomSlug, content, username, parentId, type: typeof parentId});
           
-          // ✅ Chercher la room par slug
           const room = await strapi.db.query('api::room.room').findOne({ 
             where: { slug: roomSlug } 
           });
@@ -35,7 +66,6 @@ export default {
             return;
           }
 
-          // ✅ Créer le message avec l'ID de la room
           try {
             const data: any = {
               content: [
@@ -60,7 +90,6 @@ export default {
             
             console.log('✅ Message créé, ID:', message.id, 'avec parent:', parentId || 'aucun');
             
-            // ✅ Ajouter le parent à l'objet émis si c'est une réponse
             const messageToEmit = parentId 
               ? { ...message, parent: { id: parentId } }
               : message;
@@ -69,15 +98,6 @@ export default {
           } catch (err) {
             console.error('❌ Message création error:', err);
           }
-        });
-
-        socket.on('leave-room', (roomSlug: string) => {
-          socket.leave(roomSlug);
-          console.log(`📍 User left room: ${roomSlug}`);
-        });
-
-        socket.on('disconnect', () => {
-          console.log('❌ Socket disconnected:', socket.id);
         });
       });
     } catch (err) {
