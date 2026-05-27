@@ -68,9 +68,9 @@ export default function Article() {
             }]
           : [];
 
-        // ✅ Cherche la Gossip Room (insensible à la casse ET aux espaces)
+        // ✅ Cherche la Gossip Room par slug (plus robuste)
         const gossipRoom = (roomData.data || []).find((r: any) => 
-          r.name?.trim().toLowerCase() === 'gossip room'
+          r.slug?.toLowerCase() === 'gossip-room'
         );
         
         if (gossipRoom) {
@@ -78,7 +78,7 @@ export default function Article() {
           console.log('✅ Gossip Room trouvée:', gossipRoom.slug, gossipRoom);
         } else {
           console.log('❌ Gossip Room NOT found.');
-          console.log('Rooms disponibles:', (roomData.data || []).map((r: any) => ({ name: r.Name || r.name, slug: r.slug })));
+          console.log('Rooms disponibles:', (roomData.data || []).map((r: any) => ({ name: r.name, slug: r.slug })));
         }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
