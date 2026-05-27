@@ -70,6 +70,9 @@ export default function Article() {
         const gossipRoom = roomData.data?.[0];
         if (gossipRoom) {
           setGossipRoomSlug(gossipRoom.slug);
+          console.log('✅ Gossip Room trouvée:', gossipRoom.slug);
+        } else {
+          console.log('❌ Gossip Room NOT found. Response:', roomData);
         }
 
         setPosts([...(posts as HomeItem[]), ...(convs as HomeItem[]), ...mosaicCard, ...(takes as HomeItem[])]);
