@@ -64,6 +64,11 @@
 }
 
 @media screen and (max-width: 625px) {
+ .gossip-room-btn {
+      left: 5%;
+      width: fit-content;
+      padding: 0;
+ }
 	.gossip-room-btn img {
 		width: 115px;
 	}
@@ -306,10 +311,14 @@
     left: 5%;
   }
   .folder-header {
-    width: 250px;
+    width: 170px;
   }
   .folder-card:first-child {
     margin-top: 5rem;  
+    margin-bottom: 0;
+  }
+  .folder-card--header {
+    margin: 0;
   }
   .folder-card--footer {
     width: 400px;

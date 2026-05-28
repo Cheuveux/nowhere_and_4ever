@@ -40,15 +40,15 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
   // Update active index based on scroll progress
   const updateStackPosition = (progress: number) => {
     const newIndex = calculateActiveIndex(progress);
+    console.log(`✨ Progress: ${progress.toFixed(2)}, ActiveIndex: ${newIndex}`);
     setActiveIndex(newIndex);
   };
 
   // Handle thumb drag
-  const handleThumbPointerDown = (e: React.PointerEvent) => {
+  const handleThumbPointerDown = (e: React.PointerEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-    console.log('🎯 Pointer down on thumb');
+    console.log('🎯 Pointer/Touch down on thumb');
     setIsDraggingThumb(true);
   };
 
@@ -57,14 +57,19 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
 
     console.log('👆 Dragging started');
 
-    const handlePointerMove = (e: PointerEvent) => {
+    const handleMove = (e: PointerEvent | TouchEvent) => {
       if (!scrollTrackRef.current) return;
 
       const trackRect = scrollTrackRef.current.getBoundingClientRect();
       const trackHeight = trackRect.height;
       const thumbHeight = 60; // Match CSS
       
-      const pointerY = e.clientY - trackRect.top;
+      // Handle both touch and pointer events
+      const clientY = 'touches' in e ? e.touches[0].clientY : (e as PointerEvent).clientY;
+      const pointerY = clientY - trackRect.top;
+      
+      console.log(`🏠 TrackHeight: ${trackHeight}, TrackTop: ${trackRect.top}, ClientY: ${clientY}`);
+      
       // Clamp to track bounds
       const clampedY = Math.max(0, Math.min(trackHeight - thumbHeight, pointerY - thumbHeight / 2));
       const progress = trackHeight > thumbHeight ? clampedY / (trackHeight - thumbHeight) : 0;
@@ -75,17 +80,22 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
       updateStackPosition(progress);
     };
 
-    const handlePointerUp = () => {
-      console.log('✋ Pointer up');
+    const handleEnd = () => {
+      console.log('✋ Drag ended');
       setIsDraggingThumb(false);
     };
 
-    document.addEventListener('pointermove', handlePointerMove);
-    document.addEventListener('pointerup', handlePointerUp);
+    // Use both pointer and touch events for better compatibility
+    document.addEventListener('pointermove', handleMove as EventListener);
+    document.addEventListener('pointerup', handleEnd);
+    document.addEventListener('touchmove', handleMove as EventListener, { passive: false });
+    document.addEventListener('touchend', handleEnd);
 
     return () => {
-      document.removeEventListener('pointermove', handlePointerMove);
-      document.removeEventListener('pointerup', handlePointerUp);
+      document.removeEventListener('pointermove', handleMove as EventListener);
+      document.removeEventListener('pointerup', handleEnd);
+      document.removeEventListener('touchmove', handleMove as EventListener);
+      document.removeEventListener('touchend', handleEnd);
     };
   }, [isDraggingThumb, posts.length]);
 
@@ -164,7 +174,8 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
           style={{
             top: `${thumbTopPx}px`,
           }}
-          onPointerDown={handleThumbPointerDown}
+          onPointerDown={handleThumbPointerDown as React.PointerEventHandler<HTMLDivElement>}
+          onTouchStart={handleThumbPointerDown as React.TouchEventHandler<HTMLDivElement>}
           title="Drag to scroll through folders"
         />
       </div>
