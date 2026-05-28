@@ -241,16 +241,16 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 					{displayedMessages.filter(msg => msg && msg.sender).map((msg, i) => (
 					<div key={i} className={`bubble-wrapper ${msg.sender}`}>
 						{msg.sender === "left" && (
-							<span className="bash-prefix" style={{ color: msg.sender === "right" ? "#9900ff" : "#fa0f0f" }}>
-								{msg.sender === "right" ? "whisper_02" : "whisper_01"}
+							<span className="bash-prefix" style={{ color: "#fa0f0f" }}>
+								whisper_01
 							</span>
 						)}
 						<div className={`bubble ${msg.sender}`}>
 							{msg.text}
 						</div>
 						{msg.sender === "right" && (
-							<span className="bash-prefix" style={{ color: msg.sender === "right" ? "#9900ff" : "#fa0f0f" }}>
-								{msg.sender === "right" ? "whisper_02" : "whisper_01"}
+							<span className="bash-prefix" style={{ color: "#9900ff" }}>
+								whisper_02
 							</span>
 						)}
 					</div>

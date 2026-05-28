@@ -65,7 +65,7 @@
 
 @media screen and (max-width: 625px) {
 	.gossip-room-btn img {
-		width: 45px;
+		width: 115px;
 	}
 }
 
@@ -298,13 +298,19 @@
   .folders-stack {
     height: auto;
     min-height: 100vh;
-    justify-content: flex-start;
+    justify-content: start;
     overflow-y: auto;
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
+  .folder-header {
+    width: 250px;
+  }
+  .folder-card:first-child {
+    margin-top: 5rem;  
+  }
   .folder-card--footer {
-    width: 320px;
+    width: 400px;
   }
 }
 
