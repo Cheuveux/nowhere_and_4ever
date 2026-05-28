@@ -4,6 +4,7 @@ import gsap from "gsap";
 import MeceneButton from "../popup_banner/popupBanner";
 import { getBackgroundImage } from "./getBackgroundImage";
 import { getEndpoint } from '../../config/api';
+import ScrollableFolderStack from './ScrollableFolderStack';
 import './articles.css';
 
 type HomeItem = {
@@ -33,6 +34,7 @@ export default function Article() {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [gossipRoomSlug, setGossipRoomSlug] = useState<string | null>(null);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
 
   const [showMeceneBtn, setShowMeceneBtn] = useState(false);
 
@@ -91,6 +93,16 @@ export default function Article() {
   // Detect touch device on mount
   useEffect(() => {
     setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+  }, []);
+
+  // Detect mobile view on mount and on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Handle card tap on mobile - avec meilleure détection
@@ -161,6 +173,10 @@ export default function Article() {
           <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/gossip_header.png" alt="Gossip Room" />
         </button>
       )}
+      
+      {isMobileView ? (
+        <ScrollableFolderStack posts={posts} />
+      ) : (
         <div 
           className="folders-stack"
           // style={hoveredType ? getPageBackground(hoveredType) : {}}
@@ -217,6 +233,7 @@ export default function Article() {
       </div>
     </div>
         </div>
+      )}
 
       {/* Add the mecene button */}
       <MeceneButton isOpen={showMeceneBtn} />

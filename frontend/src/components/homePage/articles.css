@@ -228,14 +228,13 @@
   font-size: 1.2rem;
   color: var(--font-color-dark);
   transition: color 0.5s cubic-bezier(.77, 0, .18, 1);
-  font-weight: 900;
 }
 
 .folder-author {
+
   font-size: .8rem;
   color: var(--font-color-dark);
   transition: color 0.5s cubic-bezier(.77, 0, .18, 1);
-  font-weight: 900;
 }
 
 /* Mobile - double tap behavior */
@@ -302,6 +301,9 @@
     overflow-y: auto;
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+  .folder-content {
+    left: 5%;
   }
   .folder-header {
     width: 250px;
