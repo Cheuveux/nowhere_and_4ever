@@ -177,7 +177,9 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
           onPointerDown={handleThumbPointerDown as React.PointerEventHandler<HTMLDivElement>}
           onTouchStart={handleThumbPointerDown as React.TouchEventHandler<HTMLDivElement>}
           title="Drag to scroll through folders"
-        />
+        >
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/grab_button.png" alt="scroll thumb"/>
+        </div>
       </div>
     </div>
   );

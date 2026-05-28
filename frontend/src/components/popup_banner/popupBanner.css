@@ -20,9 +20,10 @@
 {
 	.mecene-button {
 		position: absolute;
-		top: 80%;
+		top: 0%;
+		left: 66vw;
 	}
 	.mecene-button-img {
-		max-width: 150px;
+		max-width: 130px;
 	}
 }
