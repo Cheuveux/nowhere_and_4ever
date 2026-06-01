@@ -19,6 +19,7 @@
     "@aws-sdk/s3-request-presigner": "^3.0.0",
     "@strapi/plugin-cloud": "5.36.1",
     "@strapi/plugin-users-permissions": "5.36.1",
+    "@strapi/provider-upload-aws-s3": "^5.47.0",
     "@strapi/strapi": "5.36.1",
     "better-sqlite3": "12.4.1",
     "pg": "^8.20.0",
