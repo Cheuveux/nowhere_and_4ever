@@ -5,6 +5,27 @@ import type { CommentData } from "./comment"
 import { fetchComments, postComment } from "./commentService";
 import "./comments.css"; // (Garde bien ton import CSS si besoin)
 
+// Liste de pseudos disponibles
+const AVAILABLE_USERNAMES = [
+  'Mulet cyrus ',
+  'Jim carré ',
+  'Chief kiffe',
+  'Alain Deloin',
+  'Leticia Cassetoidela',
+  'Kim Kardashein',
+  'Leonardo Di Caprisun',
+  'Carla Brulée',
+  'Demi Moite',
+  'Tylor the créatine',
+  'Naomi Cambouis',
+  'Will Splif',
+  'Timothée Chalamerde',
+  'Tom Crush',
+  'Lille wayne',
+  'Christina Aguerisol',
+  'Angelica diddle',
+];
+
 export function CommentSection({articleId}: { articleId?: string}) {
     const [comments, setcomments] = useState<CommentData[]>([]);
     const [loading, setLoading] = useState(true);
@@ -115,12 +136,10 @@ export function CommentSection({articleId}: { articleId?: string}) {
                             required
                             style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                         >
-                            <option value="" disabled>Pseudo</option>
-                            <option value="𐔌՞. .՞𐦯">{"𐔌՞. .՞𐦯"}</option>
-                            <option value="₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾">{"₍₍⚞(˶ˆᗜˆ˵)⚟⁾⁾"}</option>
-                            <option value="(˶>⩊<˶)">{"(˶>⩊<˶)"}</option>
-                            <option value="(╥﹏╥)">{"(╥﹏╥)"}</option>
-                            <option value="(๑ᵔ⤙ᵔ๑)">{"(๑ᵔ⤙ᵔ๑)"}</option>
+                            <option value="">-- Sélectionne un pseudo --</option>
+                            {AVAILABLE_USERNAMES.map((name) => (
+                              <option key={name} value={name}>{name}</option>
+                            ))}
                         </select>
                     </div>
                     <div style={{ marginBottom: '1rem' }}>

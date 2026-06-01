@@ -38,7 +38,7 @@
 /* GOSSIP ROOM BUTTON */
 .gossip-room-btn {
 	position: fixed;
-	top: 0;
+	bottom: 20px;
 	right: 10px;
 	z-index: 500;
 	background: none;

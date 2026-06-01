@@ -1,8 +1,3 @@
-import type { Core } from '@strapi/strapi';
-
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({});
-
-// backend/config/plugins.ts
 export default {
   upload: {
     config: {
@@ -14,7 +9,7 @@ export default {
         },
         region: process.env.SUPABASE_S3_REGION,
         endpoint: process.env.SUPABASE_S3_ENDPOINT,
-        forcePathStyle: true, // obligatoire pour Supabase
+        forcePathStyle: true,
         params: {
           Bucket: process.env.SUPABASE_S3_BUCKET,
         },
