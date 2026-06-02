@@ -114,7 +114,7 @@ function Lightbox({ item, onClose }: LightboxProps) {
 
         {/* Media en grand */}
         <div className="lightbox-media">
-          {isVideo(item.media.mime) ? (
+          {item.media && isVideo(item.media.mime) ? (
             <div className="lightbox-video-container" onClick={togglePlayVideo}>
               <video
                 ref={videoRef}
@@ -127,12 +127,12 @@ function Lightbox({ item, onClose }: LightboxProps) {
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
             </div>
-          ) : (
+          ) : item.media ? (
             <img
-              src={mediaUrl(item.media.url)}
+              src={mediaUrl(item.media.formats?.small?.url ?? item.media.url)}
               alt={item.Titre}
             />
-          )}
+          ) : null}
         </div>
 
           {/* Titre */}
@@ -251,7 +251,8 @@ export default function MosaicGrid() {
             onClick={() => handleCardClick(item)}  // ← ouvre la lightbox
           >
             <div className="mosaic-card__media">
-              {isVideo(item.media.mime) ? (
+              {item.media && isVideo(item.media.mime) ? (
+                // video
                 <div className="mosaic-card-video-container">
                   <video
                     ref={(el) => { gridVideoRefs.current[item.id] = el; }}
@@ -264,13 +265,14 @@ export default function MosaicGrid() {
                     {formatTime(gridVideoTimes[item.id]?.current ?? 0)} / {formatTime(gridVideoTimes[item.id]?.duration ?? 0)}
                   </div>
                 </div>
-              ) : (
+              ) : item.media ? (
+                // image
                 <img
                   src={mediaUrl(item.media.formats?.small?.url ?? item.media.url)}
                   alt={item.Titre}
                   loading="lazy"
                 />
-              )}
+              ) : null}
             </div>
             <div className="mosaic-card__footer">
               <p className="mosaic-card__title">{item.Titre}</p>

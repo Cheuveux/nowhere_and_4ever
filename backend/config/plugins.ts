@@ -16,6 +16,13 @@ export default {
             Bucket: process.env.SUPABASE_S3_BUCKET,
           },
         },
+        // URL publique pour la lecture des fichiers
+        baseUrl: `https://${process.env.SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/${process.env.SUPABASE_S3_BUCKET}`,
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
       },
     },
   },
