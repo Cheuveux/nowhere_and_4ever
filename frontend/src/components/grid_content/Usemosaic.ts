@@ -55,10 +55,10 @@ export function useMosaic() : {section: MosaicSection | null; loading: boolean; 
 
 // HELPER
 
-//1) Construction de l'URL ABSOLUE DEPUIS LE CHEMIN RELATIF DE STRAPI
-
-export function mediaUrl(url: string):string {
-	return (`${STRAPI_URL}${url}`);
+//1) Construction de l'URL ABSOLUE DEPUIS LE CHEMIN RELATIF DE STRAPI (gère aussi les URLs S3/Supabase absolues)
+export function mediaUrl(url: string): string {
+	if (url.startsWith('http')) return url;
+	return `${STRAPI_URL}${url}`;
 }
 
 //2) Detection de si media == video

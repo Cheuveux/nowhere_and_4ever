@@ -3,6 +3,13 @@ import { useState, useRef } from "react";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
+// Helper pour construire les URLs media (gère les URLs absolues S3/Supabase et relatives)
+function buildMediaUrl(url: string | undefined): string | null {
+    if (!url) return null;
+    if (url.startsWith('http')) return url;
+    return `${STRAPI_URL}${url}`;
+}
+
 /* Radio Audio Player Component */
 function RadioAudioPlayer({ audioUrl, coverUrl }: { audioUrl: string; coverUrl: string | null }) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -121,15 +128,17 @@ export function renderContent(article: any) {
 						{
                             const file = article.illu?.[mk.idx];
                             if (!file) return null;
-                            return <img key={j} src={`${STRAPI_URL}${file.url}`} alt={file.alternativeText ?? ""} className={`article-media article-image${cls}`} />;
+                            const imageUrl = buildMediaUrl(file.url);
+                            if (!imageUrl) return null;
+                            return <img key={j} src={imageUrl} alt={file.alternativeText ?? ""} className={`article-media article-image${cls}`} />;
                         }
                         if (mk.type === "audio")
 						{
                             const track = article.audio_track?.[mk.idx];
                             if (!track) return null;
 
-                            const audioUrl = track.sound?.url ? `${STRAPI_URL}${track.sound.url}` : null;
-                            const coverUrl = track.cover?.url ? `${STRAPI_URL}${track.cover.url}` : null;
+                            const audioUrl = buildMediaUrl(track.sound?.url);
+                            const coverUrl = buildMediaUrl(track.cover?.url);
                             if (!audioUrl) return null;
 
                             return (
@@ -142,7 +151,9 @@ export function renderContent(article: any) {
 						{
                             const file = article.music_video?.[mk.idx];
                             if (!file) return null;
-                            return <video key={j} controls src={`${STRAPI_URL}${file.url}`} className={`article-media article-video${cls}`} />;
+                            const videoUrl = buildMediaUrl(file.url);
+                            if (!videoUrl) return null;
+                            return <video key={j} controls src={videoUrl} className={`article-media article-video${cls}`} />;
                         }
                         return null;
                     });

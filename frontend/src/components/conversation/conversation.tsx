@@ -210,7 +210,13 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 		bottomRef.current?.scrollIntoView({ behavior: "smooth"});
 	}, [displayedMessages]);
 
-	const audioUrl = post?.Sound?.[0]?.url ? `${strapiUrl}${post.Sound[0].url}` : null;
+	const buildMediaUrl = (url: string | undefined): string | null => {
+		if (!url) return null;
+		if (url.startsWith('http')) return url;
+		return `${strapiUrl}${url}`;
+	};
+
+	const audioUrl = post?.Sound?.[0]?.url ? buildMediaUrl(post.Sound[0].url) : null;
 
 	if (loading) 
 		return (<p> Loading...</p>);
