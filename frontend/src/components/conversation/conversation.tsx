@@ -87,7 +87,7 @@ function RadioAudioPlayer({ audioUrl, coverUrl, onPlayStart }: { audioUrl: strin
 				{coverUrl ? (
 					<img src={coverUrl} alt="audio cover" />
 				) : (
-					<img src="/img_assets/radio_assets/radio_type_4ever.png" alt="radio disk" />
+					<img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/radio_icon/SMOKING%20ROOM.png" alt="radio disk" />
 				)}
 			</div>
 			<audio
@@ -143,7 +143,7 @@ function parseConversationBlocks(blocks: any[]): Message[] {
 		}));
 }
 
-function useProgressiveDisplay(messages: Message[], initialPause = 1200, speedMultiplier = 0.55) {
+function useProgressiveDisplay(messages: Message[], initialPause = 1200, speedMultiplier = 0.05) {
 	const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
@@ -187,6 +187,7 @@ export default function ConversationPage() {
 	const [post, setPost] =useState<any>(null);
 	const [loading, setLoading] = useState(true);
 	const bottomRef = useRef<HTMLDivElement>(null);
+	const [audioStarted, setAudioStarted] = useState(false);
 
 	useEffect(() => {
 		fetch(getEndpoint(`/conversations/${id}?populate=Sound`))
@@ -204,7 +205,10 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 		[post]
 	);
 	
-	const { displayedMessages } = useProgressiveDisplay(messages, 1200, 0.85);
+	const { displayedMessages } = useProgressiveDisplay(
+		audioStarted ? messages : [], 
+		1200, 
+		1);
 	
 	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth"});
@@ -240,27 +244,26 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 					<RadioAudioPlayer 
 						audioUrl={audioUrl} 
 						coverUrl={null}
+						onPlayStart={() => setAudioStarted(true)}
 					/>
 				</div>
 			)}
 				<div className="chat-messages">
 					{displayedMessages.filter(msg => msg && msg.sender).map((msg, i) => (
-					<div key={i} className={`bubble-wrapper ${msg.sender}`}>
-						{msg.sender === "left" && (
-							<span className="bash-prefix" style={{ color: "#fa0f0f" }}>
-								whisper_01
-							</span>
-						)}
-						<div className={`bubble ${msg.sender}`}>
-							{msg.text}
+						<div key={i} className={`bubble-wrapper ${msg.sender}`}>
+							<div className="ticker-track">
+							{/* On clone 4 fois pour un défilement fluide infini */}
+							{[...Array(4)].map((_, j) => (
+								<span key={j} className="ticker-content">
+								<span className="bash-prefix" style={{ color: msg.sender === "left" ? "#fa0f0f" : "#9900ff" }}>
+									{msg.sender === "left" ? "whisper_01" : "whisper_02"}
+								</span>
+								&nbsp;{msg.text}&nbsp;&nbsp;&nbsp;
+								</span>
+							))}
+							</div>
 						</div>
-						{msg.sender === "right" && (
-							<span className="bash-prefix" style={{ color: "#9900ff" }}>
-								whisper_02
-							</span>
-						)}
-					</div>
-				))}
+					))}
 					<div ref= {bottomRef}/>
 				</div>
 			</div>

@@ -1,5 +1,10 @@
 
 @font-face {
+  font-family: 'Andale Mono';
+  src: url('/fonts/ANDALEMO 2.TTF') format('truetype');
+  font-display: swap;
+}
+@font-face {
   font-family: 'Slice Regular';
   src: url('/fonts/SliceRegular.otf') format('opentype');
   font-style: normal;
@@ -8,32 +13,52 @@
   font-family: 'Retro Font';
   src: url('/fonts/PF Pixelscript Pro Regular.ttf') format('truetype');
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Snell Roundhand';
   src: url('/fonts/snell_roundhand/SnellRoundhandLTStd-Scr.ttf') format('truetype');
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Snell Roundhand bold';
   src: url('/fonts/snell_roundhand/SnellRoundhandLTStd-BdScr.ttf') format('truetype');
-  font-style: bold;
+  font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'ITC Machine Bold';
   src: url('/fonts/ITC Machine Bold.otf') format('opentype');
-  font-style: bold;
+  font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'UnivesalCondBlack Regular';
   src: url('frontend/public/fonts/UniversalCondBlack Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karrik';
+  src: url('/fonts/Karrik-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Terminal';
+  src: url('/fonts/terminal-grotesque-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
-  font-family: Andale Mono, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.2;
   color-scheme: light dark;
@@ -47,11 +72,14 @@
   --home-page-bg-color: #f5f5f5;
   --mosaic-bg-color: #f6f0f0;
   --mosaic-border-color: rgb(136, 134, 134);
+  --main-font: 'Andale Mono', ui-monospace; 
   --secondary-font: 'Slice Regular', Arial, sans-serif;
   --retro-font: 'Retro Font', Arial, sans-serif;
   --popup-font: 'ITC Machine Bold', Arial, sans-serif;
   --hand-font: 'Snell Roundhand', cursive;
   --copy-link-font: 'UnivesalCondBlack Regular', Arial, sans-serif;
+  --whisper1-font: 'Karrik', sans-serif;
+  --whisper2-font: 'Terminal', sans-serif;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -67,6 +95,7 @@
 
 body {
   margin: 0;
+  font-family:var(--main-font);
   display: flex;
   place-items: center;
   min-width: 320px;
