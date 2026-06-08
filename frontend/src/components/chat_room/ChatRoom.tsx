@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import {  Link } from "react-router-dom";
 import { useChat } from './useChat';
 import type { Message } from './chat';
+import { gsap } from 'gsap';
 import './ChatRoom.css';
 
 // Liste de pseudos disponibles (comme pour les commentaires)
@@ -89,12 +90,36 @@ export default function ChatRoom({
   const [input, setInput] = useState('');
   const [replyTo, setReplyTo] = useState<{ id: number; username: string } | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-
   const { messages, send, connectionCount } = useChat(roomSlug, initialMessages);
+  const [showOverlay, setShowOverlay] = useState(true);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Animation GSAP du texte dinfo de la chatRoom
+  useEffect(() => {
+    if (showOverlay && overlayRef.current){
+      gsap.fromTo(
+        overlayRef.current,
+        {opacity: 0, y: -100},
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out"}
+      );
+    }
+  }, [showOverlay]);
+
+  const closeOverlay = () => {
+    if (overlayRef.current) {
+      gsap.to(overlayRef.current , {
+        opacity: 0,
+        y: -100,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: () => setShowOverlay(false),
+      });
+    }
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -107,6 +132,26 @@ export default function ChatRoom({
   if (!pseudoSet) {
     return (
       <div id="pseudo-screen">
+        {/* Overlat avec image et bouton de fermeture */}
+        {showOverlay && (
+          <div className="room-overlay" ref={overlayRef}>
+            <div className="overlay-btn-wrapper">
+              <button
+              className="close-overlay-btn"
+              onClick={closeOverlay}
+              >
+                x
+              </button>
+            </div>
+            <img 
+                src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/gossippppp%20copie.png"
+                className='room-overlay-img'
+                alt="Image de presentation de la Gossip Room" 
+                />
+          </div>
+        )}
+
+        {/* Carte de selection du pseudo */}
         <div id="pseudo-card">
           <h2>Rejoindre le chat</h2>
           <p>Choisis un pseudo pour continuer</p>

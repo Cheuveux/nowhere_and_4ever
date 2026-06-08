@@ -61,7 +61,7 @@ export default function  AnimIntro()
 			{showPrompt && (
 				<div className="intro-prompt">
 					<img 
-						src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/enter_btn.gif" 
+						src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/enter_btn_mobile.gif" 
 						alt="Enter to start"
 						className="intro-prompt-image"
 						onClick={() => handlePromptResponse('yes')}

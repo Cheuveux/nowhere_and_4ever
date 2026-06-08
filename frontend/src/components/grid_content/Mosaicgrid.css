@@ -133,10 +133,9 @@
 
 .mosaic-card__title {
 	color: #8f6ab9;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-family: var(--retro-font);
 	margin: 0;
-	line-height: 1.2;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	white-space: normal;
