@@ -308,7 +308,7 @@ body {
 @media screen and (max-width: 625px) {
  
   .radio-container {
-    height: 400px;
+    height: 280px;
   }
   .radio-play-button {
     width: 32px;

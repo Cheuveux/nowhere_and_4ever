@@ -198,6 +198,6 @@ span.date{
 	}
 	.comment-form select,
 	.comment-form textarea{
-		font-size: 10px; /* Empêche le zoom auto sur iOS */
+		font-size: 8px; /* Empêche le zoom auto sur iOS */
 	}	
 }

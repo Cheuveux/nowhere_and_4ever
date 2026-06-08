@@ -152,7 +152,6 @@ export function CommentSection({articleId}: { articleId?: string}) {
                             required
                             disabled={isPosting} 
                             rows={4}
-                            style={{ padding: '0.5rem', width: '100%', boxSizing: 'border-box' }}
                         />
                     </div>
                     <button type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
