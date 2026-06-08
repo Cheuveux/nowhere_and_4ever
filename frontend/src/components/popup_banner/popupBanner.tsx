@@ -10,7 +10,11 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
     const buttonRef = useRef<HTMLAnchorElement>(null);
     const [isHovered, setIsHovered] = useState(false);
     const [isVisibleForAnimation, setIsVisibleForAnimation] = useState(true);
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
 
+    useEffect(() => {
+        setIsMobileDevice(window.matchMedia('(hover: none)').matches);
+    })
     useEffect(() => {
         if (isOpen && buttonRef.current && isVisibleForAnimation) {
             gsap.fromTo(
@@ -46,6 +50,11 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
 
     if (!isOpen || !isVisibleForAnimation) return null;
 
+    const mobileBtn = 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/mecene_mobile.png'
+    const desktopBtn = isHovered
+        ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_mecene_hover.gif'
+        : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/mecene_btn.png'
+
     return (
         <a
             href="mailto:palomavauthier@gmail.com"
@@ -55,11 +64,7 @@ export default function MeceneButton({ isOpen }: MeceneButtonProps) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <img
-                src={
-                    isHovered
-                        ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_mecene_hover.gif'
-                        : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/mecene_btn.png'
-                }
+                src={isMobileDevice ? mobileBtn : desktopBtn}
                 alt="Mecene Button"
                 className="mecene-button-img"
             />
