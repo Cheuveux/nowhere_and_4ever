@@ -7,7 +7,7 @@ import { getEndpoint } from '../../config/api';
 import ScrollableFolderStack from './ScrollableFolderStack';
 import './articles.css';
 
-type HomeItem = {
+export type HomeItem = {
   documentId: string;
   _type: "article" | "conversation" | "quiz" | "mosaic" | "takes";
   Title?: string;
