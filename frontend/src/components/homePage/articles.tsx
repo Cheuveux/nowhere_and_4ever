@@ -10,6 +10,7 @@ import FilterBar from "./filter/FilterBar";
 import FilterOverlay from "./filter/FilterOverlay";
 import { useFilter, filterPosts } from "./filter/useFilter";
 import './articles.css';
+import './filter/filter.css'
 
 export type HomeItem = {
   documentId: string;
@@ -150,30 +151,14 @@ export default function Article() {
         </button>
       )}
 
-      {/* ── Bouton filtre mobile (fixé en bas à droite) ──────────
-          Visible uniquement sur mobile.
-          Affiche un badge avec le filtre actif si différent de "all".
-      ────────────────────────────────────────────────────────── */}
       {isMobileView && (
         <button
           className="filter-trigger-btn"
           onClick={() => setFilterOverlayOpen(true)}
         >
-          <span>Filtrer</span>
-          {activeFilter !== "all" && (
-            <span className="filter-trigger-btn__badge">
-              {activeFilter.toUpperCase()}
-            </span>
-          )}
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/filter_btn.jpg" alt="" height="48px" width="48px"/>
         </button>
       )}
-
-      {/* ── Overlay mobile ───────────────────────────────────────
-          S'ouvre depuis le bas quand on clique sur "Filtrer".
-          Passe activeFilter pour surligner le filtre actif.
-          onToggle = change le filtre ET ferme l'overlay (géré dans FilterOverlay).
-          onClose = ferme sans changer le filtre (clic backdrop ou ✕).
-      ────────────────────────────────────────────────────────── */}
       <FilterOverlay
         isOpen={filterOverlayOpen}
         active={activeFilter}
