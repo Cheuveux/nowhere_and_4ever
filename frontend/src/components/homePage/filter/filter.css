@@ -4,17 +4,88 @@
 	position: absolute;
 	bottom: 3%;
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 5rem;
 }
 
 .filter-btn {
 	border: none;
 	background: none;
 	color: black;
-	transform: rotate(180deg);
+	font-family: var(--main-font);
+	font-size: 1rem;
+	letter-spacing: 3px;
 }
 
 .filter-btn--active {
-	color: red;
+	transform: rotate(180deg);
+	color: rgb(104, 91, 91);
+}
+
+.filter-btn:hover {
+	transform: scale(1.1) translateY(-10px);
+	letter-spacing: 1px;
+	transition: transform 0.3s ease-in-out;
 }
 
 /* FILTER MOBILE VERSION */
+.filter-trigger-btn {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 200;
+	background: transparent;
+	border: none;
+}
+.filter-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image:url('https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/sparkles.gif');
+  background-color: rgba(0, 0, 0, 0.802);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* panel remonte depuis le bas */
+}
+
+.filter-overlay__panel {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.filter-overlay--close {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	background-color: transparent;
+	border: none;
+	font-size: 2rem;
+	padding: 0.5rem;
+	font-family: var(--whisper2-font);
+}
+
+.filter-overlay--list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 100%;
+	gap: 2rem;
+}
+
+.filter-overlay--item{
+	font-size: 2rem;
+	backdrop-filter:blur(3px);
+	background-color: transparent;
+	border: none;
+	font-family: var(--whisper2-font);
+}
+
+.filter-overlay--item--active {
+	transform: rotate(180deg);
+	color: rgb(104, 91, 91);
+}

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import type { FilterType } from "./useFilter";
 
-const FILTERS : { label: string, value: FilterType, description: string} [] = [
-	{label : "ALL", value: "all", description : "Tout le contenu disponible"},
-	{label : "ARTICLE", value: "article", description : "Articles & écrits"},
-	{label : "TAKE", value: "take", description : "Takes & opinions"},
-	{label : "SPECIAL", value: "special", description : "Tout pleins de surprise"},
+const FILTERS : { label: string, value: FilterType} [] = [
+	{label : "ALL", value: "all"},
+	{label : "ARTICLE", value: "article"},
+	{label : "TAKE", value: "take"},
+	{label : "SPECIAL", value: "special"},
 ]
 
 export default function FilterOverlay ({
@@ -42,7 +42,6 @@ export default function FilterOverlay ({
 		<div className="filter-overlay" onClick={onClose}>
 			<div className="filter-overlay--panel" onClick={e => e.stopPropagation()}>
 				<button className="filter-overlay--close" onClick={onClose}>x</button>
-				<h3 className="filter-overlay--item">Filter</h3>
 				<ul className="filter-overlay--list">
 					{FILTERS.map(f => (
 						<li key={f.value}>
@@ -51,7 +50,6 @@ export default function FilterOverlay ({
 							onClick={() => { onToggle(f.value); onClose(); }}
 							>
 								<span className="filter-overlay--label">{f.label}</span>
-								<span className="filter-overlay--description">{f.description}</span>
 							</button>
 						</li>
 					))}
