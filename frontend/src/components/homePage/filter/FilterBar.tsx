@@ -18,7 +18,7 @@ const FILTERS: {label: string, value: FilterType}[] = [
 				{FILTERS.map(f => (
 				<button
 					key={f.value}
-					className={`filter-btn${active === f.value ? "filter-btn--active": ""}`}
+					className={`filter-btn ${active === f.value ? "filter-btn--active": ""}`}
 					onClick={() => onToggle(f.value)}
 				>
 					{f.label}
