@@ -1,15 +1,29 @@
 import { useEffect, useRef, useState, useLayoutEffect } from "react";
-import './animIntro.css'
+import gsap from "gsap";
+import './animIntro.css';
 
-export default function  AnimIntro()
-{
-	const	videoRef = useRef<HTMLVideoElement>(null);
-	const introPageRef = useRef<HTMLDivElement>(null);
-	const introImageRef = useRef<HTMLDivElement>(null);
-	const [isMobile, setIsMobile] = useState(false);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [showPrompt, setShowPrompt] = useState(true);
-	const [showIntroImage, setShowIntroImage] = useState(false);
+export default function AnimIntro() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const introPageRef = useRef<HTMLDivElement>(null);
+  const introImageRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(true);
+  const [showIntroImage, setShowIntroImage] = useState(false);
+
+  // Animation GSAP pour intro-image-container
+  useEffect(() => {
+    if (showIntroImage && introImageRef.current) {
+      gsap.from(introImageRef.current, {
+        y: -100, // Départ 100px au-dessus
+        opacity: 0,
+        filter: "blur(10px)", // Flou initial
+        duration: 1.5,
+        ease: "power2.out",
+        clearProps: "filter", // Supprime le filtre après l'animation
+      });
+    }
+  }, [showIntroImage]);
 
 	useLayoutEffect(() => {
 		const checkMobile = () => {

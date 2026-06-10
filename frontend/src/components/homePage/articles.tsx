@@ -1,5 +1,5 @@
 // Article.tsx
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import MeceneButton from "../popup_banner/popupBanner";
@@ -43,16 +43,18 @@ export default function Article() {
   const [showMeceneBtn, setShowMeceneBtn] = useState(false);
 
 
-  const { activeFilter, toggle } = useFilter();
-  const [filterOverlayOpen, setFilterOverlayOpen] = useState(false);
-  const filteredPosts = filterPosts(posts, activeFilter);
-  // Ajoute ces états pour gérer les chunks et l'index actif
+// Dans Article.tsx
+const { activeFilter, toggle } = useFilter();
+const [filterOverlayOpen, setFilterOverlayOpen] = useState(false);
+const filteredPosts = filterPosts(posts, activeFilter);
 const [currentStackIndex, setCurrentStackIndex] = useState(0);
 
+// Réinitialise currentStackIndex à 0 quand filteredPosts change
 useEffect(() => {
   setCurrentStackIndex(0);
 }, [filteredPosts]);
 
+// Découpage en chunks
 const stacks = useMemo(() => {
   const chunkSize = 5;
   const chunks = [];
@@ -64,6 +66,14 @@ const stacks = useMemo(() => {
 
 const currentStack = stacks[currentStackIndex] || [];
 
+// Fonction pour changer de stack (avec vérification)
+const handleStackChange = useCallback((index: number) => {
+  if (index >= 0 && index < stacks.length) {
+    setCurrentStackIndex(index);
+  }
+}, [stacks.length]);
+
+// Animation GSAP
 useEffect(() => {
   if (currentStack.length > 0) {
     gsap.from(".folder-card", {
@@ -74,11 +84,6 @@ useEffect(() => {
     });
   }
 }, [currentStackIndex, currentStack]);
-
-// Fonction pour changer de stack
-const handleStackChange = (index: number) => {
-  setCurrentStackIndex(index);
-};
 
   useEffect(() => {
     Promise.all([
@@ -259,18 +264,19 @@ const handleStackChange = (index: number) => {
 
     {/* Boutons d'index pour naviguer entre les stacks */}
     {stacks.length > 1 && (
-      <div className="stack-index-buttons">
-        {stacks.map((_, index) => (
-          <button
-            key={index}
-            className={`stack-index-btn ${currentStackIndex === index ? 'active' : ''}`}
-            onClick={() => handleStackChange(index)}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
-    )}
+  <div className="stack-index-buttons">
+    {stacks.map((_, index) => (
+      <button
+        key={index}
+        className={`stack-index-btn ${currentStackIndex === index ? 'active' : ''}`}
+        onClick={() => handleStackChange(index)}
+        disabled={index >= stacks.length} // <-- Désactive les boutons invalides
+      >
+        {index + 1}
+      </button>
+    ))}
+  </div>
+)}
 
     {/* FilterBar desktop */}
     <FilterBar active={activeFilter} onToggle={toggle} />

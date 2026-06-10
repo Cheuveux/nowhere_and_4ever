@@ -80,16 +80,18 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 4rem;
+	gap: 6rem;
 }
 
 .filter-overlay--item{
-	font-size: 2.5rem;
+	font-size: 3rem;
 	letter-spacing: 2px;
-	backdrop-filter:blur(3px);
+	backdrop-filter:blur(2px);
+	border-radius: 12px;
 	background-color: transparent;
 	border: none;
 	font-family: var(--whisper2-font);
+	color: white;
 }
 
 .filter-overlay--item--active {

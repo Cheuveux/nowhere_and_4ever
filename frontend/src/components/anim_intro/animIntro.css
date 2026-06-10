@@ -53,6 +53,8 @@
 	overflow-x: hidden;
 	background: #ffffff;
 	z-index: 50;
+	will-change: transform, opacity, filter;
+	backface-visibility: hidden;
 }
 
 .intro-image {
