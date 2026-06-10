@@ -208,8 +208,9 @@ export default function ScrollableFolderStack({ posts, chunkSize = 8 }: Scrollab
             onClick={goToPreviousChunk}
             disabled={currentChunkIndex === 0}
             className="chunk-nav-btn"
+            aria-label="Précédent"
           >
-            ← Précédent
+            ←
           </button>
           <span className="chunk-indicator">
             {currentChunkIndex + 1} / {chunks.length}
@@ -218,8 +219,9 @@ export default function ScrollableFolderStack({ posts, chunkSize = 8 }: Scrollab
             onClick={goToNextChunk}
             disabled={currentChunkIndex === chunks.length - 1}
             className="chunk-nav-btn"
+            aria-label="Suivant"
           >
-            Suivant →
+            →
           </button>
         </div>
       )}
