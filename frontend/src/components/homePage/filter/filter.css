@@ -42,19 +42,25 @@
 .filter-overlay {
   position: fixed;
   width: 100vw;
+  max-width: 100%;
   height: 100vh;
   background-image:url('https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/sparkles.gif');
   background-color: rgba(0, 0, 0, 0.802);
   z-index: 2000;
   display: flex;
   justify-content: center;
-  align-items: center; /* panel remonte depuis le bas */
+  align-items: center;
 }
 
-.filter-overlay__panel {
-  width: 100%;
-  max-width: 100%;
-  position: relative;
+.filter-overlay--panel {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .filter-overlay--close {
@@ -63,22 +69,23 @@
 	left: 5%;
 	background-color: transparent;
 	border: none;
-	font-size: 2rem;
 	padding: 0.5rem;
 	font-family: var(--whisper2-font);
+	font-size: 2.5rem;
 }
 
 .filter-overlay--list {
 	list-style: none;
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	max-width: 100%;
-	gap: 2rem;
+	justify-content: center;
+	align-items: center;
+	gap: 4rem;
 }
 
 .filter-overlay--item{
-	font-size: 2rem;
+	font-size: 2.5rem;
+	letter-spacing: 2px;
 	backdrop-filter:blur(3px);
 	background-color: transparent;
 	border: none;

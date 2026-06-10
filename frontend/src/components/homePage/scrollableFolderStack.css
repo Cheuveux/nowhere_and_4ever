@@ -65,8 +65,8 @@
   border-radius: 6px;
   position: relative;
   flex-shrink: 0;
-  margin-top: 170px;
-  height: 40vh;
+  margin-top: 120px;
+  height: 50vh;
 }
 
 .scroll-thumb {
@@ -146,4 +146,12 @@
     width: 90%;
     margin-top: 1rem;
   }
+}
+
+.chunk-navigation {
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
 }

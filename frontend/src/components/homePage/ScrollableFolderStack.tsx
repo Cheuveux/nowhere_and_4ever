@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { getBackgroundImage } from "./getBackgroundImage";
 import './scrollableFolderStack.css';
@@ -21,26 +21,62 @@ function getItemLink(item: HomeItem): string {
 
 type ScrollableFolderStackProps = {
   posts: HomeItem[];
+  chunkSize?: number;
 };
 
-export default function ScrollableFolderStack({ posts }: ScrollableFolderStackProps) {
+export default function ScrollableFolderStack({ posts, chunkSize = 8 }: ScrollableFolderStackProps) {
   const stackRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLDivElement>(null);
   const [isDraggingThumb, setIsDraggingThumb] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [thumbTopPx, setThumbTopPx] = useState(0);
+  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
+
+  // Réinitialiser currentChunkIndex à 0 quand posts change
+  useEffect(() => {
+    setCurrentChunkIndex(0);
+    setActiveIndex(0);
+    setThumbTopPx(0);
+  }, [posts]);
+
+  // Découper les posts en chunks
+  const chunks = useMemo(() => {
+    const result: HomeItem[][] = [];
+    for (let i = 0; i < posts.length; i += chunkSize) {
+      result.push(posts.slice(i, i + chunkSize));
+    }
+    return result;
+  }, [posts, chunkSize]);
+
+  const currentChunk = chunks[currentChunkIndex] || [];
+
+  // Fonctions pour naviguer entre les chunks
+  const goToPreviousChunk = () => {
+    if (currentChunkIndex > 0) {
+      setCurrentChunkIndex(currentChunkIndex - 1);
+      setActiveIndex(0);
+      setThumbTopPx(0);
+    }
+  };
+
+  const goToNextChunk = () => {
+    if (currentChunkIndex < chunks.length - 1) {
+      setCurrentChunkIndex(currentChunkIndex + 1);
+      setActiveIndex(0);
+      setThumbTopPx(0);
+    }
+  };
 
   // Calculate active index based on scroll progress
   const calculateActiveIndex = (progress: number) => {
-    if (posts.length === 0) return null;
-    return Math.round(progress * (posts.length - 1));
+    if (currentChunk.length === 0) return null;
+    return Math.round(progress * (currentChunk.length - 1));
   };
 
   // Update active index based on scroll progress
   const updateStackPosition = (progress: number) => {
     const newIndex = calculateActiveIndex(progress);
-    console.log(`✨ Progress: ${progress.toFixed(2)}, ActiveIndex: ${newIndex}`);
     setActiveIndex(newIndex);
   };
 
@@ -48,44 +84,33 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
   const handleThumbPointerDown = (e: React.PointerEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('🎯 Pointer/Touch down on thumb');
     setIsDraggingThumb(true);
   };
 
   useEffect(() => {
     if (!isDraggingThumb) return;
 
-    console.log('👆 Dragging started');
-
     const handleMove = (e: PointerEvent | TouchEvent) => {
       if (!scrollTrackRef.current) return;
 
       const trackRect = scrollTrackRef.current.getBoundingClientRect();
       const trackHeight = trackRect.height;
-      const thumbHeight = 60; // Match CSS
-      
-      // Handle both touch and pointer events
+      const thumbHeight = 60;
+
       const clientY = 'touches' in e ? e.touches[0].clientY : (e as PointerEvent).clientY;
       const pointerY = clientY - trackRect.top;
-      
-      console.log(`🏠 TrackHeight: ${trackHeight}, TrackTop: ${trackRect.top}, ClientY: ${clientY}`);
-      
-      // Clamp to track bounds
+
       const clampedY = Math.max(0, Math.min(trackHeight - thumbHeight, pointerY - thumbHeight / 2));
       const progress = trackHeight > thumbHeight ? clampedY / (trackHeight - thumbHeight) : 0;
-      
-      console.log(`📍 Y: ${pointerY.toFixed(0)}, Clamped: ${clampedY.toFixed(0)}, Progress: ${progress.toFixed(2)}`);
-      
+
       setThumbTopPx(clampedY);
       updateStackPosition(progress);
     };
 
     const handleEnd = () => {
-      console.log('✋ Drag ended');
       setIsDraggingThumb(false);
     };
 
-    // Use both pointer and touch events for better compatibility
     document.addEventListener('pointermove', handleMove as EventListener);
     document.addEventListener('pointerup', handleEnd);
     document.addEventListener('touchmove', handleMove as EventListener, { passive: false });
@@ -97,20 +122,17 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
       document.removeEventListener('touchmove', handleMove as EventListener);
       document.removeEventListener('touchend', handleEnd);
     };
-  }, [isDraggingThumb, posts.length]);
+  }, [isDraggingThumb, currentChunk.length]);
 
   return (
     <div className="stacked-folder-container">
       {/* Stack wrapper - shows overlapped folders */}
       <div className="stack-wrapper">
-        <div 
-          className="folder-stack"
-          ref={stackRef}
-        >
+        <div className="folder-stack" ref={stackRef}>
           {/* Header folder */}
           <div className="folder-card folder-card--header">
             <div className="folder-svg-wrapper">
-              <img 
+              <img
                 src="/img_assets/folder_homepage/header_folder.png"
                 alt="Header"
                 className="folder-image"
@@ -118,42 +140,42 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
             </div>
           </div>
 
-          {/* Article folders */}
-          {posts.map((post, index) => (
-            <div 
-              className={`folder-card folder-card--${post._type} ${activeIndex === index ? 'folder-card--active' : ''}`}
-              key={post.documentId}
-              data-type={post._type}
-            >
-              <Link 
-                to={getItemLink(post)} 
-                className="article-link folder-image-link"
+          {/* Article folders - uniquement le chunk actuel */}
+          {currentChunk.map((post, index) => {
+            const globalIndex = currentChunkIndex * chunkSize + index;
+            return (
+              <div
+                className={`folder-card folder-card--${post._type} ${activeIndex === index ? 'folder-card--active' : ''}`}
+                key={post.documentId}
+                data-type={post._type}
               >
-                <div className="folder-svg-wrapper">
-                  <img 
-                    src={getBackgroundImage({ 
-                      index, 
-                      totalItems: posts.length,
-                      contentType: post._type
-                    })}
-                    alt={post.Title ?? "Untitled"}
-                    className="folder-image"
-                  />
-                  <div className="folder-content">
-                    <div className="folder-header">
-                      <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-                      <span className="folder-author">{post.Author ?? "unknown"}</span>
+                <Link to={getItemLink(post)} className="article-link folder-image-link">
+                  <div className="folder-svg-wrapper">
+                    <img
+                      src={getBackgroundImage({
+                        index: globalIndex,
+                        totalItems: posts.length, // posts est déjà filtré
+                        contentType: post._type
+                      })}
+                      alt={post.Title ?? "Untitled"}
+                      className="folder-image"
+                    />
+                    <div className="folder-content">
+                      <div className="folder-header">
+                        <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
+                        <span className="folder-author">{post.Author ?? "unknown"}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            );
+          })}
 
           {/* Footer folder */}
           <div className="folder-card folder-card--footer">
             <div className="folder-svg-wrapper">
-              <img 
+              <img
                 src="/img_assets/folder_homepage/footer_folder.png"
                 alt="Footer"
                 className="folder-image"
@@ -164,10 +186,7 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
       </div>
 
       {/* Custom scroll bar on the right */}
-      <div 
-        className="scroll-track"
-        ref={scrollTrackRef}
-      >
+      <div className="scroll-track" ref={scrollTrackRef}>
         <div
           className={`scroll-thumb ${isDraggingThumb ? 'dragging' : ''}`}
           ref={scrollThumbRef}
@@ -181,6 +200,29 @@ export default function ScrollableFolderStack({ posts }: ScrollableFolderStackPr
           <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/grab_button.png" alt="scroll thumb"/>
         </div>
       </div>
+
+      {/* Boutons de navigation entre les chunks */}
+      {chunks.length > 1 && (
+        <div className="chunk-navigation">
+          <button
+            onClick={goToPreviousChunk}
+            disabled={currentChunkIndex === 0}
+            className="chunk-nav-btn"
+          >
+            ← Précédent
+          </button>
+          <span className="chunk-indicator">
+            {currentChunkIndex + 1} / {chunks.length}
+          </span>
+          <button
+            onClick={goToNextChunk}
+            disabled={currentChunkIndex === chunks.length - 1}
+            className="chunk-nav-btn"
+          >
+            Suivant →
+          </button>
+        </div>
+      )}
     </div>
   );
 }
