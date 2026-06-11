@@ -53,6 +53,9 @@
       "type": "component",
       "component": "audio-track.audio-track",
       "repeatable": true
+    },
+    "Date": {
+      "type": "string"
     }
   }
 }
