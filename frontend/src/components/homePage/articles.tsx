@@ -16,6 +16,7 @@ export type HomeItem = {
   documentId: string;
   _type: "article" | "conversation" | "quiz" | "mosaic" | "takes";
   Title?: string;
+  Date?: string;
   Author?: string;
   Descriptiom?: string;
   Description?: string;
@@ -201,86 +202,89 @@ useEffect(() => {
       {isMobileView ? (
   <ScrollableFolderStack posts={filteredPosts} />
 ) : (
-  <div className="folders-stack">
-    {/* Header folder */}
-    <div className="folder-card folder-card--header">
-      <div className="folder-svg-wrapper">
-        <img
-          src="/img_assets/folder_homepage/header_folder.png"
-          alt="Header"
-          className="folder-image"
-        />
-      </div>
-    </div>
+    <div className="folders-stack--wrapper">
 
-    {/* Affichage du stack actuel */}
-    {currentStack.map((post, index) => {
-      // Calcul de l'index global dans filteredPosts
-      const globalIndex = currentStackIndex * 5 + index;
-
-        return (
-          <div
-            className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
-            key={post.documentId}
-            data-type={post._type}
-          >
-            <Link
-              to={getItemLink(post)}
-              className="article-link folder-image-link"
-              onClick={(e) => handleCardTap(e, post.documentId, post._type)}
-            >
-              <div className="folder-svg-wrapper">
-                <img
-                  src={getBackgroundImage({
-                    index: globalIndex, // Utilise l'index global
-                    totalItems: filteredPosts.length, // Utilise la taille totale de filteredPosts
-                    contentType: post._type
-                  })}
-                  alt={post.Title ?? "Untitled"}
-                  className="folder-image"
-                />
-                <div className="folder-content">
-                  <div className="folder-header">
-                    <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-                    <span className="folder-author">{post.Author ?? "unknown"}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
+        <div className="folders-stack">
+          {/* Header folder */}
+          <div className="folder-card folder-card--header">
+            <div className="folder-svg-wrapper">
+              <img
+                src="/img_assets/folder_homepage/header_folder.png"
+                alt="Header"
+                className="folder-image"
+              />
+            </div>
           </div>
-        );
-      })}
 
-    {/* Footer folder */}
-    <div className="folder-card folder-card--footer">
-      <div className="folder-svg-wrapper">
-        <img
-          src="/img_assets/folder_homepage/footer_folder.png"
-          alt="Footer"
-          className="folder-image"
-        />
-      </div>
+          {/* Affichage du stack actuel */}
+          {currentStack.map((post, index) => {
+            // Calcul de l'index global dans filteredPosts
+            const globalIndex = currentStackIndex * 5 + index;
+
+              return (
+                <div
+                  className={`folder-card folder-card--${post._type} ${expandedCardId === post.documentId ? 'folder-card--expanded' : ''}`}
+                  key={post.documentId}
+                  data-type={post._type}
+                >
+                  <Link
+                    to={getItemLink(post)}
+                    className="article-link folder-image-link"
+                    onClick={(e) => handleCardTap(e, post.documentId, post._type)}
+                  >
+                    <div className="folder-svg-wrapper">
+                      <img
+                        src={getBackgroundImage({
+                          index: globalIndex, // Utilise l'index global
+                          totalItems: filteredPosts.length, // Utilise la taille totale de filteredPosts
+                          contentType: post._type
+                        })}
+                        alt={post.Title ?? "Untitled"}
+                        className="folder-image"
+                      />
+                      <div className="folder-content">
+                        <div className="folder-header">
+                          <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
+                          <span className="folder-author">{post.Date ?? "unknown"}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+
+          {/* Footer folder */}
+          <div className="folder-card folder-card--footer">
+            <div className="folder-svg-wrapper">
+              <img
+                src="/img_assets/folder_homepage/footer_folder.png"
+                alt="Footer"
+                className="folder-image"
+              />
+            </div>
+          </div>
+        </div>
+          {/* Boutons d'index pour naviguer entre les stacks */}
+          {stacks.length > 1 && (
+        <div className="stack-index-buttons">
+          {stacks.map((_, index) => (
+            <button
+              key={index}
+              className={`stack-index-btn ${currentStackIndex === index ? 'active' : ''}`}
+              onClick={() => handleStackChange(index)}
+              disabled={index >= stacks.length} // <-- Désactive les boutons invalides
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
+
+          {/* FilterBar desktop */}
+          <FilterBar active={activeFilter} onToggle={toggle} />
+        
     </div>
-
-    {/* Boutons d'index pour naviguer entre les stacks */}
-    {stacks.length > 1 && (
-  <div className="stack-index-buttons">
-    {stacks.map((_, index) => (
-      <button
-        key={index}
-        className={`stack-index-btn ${currentStackIndex === index ? 'active' : ''}`}
-        onClick={() => handleStackChange(index)}
-        disabled={index >= stacks.length} // <-- Désactive les boutons invalides
-      >
-        {index + 1}
-      </button>
-    ))}
-  </div>
-)}
-
-    {/* FilterBar desktop */}
-    <FilterBar active={activeFilter} onToggle={toggle} />
-  </div>
 )}
       <MeceneButton isOpen={showMeceneBtn} />
     </div>

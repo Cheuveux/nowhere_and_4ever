@@ -85,8 +85,13 @@ export default function ArticlePage() {
                 <div className="article_title">
                     <h1>{article.Title}</h1>
                 </div>
-                <div className="article_author">
-                    <h2>by {article.Author}</h2>
+                <div className="article_header_info">
+                    <div className="article_date">
+                        <h2>{article.Date}</h2>
+                    </div>
+                    <div className="article_author">
+                        <h2>by {article.Author}</h2>
+                    </div>
                 </div>
             </div>
             <div className="article-content">
