@@ -189,10 +189,6 @@ export default function ChatRoom({
                 <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
             </Link>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-          <span id="chat-room-name">{roomSlug}</span>
-          <span id="room-connected">👥 {connectionCount} connecté.e{connectionCount > 1 ? 's' : ''}</span>
-        </div>
         <div id="img-room--header">
           <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/header_room_nobg.gif" alt="" />
         </div>
@@ -218,6 +214,9 @@ export default function ChatRoom({
             <button onClick={() => setReplyTo(null)} id="cancel-reply">✕</button>
           </div>
         )}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+          <span id="room-connected">👥 {connectionCount} connecté.e{connectionCount > 1 ? 's' : ''}</span>
+        </div>
         <div id="input-row">
           <input
             type="text"

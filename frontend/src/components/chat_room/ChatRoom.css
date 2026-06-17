@@ -130,13 +130,15 @@
   grid-template-columns: 120px 1fr 120px;
   width: 100%;
   max-width: 100%;
-  align-items: center;
-  justify-items: center;
+  align-items: start;
+  justify-items: start;
   gap: 1rem;
-  background: linear-gradient(60deg, #667eea 0%, #764ba2 100%);
+  background-image: url("https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/gossippppp%20copie.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  min-height: 15vh;
+  min-height: 28vh;
 }
 
 #room-connected {
@@ -145,7 +147,8 @@
 #return_btn {
   width: 120px;
   display: flex;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
 }
 #return_btn img{
   width: 100%;
@@ -453,6 +456,7 @@
 
   #chat-header {
     align-items: center;
+    min-height: 12vh;
   }
 
   #return_btn {

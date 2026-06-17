@@ -247,6 +247,11 @@ useEffect(() => {
                           <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
                           <span className="folder-author">{post.Date ?? "unknown"}</span>
                         </div>
+                        <div className="folder-main-content">
+                          <p>
+                            {post.Descriptiom ?? "Woops"}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </Link>
