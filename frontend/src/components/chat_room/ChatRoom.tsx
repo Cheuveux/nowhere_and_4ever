@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useChat } from './useChat';
 import type { Message } from './chat';
 import { gsap } from 'gsap';
@@ -89,34 +89,34 @@ export default function ChatRoom({
   const [pseudoSet, setPseudoSet] = useState(false);
   const [input, setInput] = useState('');
   const [replyTo, setReplyTo] = useState<{ id: number; username: string } | null>(null);
+  const [showWarning, setShowWarning] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { messages, send, connectionCount } = useChat(roomSlug, initialMessages);
-  const [showOverlay, setShowOverlay] = useState(true);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const warningOverlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Animation GSAP du texte dinfo de la chatRoom
+  // Animation GSAP pour le pop-up de règles
   useEffect(() => {
-    if (showOverlay && overlayRef.current){
+    if (showWarning && warningOverlayRef.current) {
       gsap.fromTo(
-        overlayRef.current,
-        {opacity: 0, y: -100},
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out"}
+        warningOverlayRef.current,
+        { opacity: 0, y: -100 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
       );
     }
-  }, [showOverlay]);
+  }, [showWarning]);
 
-  const closeOverlay = () => {
-    if (overlayRef.current) {
-      gsap.to(overlayRef.current , {
+  const closeWarning = () => {
+    if (warningOverlayRef.current) {
+      gsap.to(warningOverlayRef.current, {
         opacity: 0,
         y: -100,
         duration: 0.3,
         ease: "power2.in",
-        onComplete: () => setShowOverlay(false),
+        onComplete: () => setShowWarning(false),
       });
     }
   };
@@ -132,26 +132,33 @@ export default function ChatRoom({
   if (!pseudoSet) {
     return (
       <div id="pseudo-screen">
-        {/* Overlat avec image et bouton de fermeture */}
-        {showOverlay && (
-          <div className="room-overlay" ref={overlayRef}>
-            <div className="overlay-btn-wrapper">
+        {/* Pop-up des règles (même style que dans CommentSection) */}
+        {showWarning && (
+          <div className="comment-warning-overlay" ref={warningOverlayRef}>
+            <div className="comment-warning-popup">
+              <h2>Règles de la Gossip Room</h2>
+              <p>
+                Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe.
+                Nous voulons faire de ce chat un espace de discussion respectueux et constructif.
+                Merci de préserver cet espace en évitant les formulations explicitement insultantes,
+                haineuses ou diffamatoires.
+              </p>
+              <p>
+                Si vous souhaitez partager des articles de presse, merci de référencer l'URL plutôt
+                que d'en recopier le contenu, qui est protégé par des droits d'auteur.
+              </p>
               <button
-              className="close-overlay-btn"
-              onClick={closeOverlay}
+                type="button"
+                onClick={closeWarning}
+                className="btn-agree-warning"
               >
-                x
+                J'ai compris
               </button>
             </div>
-            <img 
-                src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/gossippppp%20copie.png"
-                className='room-overlay-img'
-                alt="Image de presentation de la Gossip Room" 
-                />
           </div>
         )}
 
-        {/* Carte de selection du pseudo */}
+        {/* Carte de sélection du pseudo */}
         <div id="pseudo-card">
           <h2>Rejoindre le chat</h2>
           <p>Choisis un pseudo pour continuer</p>
@@ -184,13 +191,13 @@ export default function ChatRoom({
     <div id="chat-room">
       {/* Header */}
       <div id="chat-header">
-          <div id="return_btn">
-            <Link to="/">
-                <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
-            </Link>
+        <div id="return_btn">
+          <Link to="/">
+            <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="Retour à l'accueil" />
+          </Link>
         </div>
         <div id="img-room--header">
-          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/header_room_nobg.gif" alt="" />
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/header_room_nobg.gif" alt="Gossip Room" />
         </div>
       </div>
 

@@ -57,6 +57,11 @@
   opacity: 1;
 }
 
+.folder-card.folder-card--active .folder-main-content {
+  opacity: 1;
+  margin-left: 2rem;
+}
+
 /* Custom scroll bar on the right */
 .scroll-track {
   width: 20px;

@@ -331,10 +331,16 @@ body {
   border-radius: 14px;
 }
 
-.article-quizz-preview h3 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  font-family: var(--hand-font);
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+    scale: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+    scale: 1.05;
+    opacity: 0.8;
+  }
 }
 
 .article-quizz-button {
@@ -344,6 +350,7 @@ body {
   border-radius: 0;
   cursor: pointer;
   font-size: 1rem;
+  animation: float 2.5s ease-out infinite;
   transition: all 0.2s ease;
   width: auto;
   height: auto;

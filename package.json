@@ -8,5 +8,8 @@
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "start": "cd frontend && npm start"
+  },
+  "dependencies": {
+    "node-cron": "^4.3.0"
   }
 }

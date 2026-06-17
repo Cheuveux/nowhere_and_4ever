@@ -167,7 +167,7 @@ export default function ScrollableFolderStack({ posts, chunkSize = 8 }: Scrollab
                       </div>
                        <div className="folder-main-content">
                           <p>
-                            {post.Descriptiom ?? "Woops"}
+                            {post.Descriptiom ?? ""}
                           </p>
                         </div>
                     </div>
