@@ -87,6 +87,7 @@ export default function AnimIntro() {
 					ref={videoRef}
 					className="intro-video"
 					muted
+					playsInline
 					controls={false}
 					onEnded={handleVideoEnded}
 				>
@@ -108,7 +109,7 @@ export default function AnimIntro() {
 						onClick={() => window.location.href = '/'}
 					>
 						<img 
-							src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/post_intro_btn.png" 
+							src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_intro_mobile.gif" 
 							alt="Enter homepage"
 						/>
 					</button>
