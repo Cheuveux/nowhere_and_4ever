@@ -75,7 +75,7 @@ export default function AnimIntro() {
 			{showPrompt && (
 				<div className="intro-prompt">
 					<img 
-						src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/enter_btn_mobile.gif" 
+						src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_intro_mobile.gif" 
 						alt="Enter to start"
 						className="intro-prompt-image"
 						onClick={() => handlePromptResponse('yes')}
@@ -87,12 +87,11 @@ export default function AnimIntro() {
 					ref={videoRef}
 					className="intro-video"
 					muted
-					autoPlay
 					controls={false}
 					onEnded={handleVideoEnded}
 				>
 					<source
-						src={isMobile ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/4ever_mobile_intro.mp4' : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/4ever_intro_ordi.mp4'}
+						src={isMobile ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/intro_mobile_compressed.mp4' : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/video_intro/intro_desktop_compressed.mp4'}
 					/>
 					Probleme de video a cause du navigateur.
 				</video>
