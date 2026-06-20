@@ -154,7 +154,7 @@ export function CommentSection({articleId}: { articleId?: string}) {
                             rows={4}
                         />
                     </div>
-                    <button type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
+                    <button className="button_comments" type="submit" disabled={isPosting || !newCommentText.trim() || !pseudo}>
                         {isPosting ? 'Envoi en cours...' : 'Poster'}
                     </button>
                 </form>

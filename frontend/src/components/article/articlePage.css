@@ -280,7 +280,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3000;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(221, 255, 0, 0.87);
   padding: 0.25rem;
   font-size: 1.5rem;
   cursor: pointer;
@@ -302,7 +302,7 @@ body {
 }
 
 .radio-play-button.is-playing {
-  background: rgba(32, 115, 83, 0.55);
+  background:var(--color-yellow-body);
   border-color: rgba(180, 255, 218, 0.9);
 }
 

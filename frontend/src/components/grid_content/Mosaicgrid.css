@@ -134,7 +134,7 @@
 .mosaic-card__title {
 	color: #8f6ab9;
 	font-size: 1rem;
-	font-family: var(--retro-font);
+	font-family: var(--main-font);
 	margin: 0;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -202,15 +202,22 @@
 	.mosaic-card {
 		min-width: 22vw;
 		width: 22vw;
-		min-height: 18vh;
+		height: fit-content;
+		min-height: 15vh;
+		max-height: 20vh;
 		scroll-snap-align: start;
 		flex-shrink: 0;
 	}
 
 	.mosaic-card__media {
-		min-height: 80px;
+		padding: 0.3rem;
+		min-height: 60px;
+		max-height: 80px;
 	}
 	
+	.mosaic-card-video-container video {
+		border: solid grey 1px;
+	}
 	.mosaic-card__footer {
 		gap: 0.1rem;
 	}

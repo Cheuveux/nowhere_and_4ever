@@ -75,7 +75,7 @@ function RadioAudioPlayer({ audioUrl, coverUrl, onPlayStart }: { audioUrl: strin
 				onClick={handlePlayClick}
 			>
 			<img 
-				src={isPlaying ? '/img_assets/radio_assets/audio-pause.svg' : '/img_assets/radio_assets/audio-play.svg'} 
+				src={isPlaying ? 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/pause_compressed.png' : 'https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/play_compressed.png'} 
 				alt=""
 			 />
 				
