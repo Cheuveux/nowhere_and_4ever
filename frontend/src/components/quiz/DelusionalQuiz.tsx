@@ -108,7 +108,15 @@ function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: ()
       <h2 className="dq-result-title" style={{ color: result.color }}>{result.label}</h2>
       <div className="dq-result-score">{totalPoints} / 300 pts</div>
     </div>
-      <p className="dq-result-desc">{result.description}</p>
+      <div className="dq-result-main-content">
+        <p className="dq-result-desc">{result.description}</p>
+        <div className="dq-result-img">
+          <img 
+            src={result.image}
+            alt="Image descriptive resultat quizz" 
+          />
+       </div>
+      </div>
       <div className="dq-bar-wrap">
         <div className="dq-bar-track">
           <div className="dq-bar-fill" style={{ width: `${pct}%`, background: result.color }} />

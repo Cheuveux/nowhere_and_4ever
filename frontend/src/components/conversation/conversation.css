@@ -145,7 +145,7 @@
 
 .bubble-wrapper.left {
 	font-family: var(--whisper1-font);
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 }
 
 .bubble-wrapper.right {

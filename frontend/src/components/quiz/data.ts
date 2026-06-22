@@ -111,6 +111,7 @@ export const FALLBACK: Question[] = [
 		color:"#00ff9f",
 		tag: "Delusion level: background noise",
 		description: "Tu n’es pas delulu, ou alors slightly delulu. Tout va bien : tu es cartésien.ne, la tête sur les épaules encore solidement attaché.e à la réalité commune … Tu sais garder ton calme, tu ne confonds pas un eye contact avec une compatibilité astrale, et franchement, dans ce quiz, c’est presque suspect de stabilité. Mais manques-tu d’un peu de romantisme ? Un petit scénario avant de dormir n’a jamais fait de mal à personne. \n Il y a peut-être, en toi, un potentiel de delulu encore en veille, bien rangé, bien domestiqué, qui ne demande qu’à faire deux-trois tours de piste. Tu es Émile dans Ratatouille, ou Stanley dans The Office : lucide, cool, pas encore emporté.e par le vortex. Tu observes les gens qui partent en roue libre affective avec une légère distance, parfois même avec un peu de jugement, mais aussi peut-être avec une pointe d’envie bb…",
+		image:"https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/img_example_result_quizz.jpg",
 		},
 		{
 		range: [71, 150],
@@ -118,6 +119,7 @@ export const FALLBACK: Question[] = [
 		color:"#ffe135",
 		tag: "Delusion level: a vibe",
 		description: "Je dirais que tu es une personne slightly delulu. Tu es un peu le green flag sur l’échelle de la delusion : tu es un peu dans ta tête, tu romantises par moments, tu repenses à une phrase un peu plus longtemps que nécessaire, tu peux accorder à un détail une importance légèrement disproportionnée… mais ça reste encore dans une zone fréquentable par la société civile. \n Tu es un.e Bridget Jones soft : ça cogite, ça projette un peu, ça s’emballe parfois, En gros, tu es dans cette zone grise où tu peux encore rire de toi-même puis reprendre une vie presque normale. Stade léger de la folie.",
+		image:"https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/img_example_result_quizz.jpg",
 		},
 		{
 		range: [151, 220],
@@ -125,6 +127,7 @@ export const FALLBACK: Question[] = [
 		color:"#ff6bff",
 		tag: "Delusion level: a whole personality",
 		description: "Tu es clairement a delusional bitch. Tu vis dans Sex and the City, tu es un mélange entre Carrie et Charlotte: tu vies dans la croyance secrète qu’un détail a forcément un sens… qu’un message n’arrive jamais par hasard… et qu’une connexion un peu floue mérite déjà un ptit scénario intérieur en six épisodes. And as we said: if delusional paid rent, you’d own Manhattan sweetheart.\n Fais attention à toi, mon cœur : c’est super de fuir le réel quand ton monde intérieur est aussi bien décoré, mais n’oublie pas le présent ni la réalité. Expérimente pour de vrai, car les personnes vaporeuses sont souvent décevantes… Elles brillent beaucoup dans la tête, mais moins dans la vraie vie…Je te félicite si tu as été honnête dans tes réponses, mais je suis sûr.e que certain.es ici devraient être dans la catégorie suivante.",
+		image:"https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/img_example_result_quizz.jpg",
 		},
 		{
 		range: [221, 300],
@@ -132,6 +135,7 @@ export const FALLBACK: Question[] = [
 		color:"#ff3a5c",
 		tag: "Delusion level: ✨ideological✨",
 		description: "WARNING !!! T’es clairement overcooked. Tu es atteint.e d’une delusion sévère, tu as oublié ce qu’était la réalité commune à tous.tes, tu vis dans un film imaginaire. Là, tu es dans le mythe personnel, sur un dispositif narratif total avec preuves, théorie et effondrement potentiel. Tu es Sharpay Evans dans La Fabuleuse Aventure de Sharpay. Wake up bitch, tu es un danger émotionnel pour toi-même !! VA TOUCHER DE L’HERBE MA FILLE !!!! Tu es le genre de comportement qui justifie presque une cellule de crise. Heureusement que ce quiz est anonyme sinon j’aurais appelé tes potes. Mais je te remercie d’avoir joué le jeu et d’avoir été honnête. Je suis sûr.e que plein d’autres se sont voilé la face. T’inquiète ce quiz n’était pas un guet-apens psychologique, mais fais attention à toi. Si jamais, je peux créer un numéro d’urgence pour les delulu bitches en danger dans ton genre, ou un cercle de parole <3",
+		image:"https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/img_example_result_quizz.jpg",
 		},
 	
 	];

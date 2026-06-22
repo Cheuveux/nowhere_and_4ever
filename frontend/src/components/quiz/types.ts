@@ -15,6 +15,7 @@ export type ResultData = {
   color: string;
   tag: string;
   description: string;
+  image?: string;
 };
 
 export type StrapiAnswer = {
