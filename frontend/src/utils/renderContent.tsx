@@ -3,6 +3,20 @@ import { useState, useRef } from "react";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
+const textRenderers = {
+        paragraph: ({ children }: any) => (
+            <p style={{ whiteSpace: "pre-wrap" }} className="rich-paragraph">
+            {children}
+            </p>
+        ),
+};
+
+const textModifiers = {
+     italic: ({ children }: any) => (
+            <em className="rich-italic">{children}</em>
+        ),
+}
+
 // Helper pour construire les URLs media (gère les URLs absolues S3/Supabase et relatives)
 function buildMediaUrl(url: string | undefined): string | null {
     if (!url) return null;
@@ -72,7 +86,7 @@ function RadioAudioPlayer({ audioUrl, coverUrl }: { audioUrl: string; coverUrl: 
             retractDisk();
         }
     };
-
+    
     return (
         <div className="radio-container">
             <button
@@ -164,6 +178,11 @@ export function renderContent(article: any) {
                 }
             }
         }
-        return <BlocksRenderer key={i} content={[block]} />;
+        return <BlocksRenderer 
+                key={i} 
+                content={[block]}
+                blocks={textRenderers}
+                modifiers={textModifiers}
+            />;
     });
 }

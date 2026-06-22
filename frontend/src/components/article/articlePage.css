@@ -458,11 +458,24 @@ body {
 
 
 /* RENDER CONTENT MEDIA PERSONNALISE */
+
+/* TEXT */
+.rich-italic {
+  font-family: var(--italic-font);
+  font-style: italic;
+}
+
+/* .rich-paragraph {
+
+} */
+
+/* IMAGE VIDEO SOUND ETC */
 .img-grid {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .img-little {
   width: 250px;
 }
