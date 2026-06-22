@@ -57,7 +57,7 @@ useEffect(() => {
 
 // Découpage en chunks
 const stacks = useMemo(() => {
-  const chunkSize = 5;
+  const chunkSize = 18;
   const chunks = [];
   for (let i = 0; i < filteredPosts.length; i += chunkSize) {
     chunks.push(filteredPosts.slice(i, i + chunkSize));
@@ -173,7 +173,6 @@ useEffect(() => {
 
       {/* Gossip Room button */}
       {gossipRoomSlug && (
-        
         <button
           className="gossip-room-btn"
           onClick={handleOpenGossipRoom}
