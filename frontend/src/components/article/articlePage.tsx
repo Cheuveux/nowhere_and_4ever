@@ -19,8 +19,8 @@ export default function ArticlePage() {
 
     useEffect(() => {
         fetch(
-            getEndpoint(`/posts/${id}?populate=illu&populate=music_video&populate[audio_track][populate]=*`)
-        )
+    getEndpoint(`/posts/${id}?populate[illu][populate]=*&populate[music_video][populate]=*&populate[audio_track][populate]=*`)
+)
             .then((res) => res.json())
             .then((data) => {
                 setArticle(data.data);

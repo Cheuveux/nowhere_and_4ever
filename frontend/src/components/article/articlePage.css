@@ -455,3 +455,14 @@ body {
     padding: 1rem 0.5rem;
   }
 }
+
+
+/* RENDER CONTENT MEDIA PERSONNALISE */
+.img-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.img-little {
+  width: 250px;
+}
