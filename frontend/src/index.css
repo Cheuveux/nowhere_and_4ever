@@ -4,11 +4,19 @@
   src: url('/fonts/ANDALEMO 2.TTF') format('truetype');
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Slice Regular';
   src: url('/fonts/SliceRegular.otf') format('opentype');
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Didot-Italic';
+  src: url('/fonts/Didot-Italic.ttf') format('truetype');
+  font-style: italid;
+}
+
 @font-face {
   font-family: 'Retro Font';
   src: url('/fonts/PF Pixelscript Pro Regular.ttf') format('truetype');
@@ -74,6 +82,7 @@
   --mosaic-border-color: rgb(136, 134, 134);
   --main-font: 'Andale Mono', ui-monospace; 
   --secondary-font: 'Slice Regular', Arial, sans-serif;
+  --italic-font: 'Didot-Italic', serif;
   --retro-font: 'Retro Font', Arial, sans-serif;
   --popup-font: 'ITC Machine Bold', Arial, sans-serif;
   --hand-font: 'Snell Roundhand', cursive;

@@ -1,10 +1,8 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import './takesPage.css'
-
-// ===== ICÔNES ALÉATOIRES + PARTAGE ✨ =====
-// Utilisez InteractiveIcon pour des icônes cliquables avec modal de partage
+import { getEndpoint } from "../../config/api";
+import './takesPage.css';
 import { InteractiveIcon } from '../random-icon/InteractiveIcon';
 
 export default function TakePage() {
@@ -13,13 +11,12 @@ export default function TakePage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Include all relations/media with populate=*
         fetch(
-            `http://localhost:1337/api/takes/${id}?populate=*`
+            getEndpoint(`/takes/${id}?populate=*`)
         )
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data); // Log to see the structure
+                console.log(data.data);
                 setArticle(data.data);
                 setLoading(false);
             })
@@ -29,21 +26,15 @@ export default function TakePage() {
             });
     }, [id]);
 
-    // Render block content from Strapi rich text editor
     const renderBlockContent = (content: any) => {
         if (!content) return null;
-        
         if (Array.isArray(content)) {
             return content.map((block: any, idx: number) => {
-                console.log("Block structure:", block); // Debug log
-                
                 const text = block.children
                     ?.map((child: any) => child.text || "")
                     .join("") || "";
-                
                 if (!text) return null;
-                
-                // Handle headings
+
                 if (block.type === "heading") {
                     const level = block.level || 1;
                     return React.createElement(
@@ -52,56 +43,37 @@ export default function TakePage() {
                         text
                     );
                 }
-                
-                // Handle paragraphs
                 if (block.type === "paragraph") {
-                    return (
-                        <p key={idx} className="takes-text">
-                            {text}
-                        </p>
-                    );
+                    return <p key={idx} className="takes-text">{text}</p>;
                 }
-                
                 return null;
             });
         }
-        
-        // Fallback for string content
         return <p className="takes-text">{content}</p>;
     };
 
     if (loading) return <p>Loading...</p>;
     if (!takes) return <p>Article not found.</p>;
-    
+
     return (
         <div className="takes-page" style={{ position: 'relative' }}>
-            {/* 
-              ✨ ICÔNES ALÉATOIRES + PARTAGE (Coin haut droit)
-              Cliquez sur l'icône pour partager!
-              
-              sizeVariation={0.3} = taille varie de ±30%
-              positionVariation={30} = position varie de ±30px
-            */}
-            <InteractiveIcon 
-              position="top-right" 
-              probability={1}
-              size={80}
-              sizeVariation={0.3}
-              positionVariation={30}
-              animate={true}
+            <InteractiveIcon
+                position="top-right"
+                probability={1}
+                size={80}
+                sizeVariation={0.3}
+                positionVariation={30}
+                animate={true}
             />
-            
-            {/* ✨ Deuxième icône (Coin bas gauche) */}
-            <InteractiveIcon 
-              position="bottom-left" 
-              probability={1}
-              size={80}
-              sizeVariation={0.3}
-              positionVariation={30}
-              animate={true}
+            <InteractiveIcon
+                position="bottom-left"
+                probability={1}
+                size={80}
+                sizeVariation={0.3}
+                positionVariation={30}
+                animate={true}
             />
-            
-            <div className="takes-header"> 
+            <div className="takes-header">
                 <div className="return_btn">
                     <Link to="/">
                         <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
@@ -113,8 +85,8 @@ export default function TakePage() {
             </div>
             <div className="takes-content">
                 {takes.take_illustration && takes.take_illustration.length > 0 && takes.take_illustration[0].url && (
-                    <img 
-                        src={`http://localhost:1337${takes.take_illustration[0].url}`}
+                    <img
+                        src={`${import.meta.env.VITE_API_URL || "http://localhost:1337"}${takes.take_illustration[0].url}`}
                         alt={takes.title}
                         className="takes-visual"
                     />
