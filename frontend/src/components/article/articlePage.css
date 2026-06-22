@@ -58,7 +58,7 @@ body {
   color: var(--color-yellow-body);
   height: fit-content;
   margin-left: 3rem;
-  max-width: 550px;
+  text-align: left;
 }
 .article_header_info {
   display: flex;
@@ -463,12 +463,24 @@ body {
 .rich-italic {
   font-family: var(--italic-font);
   font-style: italic;
+  font-size: 21px;
 }
 
-/* .rich-paragraph {
+.rich-paragraph {
+    margin: 0.5rem;
+}
+@media screen and (max-width: 625px)
+{
+  .rich-italic {
+  font-family: var(--italic-font);
+  font-style: italic;
+  font-size: 15px;
+}
 
-} */
-
+.rich-paragraph {
+    margin: 0.5rem;
+}
+}
 /* IMAGE VIDEO SOUND ETC */
 .img-grid {
   display: flex;

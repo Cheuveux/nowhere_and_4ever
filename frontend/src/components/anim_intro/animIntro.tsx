@@ -25,31 +25,28 @@ export default function AnimIntro() {
     }
   }, [showIntroImage]);
 
-	useLayoutEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 1050);
-		}
+	// useLayoutEffect(() => {
+	// 	const checkMobile = () => {
+	// 		setIsMobile(window.innerWidth < 1050);
+	// 	}
 
-		checkMobile();
-		window.addEventListener('resize', checkMobile);
-		return () => window.removeEventListener('resize', checkMobile);
-	}, []);
+	// 	checkMobile();
+	// 	window.addEventListener('resize', checkMobile);
+	// 	return () => window.removeEventListener('resize', checkMobile);
+	// }, []);
 
-	// Sur desktop, lancer la vidéo automatiquement sans bouton
-	// Sur mobile, afficher le prompt
-	useEffect(() => {
-		setShowPrompt(isMobile);
-	}, [isMobile]);
 
-	useEffect(() => {
-		// Sur desktop: lancer la vidéo automatiquement
-		// Sur mobile: attendre le click sur YES
-		if (videoRef.current && !isPlaying && !showPrompt && !isMobile) {
-			videoRef.current.play().catch(err => {
-				console.warn('Autoplay blocked', err);
-			});
-		}
-	}, [isPlaying, showPrompt, isMobile]);
+	// useEffect(() => {
+	// 	setShowPrompt(isMobile);
+	// }, [isMobile]);
+
+	// useEffect(() => {
+	// 	if (videoRef.current && !isPlaying && !showPrompt && !isMobile) {
+	// 		videoRef.current.play().catch(err => {
+	// 			console.warn('Autoplay blocked', err);
+	// 		});
+	// 	}
+	// }, [isPlaying, showPrompt, isMobile]);
 
 	const handlePromptResponse = (answer: 'yes' | 'no') => {
 		if (answer === 'yes') {
@@ -59,7 +56,6 @@ export default function AnimIntro() {
 				setShowPrompt(false);
 			}
 		}
-		// Si 'no', on fait rien, le bouton reste affiché
 	};
 
 	const handleVideoEnded = () => {

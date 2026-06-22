@@ -56,6 +56,10 @@
     },
     "Date": {
       "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Title"
     }
   }
 }
