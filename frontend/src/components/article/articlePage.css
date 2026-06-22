@@ -324,11 +324,13 @@ body {
 }
 
 .article-quizz-preview {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
   border-radius: 14px;
+  display: flex;
+  justify-content: space-around;
 }
 
 @keyframes float {
@@ -350,10 +352,10 @@ body {
   border-radius: 0;
   cursor: pointer;
   font-size: 1rem;
-  animation: float 2.5s ease-out infinite;
-  transition: all 0.2s ease;
   width: auto;
   height: auto;
+  animation: float 2.5s ease-out infinite;
+  transition: all 0.2s ease;
 }
 
 .article-quizz-button img {
@@ -362,7 +364,6 @@ body {
   height: auto;
   max-width: 600px;
   object-fit: contain;
-  transition: transform 0.2s ease;
 }
 
 .article-quizz-button:hover img {
@@ -373,6 +374,18 @@ body {
   transform: scale(0.95);
 }
 
+.left-arrow-quizz  {
+  width: 180px;
+  height: auto;
+  object-fit: contain;  
+}
+
+.right-arrow-quizz {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  transform: rotate(180deg); 
+}
 .article-quizz-modal {
   position: fixed;
   top: 0;
@@ -416,7 +429,11 @@ body {
 /* Responsive pour le bouton quizz */
 @media screen and (max-width: 900px) {
   .article-quizz-button img {
-    max-width: 250px;
+    max-width: 170px;
+  }
+
+  .arrow-quizz {
+    max-width: 20vw;
   }
 
   .article-quizz-preview h3 {

@@ -173,6 +173,7 @@ useEffect(() => {
 
       {/* Gossip Room button */}
       {gossipRoomSlug && (
+        
         <button
           className="gossip-room-btn"
           onClick={handleOpenGossipRoom}

@@ -100,9 +100,11 @@ export default function ArticlePage() {
             {(article.documentId === "n6cb5cfnokbm5z7wfkujy8d1" || article.documentId === "abi1xfga6rtew6lqut6bqqpv"  ) && quizQuestions.length > 0 && (
                 <div className="article-quizz-container">
                     <div className="article-quizz-preview">
+                        <img className="arrow-quizz left-arrow-quizz" src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/arrow/Dot___Bo___Furniture_and_De%CC%81cor_for_the_Modern_Lifestyle-removebg-preview.png" alt="Icon arrow quizz"/>
                         <button onClick={() => setShowQuizz(true)} className="article-quizz-button">
                             <img src="/img_assets/icons/quizz_button.png" alt="Start Quiz" />
                         </button>
+                        <img className="arrow-quizz right-arrow-quizz" src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/arrow/Dot___Bo___Furniture_and_De%CC%81cor_for_the_Modern_Lifestyle-removebg-preview.png" alt="Icon arrow quizz"/>
                     </div>
                     {showQuizz && (
                         <div className="article-quizz-modal">
