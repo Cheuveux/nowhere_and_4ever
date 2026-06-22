@@ -191,13 +191,13 @@ export default function ChatRoom({
     <div id="chat-room">
       {/* Header */}
       <div id="chat-header">
+        <div id="header-backg-img">
+            <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/gossippppp%20copie.png" alt="Header Background Chat-Room" />
+        </div>
         <div id="return_btn">
           <Link to="/">
             <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="Retour à l'accueil" />
           </Link>
-        </div>
-        <div id="img-room--header">
-          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/img-assets/header_room_nobg.gif" alt="Gossip Room" />
         </div>
       </div>
 

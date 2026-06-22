@@ -43,18 +43,8 @@
     height: auto;
 }
 
-.takes-h1 {
-    font-size: 2.5rem;
-    color: #ecece4;
-}
-
-.takes-h2 {
-    font-size: 2rem;
-    color: #ecece4;
-    border-bottom: 2px solid var(--color-yellow-body);
-    padding-bottom: 0.5rem;
-}
-
+.takes-h1,
+.takes-h2,
 .takes-h3 {
     font-size: 3.5rem;
     color: var(--color-yellow-body);
