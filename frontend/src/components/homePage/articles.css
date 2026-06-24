@@ -76,7 +76,23 @@
 		width: 150px;
 	}
 }
+/* bouton derniere parution */
 
+.latest-post-btn {
+  position: absolute;
+  top: 0%;
+  right: 3%;
+  width: 150px;
+  height: 150px;
+  z-index: 200;
+  background-color: transparent;
+  border: none;
+}
+.latest-post-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 /* texte d'intro */
 .blog-intro {
   padding: 2rem;

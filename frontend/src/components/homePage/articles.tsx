@@ -30,6 +30,12 @@ function getItemLink(item: HomeItem): string {
   return `/article/${item.documentId}`;
 }
 
+const getDate = (item: HomeItem): number => {
+  const raw = (item as any).createdAt ?? item.Date ?? "0";
+  const ts = new Date(raw).getTime();
+  return isNaN(ts) ? 0 : ts;
+};
+
 export default function Article() {
   const articlesRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -69,6 +75,16 @@ export default function Article() {
     }
   }, [stacks.length]);
 
+  // Dernier élément créé (toutes sources confondues)
+  const latestPost = useMemo(() => {
+    if (!posts.length) return null;
+    return [...posts].sort((a, b) => getDate(b) - getDate(a))[0];
+  }, [posts]);
+
+  const handleOpenLatest = () => {
+    if (latestPost) navigate(getItemLink(latestPost));
+  };
+
   useEffect(() => {
     if (currentStack.length > 0) {
       gsap.from(".folder-card", {
@@ -80,7 +96,6 @@ export default function Article() {
     }
   }, [currentStackIndex, currentStack]);
 
-  // ✅ Correction : Mapping des mosaïques
   useEffect(() => {
     Promise.all([
       fetch(getEndpoint('/posts'), { headers: { Accept: "application/json" } }).then(r => r.json()),
@@ -109,14 +124,13 @@ export default function Article() {
             Description: "",
           };
           return mappedMosaic;
-});
+        });
 
         const gossipRoom = (roomData.data || []).find((r: any) =>
           r.slug?.toLowerCase() === 'gossip-room'
         );
         if (gossipRoom) setGossipRoomSlug(gossipRoom.slug);
 
-        // ✅ Ajout des mosaïques au tableau posts
         setPosts([...posts, ...convs, ...mosaics, ...takes]);
         setIsLoading(false);
       })
@@ -175,6 +189,17 @@ export default function Article() {
           title="Open Gossip Room"
         >
           <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/gossip_header.png" alt="Gossip Room" />
+        </button>
+      )}
+
+      {/* Bouton dernier élément créé */}
+      {latestPost && (
+        <button
+          className="latest-post-btn"
+          onClick={handleOpenLatest}
+          title={`Dernière parution : ${latestPost.Title ?? "Sans titre"}`}
+        >
+        <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/New_Post.png" alt="Derniere parution" />
         </button>
       )}
 
