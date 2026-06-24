@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect} from "react";
+import { useParams } from "react-router-dom";
 import {  Link } from "react-router-dom";
 import { useMosaic, mediaUrl, isVideo } from "./Usemosaic";
 import gsap from "gsap";
@@ -148,8 +149,8 @@ function Lightbox({ item, onClose }: LightboxProps) {
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 export default function MosaicGrid() {
-  const { section, loading, error } = useMosaic();
-
+  const { documentId } = useParams<{ documentId: string }>();
+  const { section, loading, error } = useMosaic(documentId);
   // null = lightbox fermée, MosaicItem = item affiché
   const [selected, setSelected] = useState<MosaicItem | null>(null);
   const gridVideoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});

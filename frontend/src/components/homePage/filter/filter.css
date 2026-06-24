@@ -2,14 +2,14 @@
 
 .filter-bar {
 	position: absolute;
-	top: 30%;
+	bottom: 5%;
 	left: 2%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
 	align-items: start;
-	gap: 5rem;
+	gap: 3rem;
 }
 
 .filter-btn {

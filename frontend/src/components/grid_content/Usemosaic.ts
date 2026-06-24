@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // TYPE
 const STRAPI_URL: string = import.meta.env.VITE_STRAPI_URL ?? "http://localhost:1337";
-const API_URL: string = `${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=*`;
+// const API_URL: string = `${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=*`;
 
 type MosaicItem = {
   id: number;
@@ -26,30 +26,34 @@ type MosaicSection = {
 
 
 // HOOK
-export function useMosaic() : {section: MosaicSection | null; loading: boolean;  error: string | null} {
-	
-	const [section, setSection] = useState<MosaicSection | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+// useMosaic.ts
+export function useMosaic(documentId?: string): { section: MosaicSection | null; loading: boolean; error: string | null } {
+  const [section, setSection] = useState<MosaicSection | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-	useEffect (() => {
-		(async () => {
-			try 
-				{
-					const res = await fetch (API_URL);
-					if (!res.ok)
-						throw new Error (`HTTP ${res.status}`);
-					const { data } : { data: MosaicSection[]} = await res.json();
-					setSection(data[0] ?? null);
-				} catch (err) {
-					setError(err instanceof Error ? err.message: "Unknown error");
-				} finally {
-					setLoading(false);
-				}
-		})();
-	}, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${STRAPI_URL}/api/mosaics?populate[mosaic_content][populate]=*`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const { data }: { data: MosaicSection[] } = await res.json();
 
-	return { section, loading, error };
+        // ✅ Filtre par documentId si fourni
+        const filteredSection = documentId
+          ? data.find((section) => section.documentId === documentId) ?? null
+          : data[0] ?? null;
+
+        setSection(filteredSection);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [documentId]); // ✅ Déclenche le re-fetch si documentId change
+
+  return { section, loading, error };
 }
 
 

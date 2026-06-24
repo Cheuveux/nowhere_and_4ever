@@ -31,7 +31,7 @@ function App() {
         <Route path="/conversation/:id" element={<ConversationPage/>} />
         <Route path="/chat/:slug" element={<ChatRoomWrapper />} />
         <Route path="/quiz" element={<DelusionalQuiz />} />
-        <Route path="/mosaics" element={<MosaicGrid />} />
+        <Route path="/mosaics/:documentId" element={<MosaicGrid />} />
       </Routes>
     </>
   );
