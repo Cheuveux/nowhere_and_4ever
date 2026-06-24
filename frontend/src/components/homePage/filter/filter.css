@@ -2,10 +2,13 @@
 
 .filter-bar {
 	position: absolute;
-	bottom: 3%;
+	top: 30%;
+	left: 2%;
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
 	gap: 5rem;
 }
 
@@ -16,6 +19,7 @@
 	font-family: var(--main-font);
 	font-size: 1rem;
 	letter-spacing: 3px;
+	transition: letter-spacing 0.3s ease-in-out, color 0.1s ease-in-out;
 }
 
 .filter-btn--active {
@@ -24,9 +28,8 @@
 }
 
 .filter-btn:hover {
-	transform: scale(1.1) translateY(-10px);
-	letter-spacing: 1px;
-	transition: transform 0.3s ease-in-out;
+	letter-spacing: 6px;
+	color: rgb(132, 123, 123);
 }
 
 /* FILTER MOBILE VERSION */

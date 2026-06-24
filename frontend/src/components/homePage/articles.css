@@ -65,7 +65,7 @@
 
 @media screen and (max-width: 625px) {
  .gossip-room-btn {
-  	  top: 70%;
+  	  top: 80%;
       left: 50%;
       transform: translateX(-50%);
       width: fit-content;
@@ -73,7 +73,7 @@
       padding: 0;
  }
 	.gossip-room-btn img {
-		width: 200px;
+		width: 150px;
 	}
 }
 
