@@ -93,6 +93,15 @@
   width: 100%;
   height: 100%;
 }
+
+@media screen and (max-width: 625px)
+{
+  .latest-post-btn {
+    left: 0%;
+    width: 70px;
+    height: 70px;
+  }
+}
 /* texte d'intro */
 .blog-intro {
   padding: 2rem;

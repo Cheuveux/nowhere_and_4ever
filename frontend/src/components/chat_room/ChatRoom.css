@@ -13,6 +13,7 @@
   align-items: center;
   background-image: url("https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/pseudo_gossip_background.jpeg"), linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-position: center;
+    background-size: 33%;
   z-index: 1000;
 }
 .room-overlay {
