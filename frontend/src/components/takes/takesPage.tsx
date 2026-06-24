@@ -86,7 +86,11 @@ export default function TakePage() {
             <div className="takes-content">
                 {takes.take_illustration && takes.take_illustration.length > 0 && takes.take_illustration[0].url && (
                     <img
-                        src={`${import.meta.env.VITE_API_URL || "http://localhost:1337"}${takes.take_illustration[0].url}`}
+                    	src={
+                                takes.take_illustration[0].url.startsWith('http')
+                                ? takes.take_illustration[0].url
+                                : `${import.meta.env.VITE_API_URL || "http://localhost:1337"}${takes.take_illustration[0].url}`
+                            }
                         alt={takes.title}
                         className="takes-visual"
                     />
