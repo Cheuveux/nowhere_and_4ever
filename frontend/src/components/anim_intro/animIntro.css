@@ -55,28 +55,43 @@
 	z-index: 50;
 	will-change: transform, opacity, filter;
 	backface-visibility: hidden;
+	margin-bottom: 3rem;
 }
 
 .intro-image {
 	width: 800px;
 	height: auto;
 	display: block;
+	margin-bottom: 10rem;
 }
 
 /* Bouton pour quitter l'intro */
-.intro-post-button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: fit-content;
-	padding: 2rem 0;
-	background: transparent;
-	border: none;
-	cursor: pointer;
+
+.intro-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  margin-top: 3rem;
+  background: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
 
+.intro-post-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  /* retire position: fixed et bottom: 0 d'ici */
+}
 .intro-post-button img {
-	width: 150px;
+	width: 100px;
 	height: auto;
 	transition: transform 0.2s ease;
 }

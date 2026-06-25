@@ -59,7 +59,7 @@ export default function Article() {
   }, [filteredPosts]);
 
   const stacks = useMemo(() => {
-    const chunkSize = 12;
+    const chunkSize = 13;
     const chunks = [];
     for (let i = 0; i < filteredPosts.length; i += chunkSize) {
       chunks.push(filteredPosts.slice(i, i + chunkSize));

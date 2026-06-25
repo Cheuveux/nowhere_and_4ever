@@ -75,17 +75,19 @@ export default function AnimIntro() {
             alt="Intro content"
             className="intro-image"
           />
-          <button
-            className="intro-post-button"
-            onClick={() => window.location.href = '/'}
-          >
-            <img
-              src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_intro_mobile.gif"
-              alt="Enter homepage"
-            />
-          </button>
         </div>
       )}
+      <div className="intro-btn-wrapper">
+        <button
+          className="intro-post-button"
+          onClick={() => window.location.href = '/'}
+        >
+          <img
+            src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_intro_mobile.gif"
+            alt="Enter homepage"
+          />
+        </button>
+      </div>
     </div>
   );
 }
