@@ -65,15 +65,15 @@
 
 @media screen and (max-width: 625px) {
  .gossip-room-btn {
-  	  top: 80%;
-      left: 50%;
+  	  top: 86%;
+      left: 20%;
       transform: translateX(-50%);
       width: fit-content;
       height: fit-content;
       padding: 0;
  }
 	.gossip-room-btn img {
-		width: 150px;
+		width: 80px;
 	}
 }
 /* bouton derniere parution */
