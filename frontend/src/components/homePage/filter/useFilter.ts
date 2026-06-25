@@ -1,9 +1,9 @@
 import { useState } from "react";
 import type  {HomeItem}  from "../articles"
 
-export type FilterType = "all" | "article" | "take" | "special";
+export type FilterType = "all" | "article" | "take" | "mosaic"| "special";
 
-const SPECIAL_TYPES= ["conversation", "mosaic"];
+const SPECIAL_TYPES= ["conversation"];
 
 export function	filterPosts(posts: HomeItem[], filter: FilterType) : HomeItem[] {
 
@@ -13,6 +13,8 @@ export function	filterPosts(posts: HomeItem[], filter: FilterType) : HomeItem[] 
 			return (posts.filter(p => p._type == "takes"));
 	if (filter == "article")
 			return (posts.filter(p => p._type == "article"));
+	if (filter == "mosaic")
+			return (posts.filter(p => p._type == "mosaic"));
 	if (filter == "special")
 			return (posts.filter(p=> SPECIAL_TYPES.includes(p._type)));
 	return (posts);

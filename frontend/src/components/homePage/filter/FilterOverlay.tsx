@@ -5,6 +5,7 @@ const FILTERS : { label: string, value: FilterType} [] = [
 	{label : "ALL", value: "all"},
 	{label : "ARTICLE", value: "article"},
 	{label : "TAKE", value: "take"},
+	{label : "MOSAIC", value: "mosaic"},
 	{label : "SPECIAL", value: "special"},
 ]
 

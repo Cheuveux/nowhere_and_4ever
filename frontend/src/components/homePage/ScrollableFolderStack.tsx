@@ -15,7 +15,7 @@ function getItemLink(item: HomeItem): string {
   if (item._type === "conversation") return `/conversation/${item.documentId}`;
   if (item._type === "takes") return `/takes/${item.documentId}`;
   if (item._type === "quiz") return "/quiz";
-  if (item._type === "mosaic") return "/mosaics";
+  if (item._type === "mosaic") return `/mosaics/${item.documentId}`;
   return `/article/${item.documentId}`;
 }
 
