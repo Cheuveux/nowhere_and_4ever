@@ -233,7 +233,8 @@ export default function MosaicGrid() {
   if (!section) return null;
 
   return (
-    <section className="mosaic-section">
+    <div className="mosaic-wrapper">
+      <section className="mosaic-section">
       <div className="mosaic-header">
         <div className="mosaic-return_btn">
             <Link to="/">
@@ -296,5 +297,7 @@ export default function MosaicGrid() {
         />
       )}
     </section>
+    </div>
+    
   );
 }

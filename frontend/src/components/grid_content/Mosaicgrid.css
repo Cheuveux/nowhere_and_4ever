@@ -1,5 +1,10 @@
 /* Section */
-
+.mosaic-wrapper {
+	width: 100%;
+	min-height: 100vh;
+	height: auto;
+	background-color: #1a1a1a;
+}
 .mosaic-section {
 	max-width: 98vw;
 	margin: 0 auto;

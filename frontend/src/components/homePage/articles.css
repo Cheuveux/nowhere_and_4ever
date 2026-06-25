@@ -1,4 +1,7 @@
 
+body {
+  background-color: var(--home-page-bg-color);
+}
 /* REPLAY INTRO BUTTON */
 .intro_replay_btn {
 	position: fixed;
@@ -395,4 +398,10 @@
   background: #fff;
   color: #000;
   border-color: #fff;
+}
+
+
+.chunk-indicator {
+  color: #000;
+  font-size: 0.7rem;
 }

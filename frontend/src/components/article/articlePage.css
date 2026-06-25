@@ -3,13 +3,9 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
+	background-color: #1a1a1a;
 }
 
-/* Article page background */
-body {
-	background-color: #1a1a1a !important;
-	background-image: none !important;
-}
 
 /* Article_page header */
 .articlePage-header {
