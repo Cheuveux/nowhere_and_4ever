@@ -24,7 +24,7 @@ type ScrollableFolderStackProps = {
   chunkSize?: number;
 };
 
-export default function ScrollableFolderStack({ posts, chunkSize = 8 }: ScrollableFolderStackProps) {
+export default function ScrollableFolderStack({ posts, chunkSize = 7 }: ScrollableFolderStackProps) {
   const stackRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLDivElement>(null);
