@@ -29,6 +29,8 @@ export default function TakePage() {
     const   TAKE_STYLES: Record <string, string> = {
         "q1p5of779n0au0cvt97ftl6b" : "takes-style-linear", // prod
         "i1u5saj3vl7ejj18vz4uvr00" : "takes-style-linear", // equiv local
+        "rwmbti19go5raoilv60vct2s" : "takes-style-lavande", // prod
+        "aa7dfehvvf453w32h70n6uq9" : "takes-style-lavande", // equiv local
     };
 
 
@@ -85,9 +87,6 @@ export default function TakePage() {
                     <Link to="/">
                         <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/home.png" alt="" />
                     </Link>
-                </div>
-                <div className="takes-title-section">
-                    {takes.id_code && <span className="takes-id-code">#{takes.id_code}</span>}
                 </div>
             </div>
             <div className={`takes-content ${takeStyle}`}>

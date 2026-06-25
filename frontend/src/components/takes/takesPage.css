@@ -74,6 +74,10 @@
 
 
 /* Special style fo special takes */
+
+/* Linear redbull matrix */
+
+
 .takes-style-linear .takes-heading,
 .takes-style-linear .takes-text { 
   background: linear-gradient(180deg, #25b9d6 0%, #bc1919 100%);
@@ -82,4 +86,15 @@
   -webkit-text-fill-color: transparent;
   color: transparent; 
   height: fit-content;
+}
+
+/* Lavandine */
+
+.takes-style-lavande .takes-visual {
+    margin-bottom: 0;
+}
+.takes-style-lavande .takes-text {
+    position: absolute;
+    left: 5%;
+    color: rgb(169, 169, 220);
 }
