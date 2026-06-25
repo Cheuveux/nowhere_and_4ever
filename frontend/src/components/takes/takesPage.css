@@ -7,6 +7,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: #1a1a1a;
 }
 .takes-visual {
 	width: 500px;
@@ -52,6 +53,9 @@
     margin: 1.5rem 2rem;
 }
 
+
+
+
 .takes-h4 {
     font-size: 1.2rem;
     color: #ecece4;
@@ -66,4 +70,16 @@
         font-size: 2.5rem;
         margin: 1.5rem 0.5rem;
     }
+}
+
+
+/* Special style fo special takes */
+.takes-style-linear .takes-heading,
+.takes-style-linear .takes-text { 
+  background: linear-gradient(180deg, #25b9d6 0%, #bc1919 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; 
+  height: fit-content;
 }

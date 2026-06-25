@@ -26,6 +26,12 @@ export default function TakePage() {
             });
     }, [id]);
 
+    const   TAKE_STYLES: Record <string, string> = {
+        "q1p5of779n0au0cvt97ftl6b" : "takes-style-linear", // prod
+        "i1u5saj3vl7ejj18vz4uvr00" : "takes-style-linear", // equiv local
+    };
+
+
     const renderBlockContent = (content: any) => {
         if (!content) return null;
         if (Array.isArray(content)) {
@@ -54,6 +60,7 @@ export default function TakePage() {
 
     if (loading) return <p>Loading...</p>;
     if (!takes) return <p>Article not found.</p>;
+    const takeStyle = TAKE_STYLES[takes.documentId] ?? "";
 
     return (
         <div className="takes-page" style={{ position: 'relative' }}>
@@ -83,7 +90,7 @@ export default function TakePage() {
                     {takes.id_code && <span className="takes-id-code">#{takes.id_code}</span>}
                 </div>
             </div>
-            <div className="takes-content">
+            <div className={`takes-content ${takeStyle}`}>
                 {takes.take_illustration && takes.take_illustration.length > 0 && takes.take_illustration[0].url && (
                     <img
                     	src={

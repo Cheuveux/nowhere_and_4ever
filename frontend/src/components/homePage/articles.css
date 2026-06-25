@@ -400,7 +400,16 @@ body {
   border-color: #fff;
 }
 
+.chunk-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.chunk-nav-btn {
+  margin: 0 1rem;
+}
 .chunk-indicator {
   color: #000;
   font-size: 0.7rem;
