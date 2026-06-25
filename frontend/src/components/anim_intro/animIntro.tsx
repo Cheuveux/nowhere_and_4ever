@@ -55,7 +55,7 @@ export default function AnimIntro() {
         <video
           ref={videoRef}
           className="intro-video"
-          muted
+          // muted
           playsInline
           controls={false}
           onEnded={handleVideoEnded}
