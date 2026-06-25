@@ -56,7 +56,7 @@ export default function Article() {
 
   useEffect(() => {
     setCurrentStackIndex(0);
-  }, [filteredPosts]);
+  }, [activeFilter]);
 
   const stacks = useMemo(() => {
     const chunkSize = 10;
