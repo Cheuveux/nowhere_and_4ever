@@ -112,10 +112,13 @@
 	}
 	.intro-image {
 		width: 100%;
+		margin-bottom: 0;
 	}
 
 	.intro-post-button img {
-		margin-top: 3rem;
 		width: 75px;
+	}
+	.intro-btn-wrapper {
+		position: relative;
 	}
 }
