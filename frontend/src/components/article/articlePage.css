@@ -77,7 +77,8 @@
 
   .articlePage-header {
     position: relative;
-    height: 25vh;
+    min-height: 25vh;
+    height: git-content;
   }
 
 	.return_btn {
@@ -90,11 +91,12 @@
   .article_title {
     max-width: 90vw;
     font-size: 2.5rem; 
-    top: 20%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+    margin-left: 1rem;
   }
+  .article_header_info {
+    margin-left: 1rem;
+  }
+  .article_date,
 	.article_author {
 		font-size: 0.7rem;
 	}
