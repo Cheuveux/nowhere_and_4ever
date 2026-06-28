@@ -289,9 +289,9 @@ body {
   /* Default: headers hidden */
 
   /* On first tap: show header + elevate */
-  .folder-card--expanded {
+  /* .folder-card--expanded {
     margin-bottom: 50px;
-  }
+  } */
 
   .folder-card--expanded .folder-header, 
   .folder-card--expanded .folder-main-content {

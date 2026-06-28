@@ -18,6 +18,9 @@
       "type": "component",
       "component": "grid-content.grid-content",
       "repeatable": true
+    },
+    "Date": {
+      "type": "string"
     }
   }
 }

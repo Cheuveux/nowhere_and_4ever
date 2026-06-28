@@ -9,6 +9,7 @@ type HomeItem = {
   Title?: string;
   Author?: string;
   Descriptiom?: string;
+  Date?: string;
 };
 
 function getItemLink(item: HomeItem): string {
@@ -163,7 +164,7 @@ export default function ScrollableFolderStack({ posts, chunkSize = 7 }: Scrollab
                     <div className="folder-content">
                       <div className="folder-header">
                         <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-                        <span className="folder-author">{post.Author ?? "unknown"}</span>
+                        <span className="folder-author">{post.Date ?? "unknown"}</span>
                       </div>
                        <div className="folder-main-content">
                           <p>

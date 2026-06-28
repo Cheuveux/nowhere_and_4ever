@@ -119,8 +119,8 @@ export default function Article() {
             documentId: m.documentId || m.id || "unknown-id",
             _type: "mosaic" as const,
             Title: m.Titre || "Untitled Mosaic",
-            Date: m.createdAt || "unknown",
-            Author: "unknown",
+            Date: m.Date || "",
+            Author: m.Author || "",
             Description: "",
           };
           return mappedMosaic;
@@ -262,7 +262,7 @@ export default function Article() {
                       <div className="folder-content">
                         <div className="folder-header">
                           <h2 className="folder-title">{post.Title ?? "Untitled"}</h2>
-                          <span className="folder-author">{post.Date ?? "unknown"}</span>
+                          <span className="folder-author">{post.Date ?? ""}</span>
                         </div>
                         <div className="folder-main-content">
                           <p>{post.Descriptiom ?? post.Description ?? ""}</p>
