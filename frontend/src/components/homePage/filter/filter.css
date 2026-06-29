@@ -48,6 +48,9 @@
   max-width: 100%;
   height: 100vh;
   background-image:url('https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/bg_filter_nav.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: rgba(0, 0, 0, 0.802);
   z-index: 2000;
   display: flex;
