@@ -199,7 +199,7 @@ export default function Article() {
           onClick={handleOpenLatest}
           title={`Dernière parution : ${latestPost.Title ?? "Sans titre"}`}
         >
-        <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/New_Post.png" alt="Derniere parution" />
+        <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/news%20.png" alt="Derniere parution" />
         </button>
       )}
 

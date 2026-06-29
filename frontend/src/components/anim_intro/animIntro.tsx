@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import './animIntro.css';
 
@@ -9,6 +10,7 @@ export default function AnimIntro() {
   const [isMobile] = useState(false);
   const [showPrompt, setShowPrompt] = useState(true);
   const [showIntroImage, setShowIntroImage] = useState(false);
+  const navigate = useNavigate;
 
   useEffect(() => {
     if (showIntroImage && introImageRef.current) {
@@ -79,7 +81,10 @@ export default function AnimIntro() {
           <div className="intro-btn-wrapper">
             <button
               className="intro-post-button"
-              onClick={() => window.location.href = '/'}
+              onClick={() => {
+                sessionStorage.setItem('introSeen', 'true');
+                navigate('/');
+              }}
             >
               <img
                 src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/button/btn_intro_mobile.gif"

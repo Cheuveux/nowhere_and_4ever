@@ -16,8 +16,8 @@ function App() {
   useEffect(() => {
     // Rediriger vers /intro si c'est la première visite ET qu'on n'est pas déjà sur /intro
     if (!sessionStorage.getItem('introWatched') && location.pathname === '/') {
-      navigate('/intro');
       sessionStorage.setItem('introWatched', 'true');
+      navigate('/intro');
     }
   }, [location.pathname, navigate]);
 

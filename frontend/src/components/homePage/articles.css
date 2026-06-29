@@ -83,7 +83,7 @@ body {
 
 .latest-post-btn {
   position: absolute;
-  top: 0%;
+  top: 3%;
   right: 3%;
   width: 150px;
   height: 150px;
@@ -100,9 +100,10 @@ body {
 @media screen and (max-width: 625px)
 {
   .latest-post-btn {
+    top: 0%;
     left: 0%;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
   }
 }
 /* texte d'intro */

@@ -45,7 +45,9 @@
     font-size: 1.2rem;
     color: #ecece4;
 }
-
+.takes-text {
+    color: white !important;
+}
 @media screen and (max-width: 625px){
     .takes-visual {
         width: 320px;
