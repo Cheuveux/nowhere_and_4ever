@@ -102,23 +102,29 @@ export function CommentSection({articleId}: { articleId?: string}) {
         <section className="comments-section">
             {showWarning && (
                 <div className="comment-warning-overlay">
-                    <div className="comment-warning-popup">
-                        <h2>Règles de l'espace de discussion</h2>
-                        <p>
-                            Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe. 
-                            Nous voulons faire de ce blog un espace de réflexion qui échapperait peut-être 
-                            de manière utopique aux oppositions systématiques. Merci, pour cette raison, 
-                            de préserver l'existence même de cet espace de débat en évitant les formulations 
-                            explicitement insultantes, haineuses ou diffamatoires.
-                        </p>
-                        <p>
-                            Si vous souhaitez appuyer vos idées par des articles de presse, merci de référencer 
-                            l'URL plutôt que d'en recopier le contenu, qui est une propriété intellectuelle légale.
-                        </p>
-                        <button type="button" onClick={handleAgreeWarning} className="btn-agree-warning">
-                            J'ai compris
-                        </button>
+                    <div className="warning-frame">
+                        <div className="warning-frame-img">
+                            <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/cadre_warning%20.png" alt="" />
+                        </div>
+                        <div className="comment-warning-popup">
+                            <h2>Règles de l'espace de discussion</h2>
+                            <p>
+                                Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe. 
+                                Nous voulons faire de ce blog un espace de réflexion qui échapperait peut-être 
+                                de manière utopique aux oppositions systématiques. Merci, pour cette raison, 
+                                de préserver l'existence même de cet espace de débat en évitant les formulations 
+                                explicitement insultantes, haineuses ou diffamatoires.
+                            </p>
+                            <p>
+                                Si vous souhaitez appuyer vos idées par des articles de presse, merci de référencer 
+                                l'URL plutôt que d'en recopier le contenu, qui est une propriété intellectuelle légale.
+                            </p>
+                            <button type="button" onClick={handleAgreeWarning} className="btn-agree-warning">
+                                J'ai compris
+                            </button>
+                        </div>
                     </div>
+                    
                 </div>
             )}
 

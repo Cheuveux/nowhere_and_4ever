@@ -13,7 +13,6 @@ export type ResultData = {
   range: [number, number];
   label: string;
   color: string;
-  tag: string;
   description: string;
   image?: string;
 };

@@ -135,26 +135,32 @@ export default function ChatRoom({
         {/* Pop-up des règles (même style que dans CommentSection) */}
         {showWarning && (
           <div className="comment-warning-overlay" ref={warningOverlayRef}>
-            <div className="comment-warning-popup">
-              <h2>Règles de la Gossip Room</h2>
-              <p>
-                Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe.
-                Nous voulons faire de ce chat un espace de discussion respectueux et constructif.
-                Merci de préserver cet espace en évitant les formulations explicitement insultantes,
-                haineuses ou diffamatoires.
-              </p>
-              <p>
-                Si vous souhaitez partager des articles de presse, merci de référencer l'URL plutôt
-                que d'en recopier le contenu, qui est protégé par des droits d'auteur.
-              </p>
-              <button
-                type="button"
-                onClick={closeWarning}
-                className="btn-agree-warning"
-              >
-                J'ai compris
-              </button>
+            <div className="warning-frame">
+              <div className="warning-frame-img">
+                <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/cadre_warning%20.png" alt="" />
+              </div>
+              <div className="comment-warning-popup">
+                <h2>Règles de la Gossip Room</h2>
+                <p>
+                  Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe.
+                  Nous voulons faire de ce chat un espace de discussion respectueux et constructif.
+                  Merci de préserver cet espace en évitant les formulations explicitement insultantes,
+                  haineuses ou diffamatoires.
+                </p>
+                <p>
+                  Si vous souhaitez partager des articles de presse, merci de référencer l'URL plutôt
+                  que d'en recopier le contenu, qui est protégé par des droits d'auteur.
+                </p>
+                <button
+                  type="button"
+                  onClick={closeWarning}
+                  className="btn-agree-warning"
+                >
+                  J'ai compris
+                </button>
+              </div>
             </div>
+
           </div>
         )}
 

@@ -97,33 +97,21 @@ function QuestionCard({ question, index, total, onAnswer }: {
   );
 }
 
-function Result({ totalPoints, onRestart }: { totalPoints: number; onRestart: () => void }) {
+function Result({ totalPoints }: { totalPoints: number }) {
   const result: ResultData = getResult(totalPoints);
-  const pct = Math.round((totalPoints / 300) * 100);
 
   return (
     <div className="dq-card">
-    <div className="dq-result-header">
-      <div className="dq-result-tag">{result.tag}</div>
-      <h2 className="dq-result-title" style={{ color: result.color }}>{result.label}</h2>
-      <div className="dq-result-score">{totalPoints} / 300 pts</div>
-    </div>
+      <div className="dq-result-header">
+        <h2 className="dq-result-title" style={{ color: result.color }}>{result.label}</h2>
+        <div className="dq-result-score">{totalPoints} / 300 pts</div>
+      </div>
       <div className="dq-result-main-content">
-        <p className="dq-result-desc">{result.description}</p>
         <div className="dq-result-img">
-          <img 
-            src={result.image}
-            alt="Image descriptive resultat quizz" 
-          />
-       </div>
-      </div>
-      <div className="dq-bar-wrap">
-        <div className="dq-bar-track">
-          <div className="dq-bar-fill" style={{ width: `${pct}%`, background: result.color }} />
+          <img src={result.image} alt="Image descriptive resultat quizz" />
         </div>
-        <div className="dq-bar-labels"><span>Sane</span><span>Delulu</span></div>
+        <p className="dq-result-desc">{result.description}</p>
       </div>
-      <button className="dq-btn dq-btn--ghost" onClick={onRestart}>↺ Recommencer le test</button>
     </div>
   );
 }
@@ -164,25 +152,45 @@ export default function DelusionalQuiz({ quizData }: { quizData?: any[] }) {
     }
   };
 
-  return (
-    <div className="dq-root">
-      <div className="dq-noise" />
-      <div className="dq-grid" />
-      <header className="dq-page-header">
-        <Link className="dq-home-link" to="/">../home/</Link>
-      </header>
-      <main className="dq-content">
-        {phase === "intro" && <Intro onStart={handleStart} />}
-        {phase === "quiz" && loading && (
-          <div className="dq-card dq-loading"><div className="dq-spinner" /><p>Loading...</p></div>
-        )}
-        {phase === "quiz" && !loading && questions.length > 0 && (
-          <QuestionCard key={currentQ} question={questions[currentQ]} index={currentQ} total={questions.length} onAnswer={handleAnswer} />
-        )}
-        {phase === "result" && (
-          <Result totalPoints={totalPoints} onRestart={() => setPhase("intro")} />
-        )}
-      </main>
-    </div>
-  );
+return (
+  <div className="dq-root">
+    <div className="dq-noise" />
+    <div className="dq-grid" />
+    <header className="dq-page-header">
+      <Link className="dq-home-link" to="/">../home/</Link>
+    </header>
+    <main className="dq-content">
+
+      {phase === "result" ? (
+        <div className="dq-result-wrapper">
+          <div className="quizz-frame">
+            <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/cadre_quizz.png" alt="" />
+            <Result totalPoints={totalPoints} />
+          </div>
+          <div className="dq-result-footer">
+            <div className="dq-bar-wrap">
+              <div className="dq-bar-track">
+                <div className="dq-bar-fill" style={{ width: `${Math.round((totalPoints / 300) * 100)}%`, background: getResult(totalPoints).color }} />
+              </div>
+              <div className="dq-bar-labels"><span>Sane</span><span>Delulu</span></div>
+            </div>
+            <button className="dq-btn dq-btn--ghost" onClick={() => setPhase("intro")}>↺ Recommencer le test</button>
+          </div>
+        </div>
+      ) : (
+        <div className="quizz-frame">
+          <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/cadre_quizz.png" alt="" />
+          {phase === "intro" && <Intro onStart={handleStart} />}
+          {phase === "quiz" && loading && (
+            <div className="dq-card dq-loading"><div className="dq-spinner" /><p>Loading...</p></div>
+          )}
+          {phase === "quiz" && !loading && questions.length > 0 && (
+            <QuestionCard key={currentQ} question={questions[currentQ]} index={currentQ} total={questions.length} onAnswer={handleAnswer} />
+          )}
+        </div>
+      )}
+
+    </main>
+  </div>
+);
 }
