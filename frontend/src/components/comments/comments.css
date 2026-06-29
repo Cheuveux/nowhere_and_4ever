@@ -242,8 +242,15 @@ span.date{
 
 
 @media screen and (max-width: 625px){
-	.comment-warning-popup {
-		max-width: 250px;
+
+	.warning-frame {
+		height: 500px;
+		max-width: 350px;
+	}
+	.quizz-frame .dq-card {
+		position: absolute;
+		height: auto;
+		padding: .8rem .5rem .4rem;
 	}
 	.comment-warning-popup h2 {
 		font-size: 2rem;
