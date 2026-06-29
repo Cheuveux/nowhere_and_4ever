@@ -10,7 +10,7 @@ export default function AnimIntro() {
   const [isMobile] = useState(false);
   const [showPrompt, setShowPrompt] = useState(true);
   const [showIntroImage, setShowIntroImage] = useState(false);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (showIntroImage && introImageRef.current) {
@@ -82,7 +82,6 @@ export default function AnimIntro() {
             <button
               className="intro-post-button"
               onClick={() => {
-                sessionStorage.setItem('introSeen', 'true');
                 navigate('/');
               }}
             >
