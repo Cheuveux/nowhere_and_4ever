@@ -92,8 +92,6 @@
 .filter-overlay--item{
 	font-size: 3rem;
 	letter-spacing: 2px;
-	backdrop-filter:blur(2px);
-	border-radius: 12px;
 	background-color: transparent;
 	border: none;
 	font-family: var(--whisper2-font);
