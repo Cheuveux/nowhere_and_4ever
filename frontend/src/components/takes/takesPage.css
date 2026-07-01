@@ -85,6 +85,6 @@
 .takes-style-lavande .takes-text {
     position: absolute;
     left: 5%;
-    color: rgb(169, 169, 220);
+    color: rgb(169, 169, 220) !important;
     text-align: left;
 }
