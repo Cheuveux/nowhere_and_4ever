@@ -107,42 +107,52 @@ function Lightbox({ item, onClose }: LightboxProps) {
       aria-modal="true"
       tabIndex={-1}
     >
-      <div className="lightbox-content">
-        {/* Bouton fermer */}
-        <button className="lightbox-close" onClick={handleClose} aria-label="Fermer">
-          ✕
-        </button>
+      <div className="lightbox-frame">
+          <div className="lightbox-frame-img">
+            <img src="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/cadre_quizz.png" alt="" />
+          </div>
+          <div className="lightbox-content">
+          {/* Bouton fermer */}
 
-        {/* Media en grand */}
-        <div className="lightbox-media">
-          {item.media && isVideo(item.media.mime) ? (
-            <div className="lightbox-video-container" onClick={togglePlayVideo}>
-              <video
-                ref={videoRef}
-                src={mediaUrl(item.media.url)}
-                playsInline
-                loop 
+          <button className="lightbox-close" onClick={handleClose} aria-label="Fermer">
+            ✕
+          </button>
+
+          {/* Media en grand */}
+          <div className="lightbox-media">
+            {item.media && isVideo(item.media.mime) ? (
+              <div className="lightbox-video-container" onClick={togglePlayVideo}>
+                <video
+                  ref={videoRef}
+                  src={mediaUrl(item.media.url)}
+                  playsInline
+                  loop 
+                />
+                {/* Timer en bas à droite (style YouTube) */}
+                <div className="lightbox-video-timer">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+              </div>
+            ) : item.media ? (
+              <img
+                src={mediaUrl(item.media.formats?.small?.url ?? item.media.url)}
+                alt={item.Titre}
               />
-              {/* Timer en bas à droite (style YouTube) */}
-              <div className="lightbox-video-timer">
-                {formatTime(currentTime)} / {formatTime(duration)}
+            ) : null}
+          </div>
+
+            {/* Titre */}
+            <div className="lightbox-info">
+              <p className="lightbox-title">{item.Titre}</p>
+              <div className="lightbox__meta">
+                {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
+                {item.Views && item.Views > 0 && <span className="mosaic-card__views">{item.Views} views</span>}
               </div>
             </div>
-          ) : item.media ? (
-            <img
-              src={mediaUrl(item.media.formats?.small?.url ?? item.media.url)}
-              alt={item.Titre}
-            />
-          ) : null}
+            
         </div>
-
-          {/* Titre */}
-          <p className="lightbox-title">{item.Titre}</p>
-          <div className="lightbox__meta">
-            {item.Date && <span className="mosaic-card__date">Published from {item.Date}</span>}
-            {item.Views && item.Views > 0 && <span className="mosaic-card__views">{item.Views} views</span>}
-          </div>
       </div>
+
     </div>
   );
 }

@@ -65,6 +65,7 @@
   justify-content: space-between;
 }
 .article_author {
+  color: var(--cunty-pink);
   font-size: 1rem;
 }
 
@@ -486,12 +487,35 @@
 }
 }
 /* IMAGE VIDEO SOUND ETC */
-.img-grid {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
+.article-media-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.image-grid {
+  width: 350px;
+}
 .img-little {
   width: 250px;
+}
+.img-classic {
+  width: 500px;
+}
+
+@media screen and (max-width: 625px){
+  .article-media-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.image-grid {
+  width: 145px;
+}
+.img-little {
+  width: 120px;
+}
+.img-classic {
+  width: 220px;
+}
 }
