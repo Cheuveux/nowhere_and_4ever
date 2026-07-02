@@ -39,7 +39,7 @@
 	font-weight: 600;
 	text-align: start;
 	margin: 2rem 0;
-	color: inherit;
+	color: var(--cunty-pink) !important;
 }
 
 /* Grille */
