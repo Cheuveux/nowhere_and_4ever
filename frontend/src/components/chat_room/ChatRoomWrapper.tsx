@@ -11,85 +11,75 @@ export default function ChatRoomWrapper() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+// Dans ChatRoomWrapper
+useEffect(() => {
+  async function loadMessages() {
     if (!slug) {
       setError('Room slug is missing');
       setIsLoading(false);
       return;
     }
 
-    async function loadMessages() {
-      try {
-        // ✅ Step 1: Fetch room by slug to get its ID
-        const roomRes = await fetch(
-          getEndpoint(`/rooms?filters[slug][$eq]=${encodeURIComponent(slug || '')}`)
-        );
-        if (!roomRes.ok) throw new Error('Failed to load room');
-        const roomData = await roomRes.json();
-        
-        if (!roomData.data || roomData.data.length === 0) {
-          throw new Error('Room not found');
-        }
+    try {
+      const roomRes = await fetch(
+        getEndpoint(`/rooms?filters[slug][$eq]=${encodeURIComponent(slug || '')}`)
+      );
+      if (!roomRes.ok) throw new Error('Failed to load room');
+      const roomData = await roomRes.json();
 
-        const roomId = roomData.data[0].id;
-
-        // ✅ Step 2: Fetch messages WITH relations (including nested children)
-        const res = await fetch(
-          getEndpoint(`/messages?populate=*&sort=createdAt:asc`)
-        );
-
-        if (!res.ok) {
-          const errorText = await res.text();
-          console.error('API Error:', errorText);
-          throw new Error('Failed to load messages');
-        }
-
-        const { data } = await res.json();
-
-        console.log('🔍 FULL FIRST MESSAGE:', JSON.stringify(data[0], null, 2));
-        console.log('🔍 RoomId:', roomId);
-
-        // ✅ Filter by roomId and parent-only, client-side
-        const messages = data
-          .filter((item: any) => {
-            const matchRoom = item.room?.id === roomId;
-            return matchRoom && !item.parent?.id;
-          })
-          .map((item: any) => {
-            const children = item.messages?.map((child: any) => ({
-              id: child.id,
-              content: extractTextFromBlocks(child.content),
-              username: child.pseudo,
-              createdAt: child.createdAt,
-            })) ?? [];
-
-            console.log(`📨 Message ${item.id}: ${children.length} enfants`);
-
-            const mapped = {
-              id: item.id,
-              content: extractTextFromBlocks(item.content),
-              username: item.pseudo,
-              createdAt: item.createdAt,
-              children,
-            };
-            return mapped;
-          });
-
-        console.log('✅ Final messages:', messages);
-        messages.forEach((msg: Message) => {
-          console.log(`  Message ${msg.id}: "${msg.content.substring(0, 30)}" - ${msg.children?.length ?? 0} réponses`);
-        });
-        setInitialMessages(messages);
-      } catch (err) {
-        console.error('Error loading messages:', err);
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setIsLoading(false);
+      if (!roomData.data || roomData.data.length === 0) {
+        throw new Error('Room not found');
       }
-    }
 
-    loadMessages();
-  }, [slug]);
+      const roomId = roomData.data[0].id;
+
+      const res = await fetch(
+        getEndpoint(`/messages?populate=*&filters[room][id][$eq]=${roomId}&sort=createdAt:asc`)
+      );
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('API Error:', errorText);
+        throw new Error('Failed to load messages');
+      }
+
+      const { data } = await res.json();
+
+      const messages = data
+        .filter((item: any) => item.room?.id === roomId && !item.parent?.id)
+        .map((item: any) => {
+          const children = item.messages?.map((child: any) => ({
+            id: child.id,
+            content: extractTextFromBlocks(child.content),
+            username: child.pseudo,
+            createdAt: child.createdAt,
+          })) ?? [];
+
+          return {
+            id: item.id,
+            content: extractTextFromBlocks(item.content),
+            username: item.pseudo,
+            createdAt: item.createdAt,
+            children,
+          };
+        });
+
+      setInitialMessages(messages);
+    } catch (err) {
+      console.error('Error loading messages:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  loadMessages(); // Charge au montage
+
+  // ✅ Recharge les messages quand l'onglet redevient actif
+  const handleFocus = () => loadMessages();
+  window.addEventListener('focus', handleFocus);
+  return () => window.removeEventListener('focus', handleFocus);
+}, [slug]);
 
   if (!slug) return <p>Room not found</p>;
   if (isLoading) return <p>Loading messages...</p>;
