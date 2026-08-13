@@ -1,42 +1,30 @@
 import { useEffect, useState } from "react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import type { CommentData } from "./comment"
-// Importe postComment
 import { fetchComments, postComment } from "./commentService";
-import "./comments.css"; // (Garde bien ton import CSS si besoin)
+import "./comments.css";
 
-// Liste de pseudos disponibles
 const AVAILABLE_USERNAMES = [
-  'Mulet cyrus ',
-  'Jim carré ',
-  'Chief kiffe',
-  'Alain Deloin',
-  'Leticia Cassetoidela',
-  'Kim Kardashein',
-  'Leonardo Di Caprisun',
-  'Carla Brulée',
-  'Demi Moite',
-  'Tylor the créatine',
-  'Naomi Cambouis',
-  'Will Splif',
-  'Timothée Chalamerde',
-  'Tom Crush',
-  'Lille wayne',
-  'Christina Aguerisol',
-  'Angelica diddle',
+    'Mulet cyrus', 'Jim carré', 'Chief kiffe', 'Alain Deloin',
+    'Leticia Cassetoidela', 'Kim Kardashein', 'Leonardo Di Caprisun',
+    'Carla Brulée', 'Demi Moite', 'Tylor the créatine', 'Naomi Cambouis',
+    'Will Splif', 'Timothée Chalamerde', 'Tom Crush', 'Lille wayne',
+    'Christina Aguerisol', 'Angelica diddle',
 ];
 
-export function CommentSection({articleId}: { articleId?: string}) {
-    const [comments, setcomments] = useState<CommentData[]>([]);
+export function CommentSection({
+    contentId,
+    contentType = 'post'
+}: {
+    contentId?: string;
+    contentType?: 'post' | 'take';
+}) {
+    const [comments, setComments] = useState<CommentData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
-    // NOUVELLES VARIABLES D'ÉTAT POUR LE FORMULAIRE
     const [pseudo, setPseudo] = useState("");
     const [newCommentText, setNewCommentText] = useState("");
     const [isPosting, setIsPosting] = useState(false);
-    
-    // ETAT POUR LE POP-UP DE PRÉVENTION
     const [showWarning, setShowWarning] = useState(false);
     const [hasAgreed, setHasAgreed] = useState(false);
 
@@ -44,32 +32,26 @@ export function CommentSection({articleId}: { articleId?: string}) {
         const loadComments = async () => {
             try {
                 setLoading(true);
-                const data = await fetchComments(articleId);
-                setcomments(data.data);
+                const data = await fetchComments(contentId, contentType);
+                setComments(data.data);
             } catch (err) {
                 console.error(err);
                 setError("Impossible de charger les commentaires.")
             } finally {
                 setLoading(false);
-            }	
+            }
         };
         loadComments();
-    }, [articleId]);
+    }, [contentId, contentType]);
 
-    // NOUVELLE FONCTION POUR GERER LA SOUMISSION
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Si pas de texte, pas de pseudo ou pas d'articleId, on bloque
-        if (!articleId || !newCommentText.trim() || !pseudo) return;
+        if (!contentId || !newCommentText.trim() || !pseudo) return;
 
         try {
             setIsPosting(true);
-            const addedComment = await postComment(articleId, pseudo, newCommentText);
-            
-            // On met à jour l'affichage en ajoutant le nouveau commentaire sans recharger la page
-            setcomments((prevComments) => [addedComment, ...prevComments]);
-            
-            // On vide les champs du formulaire
+            const addedComment = await postComment(contentId, pseudo, newCommentText, contentType);
+            setComments((prev) => [addedComment, ...prev]);
             setPseudo("");
             setNewCommentText("");
         } catch (err) {
@@ -80,25 +62,23 @@ export function CommentSection({articleId}: { articleId?: string}) {
         }
     };
 
-    // QUAND ON CLIQUE POUR ECRIRE ON DECLENCHE LE POPUP SI NON VU
     const handleInputFocus = (e: React.SyntheticEvent) => {
         if (!hasAgreed) {
             e.preventDefault();
-            (e.target as HTMLElement).blur(); // Retire le focus pour empêcher le clavier de s'ouvrir
+            (e.target as HTMLElement).blur();
             setShowWarning(true);
         }
     };
 
-    // QUAND ON ACCEPTE LES REGLES DU POPUP
     const handleAgreeWarning = () => {
         setHasAgreed(true);
         setShowWarning(false);
     };
 
-    if (loading) return (<div className="comments-loading">Chargement des commentaires</div>);
-    if (error) return(<div className="comments-error">{error}</div>);
+    if (loading) return <div className="comments-loading">Chargement des commentaires</div>;
+    if (error) return <div className="comments-error">{error}</div>;
 
-    return(
+    return (
         <section className="comments-section">
             {showWarning && (
                 <div className="comment-warning-overlay">
@@ -109,14 +89,14 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         <div className="comment-warning-popup">
                             <h2>Règles de l'espace de discussion</h2>
                             <p>
-                                Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe. 
-                                Nous voulons faire de ce blog un espace de réflexion qui échapperait peut-être 
-                                de manière utopique aux oppositions systématiques. Merci, pour cette raison, 
-                                de préserver l'existence même de cet espace de débat en évitant les formulations 
+                                Nous n'admettrons aucune insulte, aucun propos sexiste, raciste ou homophobe.
+                                Nous voulons faire de ce blog un espace de réflexion qui échapperait peut-être
+                                de manière utopique aux oppositions systématiques. Merci, pour cette raison,
+                                de préserver l'existence même de cet espace de débat en évitant les formulations
                                 explicitement insultantes, haineuses ou diffamatoires.
                             </p>
                             <p>
-                                Si vous souhaitez appuyer vos idées par des articles de presse, merci de référencer 
+                                Si vous souhaitez appuyer vos idées par des articles de presse, merci de référencer
                                 l'URL plutôt que d'en recopier le contenu, qui est une propriété intellectuelle légale.
                             </p>
                             <button type="button" onClick={handleAgreeWarning} className="btn-agree-warning">
@@ -124,15 +104,11 @@ export function CommentSection({articleId}: { articleId?: string}) {
                             </button>
                         </div>
                     </div>
-                    
                 </div>
             )}
 
             <div className="comments-first-part">
-
-                <h3 className="comments-section--title"> Espace commentaire</h3>
-
-                {/* NOUVEAU FORMULAIRE */}
+                <h3 className="comments-section--title">Espace commentaire</h3>
                 <form onSubmit={handleSubmit} className="comment-form" style={{ marginBottom: '2rem' }}>
                     <div style={{ marginBottom: '1rem' }}>
                         <select
@@ -144,19 +120,19 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         >
                             <option value="">-- Sélectionne un pseudo --</option>
                             {AVAILABLE_USERNAMES.map((name) => (
-                              <option key={name} value={name}>{name}</option>
+                                <option key={name} value={name}>{name}</option>
                             ))}
                         </select>
                     </div>
                     <div style={{ marginBottom: '1rem' }}>
-                        <textarea 
-                            placeholder="Laissez un commentaire..." 
-                            value={newCommentText} 
+                        <textarea
+                            placeholder="Laissez un commentaire..."
+                            value={newCommentText}
                             onChange={(e) => setNewCommentText(e.target.value)}
                             onFocus={handleInputFocus}
                             onClick={handleInputFocus}
                             required
-                            disabled={isPosting} 
+                            disabled={isPosting}
                             rows={4}
                         />
                     </div>
@@ -164,20 +140,19 @@ export function CommentSection({articleId}: { articleId?: string}) {
                         {isPosting ? 'Envoi en cours...' : 'Poster'}
                     </button>
                 </form>
-                </div>
+            </div>
+
             <div className="comments-list">
                 {comments.map((comment, index) => {
-                    // Compter combien de fois ce pseudo apparaît APRÈS ce commentaire
                     const pseudoCountAfter = comments
                         .slice(index + 1)
                         .filter(c => c.Pseudos === comment.Pseudos).length;
-                    
-                    // Afficher le pseudo avec le numéro s'il y a des doublons après
-                    const displayPseudo = pseudoCountAfter > 0 
+
+                    const displayPseudo = pseudoCountAfter > 0
                         ? `${comment.Pseudos || "anonymous"}_(${pseudoCountAfter})`
                         : (comment.Pseudos || "anonymous");
 
-                    const date = new Date(comment.createdAt).toLocaleDateString("fr-Fr", {
+                    const date = new Date(comment.createdAt).toLocaleDateString("fr-FR", {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
@@ -186,15 +161,13 @@ export function CommentSection({articleId}: { articleId?: string}) {
                     });
 
                     return (
-                        <div key={comment.id} className="comment-item" >
+                        <div key={comment.id} className="comment-item">
                             <div className="comment-header">
                                 <strong>{displayPseudo}</strong>
-                                <span className="date">
-                                    {date}
-                                </span>
+                                <span className="date">{date}</span>
                             </div>
                             <div className="comment-body">
-                                <BlocksRenderer content={comment.Comment as any}/>
+                                <BlocksRenderer content={comment.Comment as any} />
                             </div>
                         </div>
                     );

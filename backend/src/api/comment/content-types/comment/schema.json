@@ -22,6 +22,12 @@
     },
     "Pseudos": {
       "type": "string"
+    },
+    "take": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::take.take",
+      "inversedBy": "comments"
     }
   }
 }
