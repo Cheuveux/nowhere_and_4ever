@@ -457,3 +457,19 @@
     justify-content: end;
   }
 }
+
+.date-separator {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.date-separator span {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}

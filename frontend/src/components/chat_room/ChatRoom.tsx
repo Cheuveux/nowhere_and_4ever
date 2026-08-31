@@ -4,7 +4,7 @@ import { useChat } from './useChat';
 import type { Message } from './chat';
 import { gsap } from 'gsap';
 import './ChatRoom.css';
-
+import { formatDateLabel } from './utils';
 // Liste de pseudos disponibles (comme pour les commentaires)
 const AVAILABLE_USERNAMES = [
   'Mulet cyrus ',
@@ -93,9 +93,13 @@ export default function ChatRoom({
   const bottomRef = useRef<HTMLDivElement>(null);
   const { messages, send, connectionCount } = useChat(roomSlug, initialMessages);
   const warningOverlayRef = useRef<HTMLDivElement>(null);
+  const isFirstLoad = useRef(true);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    bottomRef.current?.scrollIntoView({
+      behavior: isFirstLoad.current? 'auto' : 'smooth',
+    });
+    isFirstLoad.current = false;
   }, [messages]);
 
   // Animation GSAP pour le pop-up de règles
@@ -208,17 +212,30 @@ export default function ChatRoom({
       </div>
 
       {/* Messages */}
-      <div id="messages-list">
-        {messages.map((msg) => (
-          <MessageItem
-            key={msg.id}
-            msg={msg}
-            onReply={(id, uname) => setReplyTo({ id, username: uname })}
-          />
-        ))}
-        <div ref={bottomRef} />
-      </div>
+        {/* Messages */}
+        <div id="messages-list">
+          {messages.map((msg, index) => {
+            const prevMsg = messages[index - 1];
+            const showDateSeparator =
+              !prevMsg ||
+              new Date(msg.createdAt).toDateString() !== new Date(prevMsg.createdAt).toDateString();
 
+            return (
+              <div key={msg.id}>
+                {showDateSeparator && (
+                  <div className="date-separator">
+                    <span>{formatDateLabel(msg.createdAt)}</span>
+                  </div>
+                )}
+                <MessageItem
+                  msg={msg}
+                  onReply={(id, uname) => setReplyTo({ id, username: uname })}
+                />
+              </div>
+            );
+          })}
+          <div ref={bottomRef} />
+        </div>
       {/* Zone de saisie */}
       <div id="chat-input-area">
         {replyTo && (
