@@ -6,21 +6,11 @@ export const fetchComments = async (
     contentId?: string,
     contentType: 'post' | 'take' = 'post'
 ): Promise<CommentsResponse> => {
-    if (!contentId) {
-        return {
-            data: [],
-            meta: {
-                pagination: {
-                    page: 1,
-                    pageSize: 0,
-                    pageCount: 0,
-                    total: 0
-                }
-            }
-        };
-    }
-
-    const url = `${API_URL}/api/comments?filters[${contentType}][id][$eq]=${contentId}`;
+    if (!contentId) return { data: [], meta: { pagination: { page: 1, pageSize: 0, pageCount: 0, total: 0 } } };
+    
+    const filterField = contentType === 'take' ? 'documentId' : 'id';
+    const url = `${API_URL}/api/comments?filters[${contentType}][${filterField}][$eq]=${contentId}`;
+    
     const response = await fetch(url);
     if (!response.ok)
         throw new Error("Error: Problem while loading comments.")
