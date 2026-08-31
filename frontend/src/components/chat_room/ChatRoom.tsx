@@ -93,14 +93,22 @@ export default function ChatRoom({
   const bottomRef = useRef<HTMLDivElement>(null);
   const { messages, send, connectionCount } = useChat(roomSlug, initialMessages);
   const warningOverlayRef = useRef<HTMLDivElement>(null);
-  const isFirstLoad = useRef(true);
+  const messagesListRef = useRef<HTMLDivElement>(null);
 
+  // Scroll tout en bas : au premier affichage du chat (quand pseudoSet passe à true)
+  // ET à chaque fois qu'un nouveau message arrive.
+  // Important : ce useEffect doit dépendre aussi de `pseudoSet`, car #messages-list
+  // n'existe pas dans le DOM tant que l'écran de sélection de pseudo est affiché.
+  // Sans ça, messagesListRef.current vaut `null` au moment où `messages` est déjà
+  // rempli (initialMessages arrive déjà plein depuis le wrapper), et l'effet ne se
+  // redéclenche jamais une fois le conteneur monté puisque messages.length ne change plus.
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({
-      behavior: isFirstLoad.current? 'auto' : 'smooth',
-    });
-    isFirstLoad.current = false;
-  }, [messages]);
+    if (!pseudoSet) return;
+    if (messages.length === 0) return;
+    const container = messagesListRef.current;
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+  }, [messages.length, pseudoSet]);
 
   // Animation GSAP pour le pop-up de règles
   useEffect(() => {
@@ -212,30 +220,30 @@ export default function ChatRoom({
       </div>
 
       {/* Messages */}
-        {/* Messages */}
-        <div id="messages-list">
-          {messages.map((msg, index) => {
-            const prevMsg = messages[index - 1];
-            const showDateSeparator =
-              !prevMsg ||
-              new Date(msg.createdAt).toDateString() !== new Date(prevMsg.createdAt).toDateString();
+      <div id="messages-list" ref={messagesListRef}>
+        {messages.map((msg, index) => {
+          const prevMsg = messages[index - 1];
+          const showDateSeparator =
+            !prevMsg ||
+            new Date(msg.createdAt).toDateString() !== new Date(prevMsg.createdAt).toDateString();
 
-            return (
-              <div key={msg.id}>
-                {showDateSeparator && (
-                  <div className="date-separator">
-                    <span>{formatDateLabel(msg.createdAt)}</span>
-                  </div>
-                )}
-                <MessageItem
-                  msg={msg}
-                  onReply={(id, uname) => setReplyTo({ id, username: uname })}
-                />
-              </div>
-            );
-          })}
-          <div ref={bottomRef} />
-        </div>
+          return (
+            <div key={msg.id}>
+              {showDateSeparator && (
+                <div className="date-separator">
+                  <span>{formatDateLabel(msg.createdAt)}</span>
+                </div>
+              )}
+              <MessageItem
+                msg={msg}
+                onReply={(id, uname) => setReplyTo({ id, username: uname })}
+              />
+            </div>
+          );
+        })}
+        <div ref={bottomRef} />
+      </div>
+
       {/* Zone de saisie */}
       <div id="chat-input-area">
         {replyTo && (
