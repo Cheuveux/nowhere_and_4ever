@@ -176,9 +176,8 @@
 #messages-list {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
-  margin-top: 2rem;
   flex-direction: column;
   gap: 1rem;
   background-image: url('https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/background/gossip_room_background.jpg');
@@ -203,12 +202,14 @@
 }
 
 .message-bubble {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
   position: relative;
   background: rgba(255, 255, 255, 0.391);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   max-width: 70%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .message-header {
@@ -232,7 +233,7 @@
 }
 
 .message-content {
-  margin: 0 0 0 1rem;
+  margin: 0 5rem 0 1rem;
   text-align: start;
   word-wrap: break-word;
   color: #333;
@@ -241,7 +242,7 @@
 .reply-btn {
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 5px;
   font-size: 0.6rem;
   background: #667eea;
   color: white;
@@ -334,7 +335,7 @@
 /* ========================================== */
 
 #chat-input-area {
-  padding: 1rem;
+  padding: 0.5rem;
   background: rgba(0, 0, 0, 0.417);
   border-top: 1px solid #ddd;
   display: flex;
@@ -402,7 +403,15 @@
   cursor: not-allowed;
 }
 
+
 /* Responsive */
+@media screen and (max-width: 1215px)
+{
+ .message-bubble {
+  padding: 0.5rem;
+
+ } 
+}
 @media screen and (max-width: 625px) {
   #pseudo-screen {
     background-position: center;
@@ -456,4 +465,21 @@
   #img-room--header {
     justify-content: end;
   }
+}
+
+.date-separator {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.date-separator span {
+  background: rgba(148, 65, 65, 0.086);
+  border: 1px solid white;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.3rem 0.9rem;
+  text-transform: capitalize;
+  letter-spacing: 3px;
 }
