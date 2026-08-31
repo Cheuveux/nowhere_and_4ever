@@ -76,6 +76,9 @@
 
 @media screen and (max-width: 625px) {
 
+  .article-page-wrapper {
+    overflow-x: hidden;
+  }
   .articlePage-header {
     position: relative;
     min-height: 25vh;
