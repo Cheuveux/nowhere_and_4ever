@@ -474,11 +474,12 @@
 }
 
 .date-separator span {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(148, 65, 65, 0.086);
+  border: 1px solid white;
   color: white;
   font-size: 0.8rem;
   font-weight: 500;
   padding: 0.3rem 0.9rem;
-  border-radius: 999px;
   text-transform: capitalize;
+  letter-spacing: 3px;
 }
