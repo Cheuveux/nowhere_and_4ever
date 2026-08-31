@@ -41,28 +41,6 @@ export default function ArticlePage() {
             });
     }, [id]);
 
-    // useEffect(() => {
-    //     if (!article) return;
-    //     gsap.utils.toArray(".article-content p").forEach((el) => {
-    //         gsap.fromTo(
-    //             el as Element,
-    //             { opacity: 0, y: 20 },
-    //             {
-    //                 opacity: 1,
-    //                 y: 0,
-    //                 scrollTrigger: {
-    //                     trigger: el as Element,
-    //                     start: "top 85%",
-    //                     end: "bottom 70%",
-    //                     toggleActions: "play none none reverse",
-    //                 },
-    //                 duration: 1.2,
-    //                 ease: "power2.out",
-    //             }
-    //         );
-    //     });
-    // }, [article]);
-
     if (loading) return <p>Loading...</p>;
     if (!article) return <p>Article not found.</p>;
     return (
@@ -117,7 +95,7 @@ export default function ArticlePage() {
                 </div>
             )}
             <div className="article-comments-container">
-                <CommentSection articleId={article.id} />
+                <CommentSection contentId={String(article.id)} contentType="post" />
             </div>
         </div>
         </InteractiveIconContainer>

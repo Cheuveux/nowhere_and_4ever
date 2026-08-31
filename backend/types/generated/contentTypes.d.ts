@@ -454,6 +454,7 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     post: Schema.Attribute.Relation<'manyToOne', 'api::post.post'>;
     Pseudos: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    take: Schema.Attribute.Relation<'manyToOne', 'api::take.take'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -692,6 +693,7 @@ export interface ApiTakeTake extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     content: Schema.Attribute.Blocks;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

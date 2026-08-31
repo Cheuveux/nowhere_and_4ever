@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getEndpoint } from "../../config/api";
 import './takesPage.css';
 import { InteractiveIcon } from '../random-icon/InteractiveIcon';
+import { CommentSection } from "../comments/commentSection";
 
 export default function TakePage() {
     const { id } = useParams();
@@ -102,6 +103,9 @@ export default function TakePage() {
                     />
                 )}
                 {renderBlockContent(takes.content)}
+            </div>
+            <div className="take-comments-container">
+                <CommentSection contentId={String(takes.documentId)} contentType="take"/>
             </div>
         </div>
     );

@@ -8,7 +8,6 @@ export function useChat(roomSlug: string, initialMessages: Message[]) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [connectionCount, setConnectionCount] = useState(0);
 
-  // ← sync si initialMessages change (quand ChatRoomWrapper refetch)
   useEffect(() => {
     setMessages(initialMessages);
   }, [initialMessages]);
