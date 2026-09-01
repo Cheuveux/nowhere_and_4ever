@@ -4,7 +4,7 @@ interface SeoProps {
   description: string;
   image?: string;
   url?: string;
-  type?: 'website' | 'article';
+  type?: 'website' | 'article'| 'take' | 'chat-room' | 'special' | 'mosaic';
 }
 
 const SITE_NAME = "This Place Is Nowhere And Its Forever";

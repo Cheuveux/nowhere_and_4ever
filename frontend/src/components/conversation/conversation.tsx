@@ -1,6 +1,7 @@
 import {useParams, Link } from "react-router-dom";
 import { useEffect, useState, useRef, useMemo} from "react";
 import { getEndpoint } from "../../config/api";
+import { Seo } from "../SEO/SEO";
 import './conversation.css'
 import '../../index.css'
 
@@ -229,6 +230,13 @@ const strapiUrl = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337';
 
 	return (
 		<div className="conv-page">
+		<Seo
+            title="Conversation"
+            description="Robots lost in Translation trying to communicate with their electornic hearts"
+            image="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/icons/1.png"
+            url={`/conversation/${post.id}`}
+            type="special"
+        />
 			<div className="chat-header">
 				<div className="return_btn">
                     <Link to="/">

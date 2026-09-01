@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getEndpoint } from "../../config/api";
 import './takesPage.css';
+import { Seo } from "../SEO/SEO";
 import { InteractiveIcon } from '../random-icon/InteractiveIcon';
 import { CommentSection } from "../comments/commentSection";
 
@@ -82,6 +83,13 @@ export default function TakePage() {
                 sizeVariation={0.3}
                 positionVariation={30}
                 animate={true}
+            />
+            <Seo
+                title={takes.title ?? "Untitled"}
+                description={"Short takes to disturb your standarized mind"}
+                image="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/icons/1.png"
+                url={`/take/${takes.documentId}`}
+                type="take"
             />
             <div className="takes-header">
                 <div className="return_btn">
