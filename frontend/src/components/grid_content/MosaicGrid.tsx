@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {  Link } from "react-router-dom";
+import { Seo } from "../SEO/SEO";
 import { useMosaic, mediaUrl, isVideo } from "./Usemosaic";
 import gsap from "gsap";
 
@@ -244,6 +245,13 @@ export default function MosaicGrid() {
 
   return (
     <div className="mosaic-wrapper">
+      <Seo
+            title={section.Titre ?? "Untitled"}
+            description={"Grid content for showing the author activities"}
+            image="https://pub-f40c928893604e5a88020abc31e69a5e.r2.dev/icons/1.png"
+            url={`/mosaics/${section.documentId}`}
+            type="mosaic"
+        />
       <section className="mosaic-section">
       <div className="mosaic-header">
         <div className="mosaic-return_btn">

@@ -5,6 +5,8 @@ import type { Message } from './chat';
 import { gsap } from 'gsap';
 import './ChatRoom.css';
 import { formatDateLabel } from './utils';
+import { Seo } from '../SEO/SEO';
+
 // Liste de pseudos disponibles (comme pour les commentaires)
 const AVAILABLE_USERNAMES = [
   'Mulet cyrus ',
@@ -144,6 +146,12 @@ export default function ChatRoom({
   if (!pseudoSet) {
     return (
       <div id="pseudo-screen">
+      <Seo
+        title="This Place is Nohere and Forever - Gossip Room"
+        description="Chat Room exclusively made for chating around gossip and secrets"
+        url="/chat/gosip-room"
+        type="chat-room"
+      />
         {/* Pop-up des règles (même style que dans CommentSection) */}
         {showWarning && (
           <div className="comment-warning-overlay" ref={warningOverlayRef}>
