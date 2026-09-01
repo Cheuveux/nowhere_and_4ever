@@ -183,7 +183,7 @@ export default function Article() {
   return (
     <div ref={articlesRef}>
       <Seo
-          title="This PLace Is Nowhere And Its Forever"
+          title="This Place Is Nowhere And Its Forever"
           description="Personnal Blog of Paloma Vauthier, smart, sexy and full of anxiety"
           url="/"
         />

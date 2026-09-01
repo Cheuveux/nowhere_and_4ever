@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 import { renderContent } from "../../utils/renderContent";
 import { InteractiveIconContainer } from '../random-icon/InteractiveIcon';
 import DelusionalQuiz from "../quiz/DelusionalQuiz";
+import { Seo } from "../SEO/SEO";
 import './articlePage.css'
 
 export default function ArticlePage() {
@@ -53,6 +54,13 @@ export default function ArticlePage() {
           positionVariation={0}
           fixed={true}
         >
+        <Seo
+            title={article.Title ?? "Untitled"}
+            description={article.Descriptiom?.slice(0, 155) ?? "Article untitled du blog"}
+            image={article.illustration?.[0]?.url}
+            url={`/article/${article.documentId}`}
+            type="article"
+        />
         <div className="article-page-wrapper">
             <div className="articlePage-header">
                 <div className="return_btn">
