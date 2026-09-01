@@ -66,6 +66,13 @@ body {
 	transform: scale(0.95);
 }
 
+@media screen and (max-width:1250px)
+{
+ .gossip-room-btn img {
+    width: 220px;
+ } 
+
+}
 @media screen and (max-width: 625px) {
  .gossip-room-btn {
   	  top: 80%;
@@ -96,7 +103,15 @@ body {
   width: 100%;
   height: 100%;
 }
-
+@media screen and (max-width:1250px)
+{
+ .latest-post-btn img
+ {
+    width: 110px;
+    height: 100px;
+ } 
+ 
+}
 @media screen and (max-width: 625px)
 {
   .latest-post-btn {

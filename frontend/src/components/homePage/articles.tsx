@@ -9,6 +9,7 @@ import ScrollableFolderStack from './ScrollableFolderStack';
 import FilterBar from "./filter/FilterBar";
 import FilterOverlay from "./filter/FilterOverlay";
 import { useFilter, filterPosts } from "./filter/useFilter";
+import { Seo } from "../SEO/SEO";
 import './articles.css';
 import './filter/filter.css'
 
@@ -181,6 +182,11 @@ export default function Article() {
 
   return (
     <div ref={articlesRef}>
+      <Seo
+          title="This PLace Is Nowhere And Its Forever"
+          description="Personnal Blog of Paloma Vauthier, smart, sexy and full of anxiety"
+          url="/"
+        />
       {/* Gossip Room button */}
       {gossipRoomSlug && (
         <button
